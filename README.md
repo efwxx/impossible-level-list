@@ -2,6 +2,17 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
 
+# Impossible Level List Full-stack app
+*Impossible Level List full stack repo for our favorite GD impossible level enjoyers*
+
+# Introduction
+I am MateussDev. You may know me for making Noclipped or building some levels in Geometry Dash, like Madness by me and sequoia
+Here I decided to be more useful to the ILL community, so I started the development of the website version of the Impossible Level List
+
+This list should be a simple excercise for making database-driven web apps similar to Pointercrate, but with my own twists and ticks
+
+Progress coming soon! :)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
