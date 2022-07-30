@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&family=Raleway:wght@100;300;400;500&display=swap');
+
+.ILL_ListElem {
+    display: flex;
+    font-family: 'Bungee Hairline', cursive;
+    font-family: 'Raleway', sans-serif;
+    border: gray 5px solid;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.ILL_Position {
+    font-size: 28px;
+    margin: 10px;
+}
+
+.ILL_LevelName {
+    font-display: medium;
+}
+
+.ILL_Creators {
+
+}
