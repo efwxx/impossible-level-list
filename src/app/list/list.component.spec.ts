@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LevelListComponent } from './level-list.component';
+import { ListComponent } from './list.component';
 
-describe('LevelListComponent', () => {
-  let component: LevelListComponent;
-  let fixture: ComponentFixture<LevelListComponent>;
+describe('ListComponent', () => {
+  let component: ListComponent;
+  let fixture: ComponentFixture<ListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LevelListComponent ]
+      declarations: [ ListComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LevelListComponent);
+    fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
