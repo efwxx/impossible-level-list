@@ -1,4 +1,6 @@
 import { Component, Inject } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app'
 
 @Component({
   selector: 'app-root',
@@ -6,6 +8,17 @@ import { Component, Inject } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  constructor (
+    public afAuth: AngularFireAuth
+  ) {}
   title = 'Impossible Level List';
-  page = 0;
+  
+  signIn() {
+    const googleProvider = new firebase.auth.GoogleAuthProvider();
+    this.afAuth.signInWithPopup(googleProvider);
+  }
+
+  signOut() {
+    this.afAuth.signOut();
+  }
 }

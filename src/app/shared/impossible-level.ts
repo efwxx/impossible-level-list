@@ -7,7 +7,6 @@ export interface ImpossibleLevel {
     yt_videoID: string,
     creators_short: string,
     creators_full: string[],
-    playtesters_short: string,
     tags: string[],
     uploader: string,
     wr_min_percent: string,

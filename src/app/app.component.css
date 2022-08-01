@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&family=Raleway:wght@100;300;400;500&display=swap');
 
 .ILL_ListMain {
-    font-family: 'Bungee Hairline', cursive;
     font-family: 'Raleway', sans-serif;
+}
+
+.ILL_Navbar {
+    font-family: 'Raleway', sans-serif;
+    @apply w-screen fixed top-0 left-0 bg-gray-300 dark:bg-gray-800 text-black dark:text-white shadow-md flex flex-row flex-nowrap flex-shrink items-center
 }

@@ -1,6 +1,14 @@
-<div className="flex" class="flex justify-center bg-slate-100">
-    <button (click)="logLevelList()">Log list array</button>
-  <div class="relative h-fit min-h-screen w-full mx-60 p-2 bg-slate-200 text-gray-600 shadow-lg flex flex-col items-stretch rounded-md min-w-[512px]">
-    <app-list-element></app-list-element>
+<!-- Title -->
+<div class="pt-16 dark:text-white">
+  <img src="../assets/logo.png" width="128" height="128" class="relative mx-auto p-5 rounded-lg hover:scale-125 transition-all duration-300"/>
+  <h1 class="text-3xl text-center relative font-medium">Impossible Level List</h1>
+  <h3 class="text-center font-normal text-lg">Owned by Doki, Wuro & Tomejto</h3>  
+  <h4 class="text-center font-light italic text-sm">Website built by MateussDev</h4>  
+</div>
+<div className="flex" class="flex flex-auto justify-center bg-slate-100 dark:bg-slate-700 text-gray-600 dark:text-white">
+  <div class="relative h-fit min-h-screen w-full mx-60 p-2 bg-slate-200 dark:bg-slate-600 text-gray-600 dark:text-white 
+   shadow-lg flex flex-col items-stretch rounded-md min-w-[512px]"
+   id="ILL_ListParent">
+   <app-list-element></app-list-element>
   </div>
 </div>

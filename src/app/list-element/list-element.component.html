@@ -1,4 +1,4 @@
-<div class="ILL_ListElem" className="group" (click)="expandCard()">
+<div class="ILL_ListElem -z-10" className="group" (click)="expandCard()">
     <!--img class="rounded-md group-hover:shadow-lg" src="../../assets/thumbnail_placeholder.png" width="196" height="72"-->
     <div class="flex flex-col">
         <!-- Base list item -->
@@ -13,10 +13,10 @@
                 <img src="../../assets/annotation.png" width="128" height="128"
                 class="p-1 rounded-lg relative mb-1 mt-1">
             </div>
-            <b class="font-bold p-2 left-0 h-full text-4xl align-middle m-3">{{ '#' + level_position }}</b>
+            <b class="font-bold p-2 left-0 h-full text-4xl align-middle m-3 select-none">{{ '#' + level_position }}</b>
             <div class="flex flex-col items-start">
                 <h3 class="font-semibold text-2xl">{{ level_name }}</h3>
-                <p class="text-sm align-bottom p-1 font-light text-justify">{{ level_creators_short }}</p>
+                <p class="text-sm align-bottom p-1 font-light text-justify">{{"by " + level_creators_short }}</p>
                 
             </div>
             <div class="flex ml-auto mr-1 flex-col items-end justify-evenly">
@@ -25,21 +25,22 @@
                 <p class="font-medium align-text-bottom">{{'Level ID: '+level_id}}</p>
                 <!-- Tags for the level -->
                 <div class="flex flex-row flex-wrap ">
-                    <b *ngFor="let tag of level_tags" class="bg-blue-600 text-white rounded-xl relative 
-                    w-fit h-fit font-medium p-2 shadow-md hover:shadow-xl m-1 hover:scale-105 transition-all duration-300" >{{"["+tag+"]"}}</b>
+                    <b *ngFor="let tag of level_tags" class="bg-blue-600 dark:bg-blue-900 text-white rounded-xl relative 
+                    w-fit h-fit font-medium p-2 shadow-md hover:shadow-xl m-1 hover:scale-105 transition-all duration-300 select-none" >{{"["+tag+"]"}}</b>
                 </div>
             </div>
         </div>
         
         <!-- Expanded list items -->
-        <div class="bg-slate-200 border-spacing-2 border-t-4 border-slate-400 rounded-lg shadow-lg text-slate-700 transition-all duration-300" 
+        <div class="bg-slate-200 dark:bg-slate-700 border-spacing-2 border-t-4
+         border-slate-400 dark:border-slate-500 rounded-lg shadow-lg text-slate-700 dark:text-white transition-all duration-300" 
         *ngIf="card_expanded">
             <div class="flex flex-row items-stretch justify-center align-super">
                 <iframe class="p-3" 
                 width="512" height="340" [src]="card_yt_vidEmbedURL" title="YouTube video player" frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div class="flex flex-wrap mr-auto p-3 border-l-4 border-slate-400 lg:text-lg sm:text-xs">
-                    <div class="bg-slate-300 p-2 rounded-md shadow-md h-fit mx-2 hover:scale-105 hover:shadow-xl transition-all duration-300">
+                <div class="flex flex-wrap mr-auto p-3 border-l-4 border-slate-400 dark:border-slate-500 lg:text-lg sm:text-xs">
+                    <div class="bg-slate-300 dark:bg-slate-600 p-2 rounded-md shadow-md h-fit mx-2 hover:scale-105 hover:shadow-xl transition-all duration-300">
                         <mat-icon class="align-middle">info</mat-icon> <b> Basic level data:</b>
                         <p>{{'Level name: ' + level_name}}</p>
                         <p>{{'Required FPS: ' + level_fps}}</p>
@@ -47,14 +48,14 @@
                         <p>{{'Uploaded by: ' + level_uploader}}</p>
                         <p>{{'GD version: ' + level_gd_version}}</p>
                     </div>
-                    <div class="bg-slate-300 p-2 m-1 rounded-md shadow-md h-fit mx-2 text-sm hover:scale-105 hover:shadow-xl transition-all duration-300">
+                    <div class="bg-slate-300 dark:bg-slate-600 p-2 m-1 rounded-md shadow-md h-fit mx-2 text-sm hover:scale-105 hover:shadow-xl transition-all duration-300">
                         <mat-icon class="align-middle">build</mat-icon> <b> Creators:</b>
                         <p *ngFor="let creator of level_creators_full">{{ creator }}</p>
                     </div>
-                    <div class="bg-slate-300 p-2 m-1 rounded-md shadow-md h-fit mx-2 hover:scale-105 hover:shadow-xl transition-all duration-300">
+                    <div class="bg-slate-300 dark:bg-slate-600 p-2 m-1 rounded-md shadow-md h-fit mx-2 hover:scale-105 hover:shadow-xl transition-all duration-300">
                         <mat-icon class="align-middle">stars</mat-icon> <b>World Record:</b>
                         <p class="font-light italic text-sm">{{"Minimum percent for WR: "+level_minimal_wr_percent}}</p>
-                        <p>{{level_wr}}<a [href]="level_wr_yt">link</a></p>
+                        <p>{{level_wr}}<a [href]="level_wr_yt" class="text-purple-600 underline font-bold"> link</a></p>
                     </div>
                 </div>
             </div>

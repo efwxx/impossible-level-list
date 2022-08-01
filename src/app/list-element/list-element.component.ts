@@ -34,7 +34,6 @@ export class ListElementComponent implements OnInit {
     'Prototype Hipo'
   ]
   level_fps = 1974;
-  level_playtester_main = "Hipo";
   level_id = '77018514'; //Write Unreleased if not given
   level_gd_version = '2.1';
   level_tags = [
@@ -56,25 +55,32 @@ export class ListElementComponent implements OnInit {
   
 
   @Input('ill_level') ill_level:any | undefined ;
+  @Input('ill_position') ill_position:number | undefined;
   constructor(private sanitizer: DomSanitizer) { 
     this.card_yt_vidEmbedURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.card_yt_videoID)
     
     //copy data
-    //this.level_name = this.ill_level.name;
-    //this.level_fps = this.ill_level.fps;
-    //this.level_id = this.ill_level.level_id;
-    //this.level_gd_version = this.ill_level.gd_version;
-    //this.card_yt_videoID = this.ill_level.yt_videoID;
-    //this.level_creators_short = this.ill_level.creators_short;
-    //this.level_creators_full = this.ill_level.creators_full;
-    //this.level_playtester_main = this.ill_level.playtesters_short;
-    //this.level_tags = this.ill_level.tags;
-    //this.level_uploader = this.ill_level.uploader;
-    //this.level_minimal_wr_percent = this.ill_level.wr_min_percent;
-    //this.level_wr = this.ill_level.wr;
-    //this.level_wr_yt = this.ill_level.wr_yt;
-    //this.level_marked_for_removal = this.ill_level.marked_for_removal;
-    //this.level_annotated = this.ill_level.annotated;
+    if(this.ill_position != undefined) {
+      this.level_position = this.ill_position;
+    }
+    if(this.ill_level != undefined) {
+      this.level_name = this.ill_level.name;
+      this.level_fps = this.ill_level.fps;
+      this.level_id = this.ill_level.level_id;
+      this.level_gd_version = this.ill_level.gd_version;
+      this.card_yt_videoID = this.ill_level.yt_videoID;
+      this.level_creators_short = this.ill_level.creators_short;
+      this.level_creators_full = this.ill_level.creators_full;
+      this.level_tags = this.ill_level.tags;
+      this.level_uploader = this.ill_level.uploader;
+      this.level_minimal_wr_percent = this.ill_level.wr_min_percent;
+      this.level_wr = this.ill_level.wr;
+      this.level_wr_yt = this.ill_level.wr_yt;
+      this.level_marked_for_removal = this.ill_level.marked_for_removal;
+      this.level_annotated = this.ill_level.annotated;
+    } else {
+      console.log('No data given to level at '+this.ill_position+' Check the inputs')
+    }
   }
   
 

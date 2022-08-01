@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminListEditorComponent } from './admin-list-editor/admin-list-editor.component';
+import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 import { ListComponent } from './list/list.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  {path: 'list/admin', component: AdminListEditorComponent},
-  {path: 'list', component: ListComponent},
-  {path: '', redirectTo: 'list', pathMatch: 'full'}
+  {path: 'admin', component: AdminMenuComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: ListComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full'}
 ];
 
 @NgModule({

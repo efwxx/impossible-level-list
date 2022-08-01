@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ImpossibleLevel } from 'src/app/shared/impossible-level'
 import { LevelServiceService } from '../shared/level-service.service';
 
@@ -10,14 +11,20 @@ import { LevelServiceService } from '../shared/level-service.service';
 export class ListComponent implements OnInit {
 
   constructor(private levelService: LevelServiceService) { }
-  ill: any[] = [];
-  getList = () => this.levelService.getList();
+  ill: ImpossibleLevel[] = [];
+  getList = () => this.levelService.getList().subscribe();
 
   ngOnInit(): void {
-    
+    this.loadLevelList(1);
   }
   logLevelList() {
     console.log(this.ill);
+  }
+
+  loadLevelList(length: number) {
+    for(let i=0; i<length; i++) {
+      
+    }
   }
   
 }

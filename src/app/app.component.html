@@ -1,15 +1,54 @@
-<div class="bg-slate-100 ILL_ListMain">
-  <!-- Title -->
-  <div class="pt-16">
-    <img src="../assets/logo.png" width="128" height="128" class="relative mx-auto p-5 rounded-lg hover:scale-125 transition-all duration-300"/>
-    <h1 class="text-3xl text-center relative font-medium">Impossible Level List</h1>
-    <h3 class="text-center font-normal text-lg">Owned by Doki, Wuro & Tomejto</h3>  
-    <h4 class="text-center font-light italic text-sm">Website built by MateussDev</h4>  
-  </div>
+
+<div class="bg-slate-100 ILL_ListMain dark:bg-slate-700">
+  
   
   <!-- List -->
-  <app-list></app-list>
+  <router-outlet></router-outlet>
+  
+  
+</div>
+<!-- NavBar -->
+<div class="ILL_Navbar">
+  <a href="">
+      <img class="p-2 rounded-lg" src="../../assets/logo.png" width="64" height="64" />
+  </a>
+  <div class="justify-self-center mx-auto">
+    <a href="https://discord.gg/MHx4Nbp">
+        <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
+        hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
+        dark:bg-slate-600">
+            <mat-icon class="align-middle">videogame_asset</mat-icon> Discord server</span>
+    </a>
+    <a href="https://docs.google.com/document/d/1TNNkuLVUE4kUv6bCnh-RuXroLky8yyL-HdWJoYNbRlI/edit?usp=sharing">
+        <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
+    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
+    dark:bg-slate-600">
+        <mat-icon class="align-middle">history</mat-icon> Old list</span>
+    </a>
+    <a href="https://www.patreon.com/mateussdev">
+        <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
+    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
+    dark:bg-slate-600">
+        <mat-icon class="align-middle">attach_money</mat-icon> MateussDev Patreon</span>   
+    </a>
+    <a routerLink="/admin" *ngIf="afAuth.authState |async as user">
+        <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
+    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
+    dark:bg-slate-600">   
+        <mat-icon class="align-middle">border_color</mat-icon> Admin panel</span>
+    </a>
+    <a *ngIf="(afAuth.authState |async) === null" (click)="signIn()">
+      <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
+    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
+    dark:bg-slate-600">
+      <mat-icon class="align-middle">account_circle</mat-icon> Sign in with Google</span>   
+    </a>
+    <a *ngIf="(afAuth.authState |async)" (click)="signOut()">
+      <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
+    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
+    dark:bg-slate-600">
+      <mat-icon class="align-middle">exit_to_app</mat-icon> Sign out</span>   
+    </a>
+  </div>
 </div>
 
-<router-outlet></router-outlet>
-<app-navbar></app-navbar>
