@@ -3,16 +3,31 @@
     <div class="flex flex-col">
         <!-- Base list item -->
         <div class="flex flex-row items-center">
-            <b class="font-bold p-2 left-0 h-full text-3xl align-middle m-3">{{ '#' + level_position }}</b>
+            <div *ngIf="level_marked_for_removal" 
+            class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly">
+                <img src="../../assets/marked_for_removal.png" width="128" height="128"
+                class="p-1 rounded-lg relative mb-1 mt-1">
+            </div>
+            <div *ngIf="level_annotated" 
+            class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly">
+                <img src="../../assets/annotation.png" width="128" height="128"
+                class="p-1 rounded-lg relative mb-1 mt-1">
+            </div>
+            <b class="font-bold p-2 left-0 h-full text-4xl align-middle m-3">{{ '#' + level_position }}</b>
             <div class="flex flex-col items-start">
-                <h3 class="font-semibold align-middle text-lg ">{{ level_name }}</h3>
-                <i class="text-sm align-bottom p-1">{{ level_creators_short }}</i>
+                <h3 class="font-semibold text-2xl">{{ level_name }}</h3>
+                <p class="text-sm align-bottom p-1 font-light text-justify">{{ level_creators_short }}</p>
+                
             </div>
             <div class="flex ml-auto mr-1 flex-col items-end justify-evenly">
                 <p class="font-light align-text-top">{{'FPS: '+level_fps}}</p>
                 <br/>
-                <br/>
-                <p class="font-medium align-text-bottom">{{'Playtested by: '+level_playtester_main}}</p>
+                <p class="font-medium align-text-bottom">{{'Level ID: '+level_id}}</p>
+                <!-- Tags for the level -->
+                <div class="flex flex-row flex-wrap ">
+                    <b *ngFor="let tag of level_tags" class="bg-blue-600 text-white rounded-xl relative 
+                    w-fit h-fit font-medium p-2 shadow-md hover:shadow-xl m-1 hover:scale-105 transition-all duration-300" >{{"["+tag+"]"}}</b>
+                </div>
             </div>
         </div>
         
@@ -24,25 +39,22 @@
                 width="512" height="340" [src]="card_yt_vidEmbedURL" title="YouTube video player" frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 <div class="flex flex-wrap mr-auto p-3 border-l-4 border-slate-400 lg:text-lg sm:text-xs">
-                    <div class="bg-slate-300 p-2 rounded-md shadow-md h-fit mx-2">
-                        <b>Basic level data:</b>
+                    <div class="bg-slate-300 p-2 rounded-md shadow-md h-fit mx-2 hover:scale-105 hover:shadow-xl transition-all duration-300">
+                        <mat-icon class="align-middle">info</mat-icon> <b> Basic level data:</b>
                         <p>{{'Level name: ' + level_name}}</p>
-                        <p>{{'Position on list: ' + level_position}}</p>
-                        <p>{{'Level ID: ' + level_id }}</p>
-                        <p>{{'GD version: ' + level_gd_version}}</p>
                         <p>{{'Required FPS: ' + level_fps}}</p>
+                        <p>{{'Level ID: ' + level_id }}</p>
+                        <p>{{'Uploaded by: ' + level_uploader}}</p>
+                        <p>{{'GD version: ' + level_gd_version}}</p>
                     </div>
-                    <div class="bg-slate-300 p-2 m-1 rounded-md shadow-md h-fit mx-2 text-sm">
-                        <b>Creators:</b>
+                    <div class="bg-slate-300 p-2 m-1 rounded-md shadow-md h-fit mx-2 text-sm hover:scale-105 hover:shadow-xl transition-all duration-300">
+                        <mat-icon class="align-middle">build</mat-icon> <b> Creators:</b>
                         <p *ngFor="let creator of level_creators_full">{{ creator }}</p>
                     </div>
-                    <div class="bg-slate-300 p-2 m-1 rounded-md shadow-md h-fit mx-2 text-sm">
-                        <b>Playtested by:</b>
-                        <p *ngFor="let playtester of level_playtesters_full">{{ playtester }}</p>
-                    </div>
-                    <div class="bg-slate-300 p-2 m-1 rounded-md shadow-md h-fit mx-2">
-                        <b>World Record from 0%:</b>
-                        <p>[WR name]</p>
+                    <div class="bg-slate-300 p-2 m-1 rounded-md shadow-md h-fit mx-2 hover:scale-105 hover:shadow-xl transition-all duration-300">
+                        <mat-icon class="align-middle">stars</mat-icon> <b>World Record:</b>
+                        <p class="font-light italic text-sm">{{"Minimum percent for WR: "+level_minimal_wr_percent}}</p>
+                        <p>{{level_wr}}<a [href]="level_wr_yt">link</a></p>
                     </div>
                 </div>
             </div>

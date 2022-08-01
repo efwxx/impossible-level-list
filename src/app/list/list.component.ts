@@ -10,13 +10,14 @@ import { LevelServiceService } from '../shared/level-service.service';
 export class ListComponent implements OnInit {
 
   constructor(private levelService: LevelServiceService) { }
-  ill: ImpossibleLevel[] = [];
-  getList = () => this.levelService.getList().subscribe(res => (this.ill = res));
+  ill: any[] = [];
+  getList = () => this.levelService.getList();
 
   ngOnInit(): void {
-    this.getList();
+    
+  }
+  logLevelList() {
     console.log(this.ill);
   }
-  
   
 }

@@ -7,4 +7,5 @@ import { Component, Inject } from '@angular/core';
 })
 export class AppComponent {
   title = 'Impossible Level List';
+  page = 0;
 }

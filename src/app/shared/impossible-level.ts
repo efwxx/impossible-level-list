@@ -8,5 +8,11 @@ export interface ImpossibleLevel {
     creators_short: string,
     creators_full: string[],
     playtesters_short: string,
-    playtesters_full: string[]
+    tags: string[],
+    uploader: string,
+    wr_min_percent: string,
+    wr: string,
+    wr_yt: string,
+    marked_for_removal: boolean,
+    annotated: boolean
 }

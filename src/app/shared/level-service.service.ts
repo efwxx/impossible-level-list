@@ -13,7 +13,7 @@ import { ImpossibleLevel } from 'src/app/shared/impossible-level'
 })
 export class LevelServiceService {
   constructor(private firestore: AngularFirestore) {}
-
+  
   getList() {
     return this.firestore.collection("ill")
         .snapshotChanges()
