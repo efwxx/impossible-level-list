@@ -37,9 +37,12 @@
             <button class="m-2 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 disabled:bg-neutral-500" 
             [disabled]="!bil_name || !bil_c_s">Save</button>
         </form>
+        <button class="m-2 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 disabled:bg-neutral-500" 
+        [disabled]="!bil_name || !bil_c_s" (click)="loadDataFromLevel()">Load</button>
         <button class="m-2 p-2 bg-gray-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="clearForm()">Clear</button>
         <button class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200"><mat-icon>keyboard_arrow_up</mat-icon></button>
         <button class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200"><mat-icon>keyboard_arrow_down</mat-icon></button>
+        <button class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="remapLevels()">Remap level positions</button>
         <input class="m-2 p-2 bg-slate-200 w-16 text-black rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" type="number"/>
         <button class="m-2 p-2 bg-red-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200">Remove Level</button>
     </div>

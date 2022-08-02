@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 //Components
 import { ListElementComponent } from './list-element/list-element.component';
 import { ListComponent } from './list/list.component';
-import { AdminListElementComponent } from './admin-list-element/admin-list-element.component';
 import { AdminListEditorComponent } from './admin-list-editor/admin-list-editor.component';
 import { AdminDataEditorComponent } from './admin-data-editor/admin-data-editor.component';
 import { AdminMenuComponent } from './admin-menu/admin-menu.component';
@@ -35,7 +34,6 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
     ListElementComponent,
     ListComponent,
     AdminListEditorComponent,
-    AdminListElementComponent,
     AdminDataEditorComponent,
     AdminMenuComponent,
   ],

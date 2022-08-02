@@ -1,6 +1,8 @@
 export interface ImpossibleLevel {
+    id: string,
+    position: number,
     name: string,
-    fps: number | undefined,
+    fps: number,
     level_id: string,
     gd_version: string,
     yt_videoID: string,

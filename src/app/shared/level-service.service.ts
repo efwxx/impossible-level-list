@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import {
-  AngularFireDatabase,
-  AngularFireList,
-  AngularFireObject,
-} from '@angular/fire/compat/database';
-
-import { ImpossibleLevel } from 'src/app/shared/impossible-level'
+import { ImpossibleLevel } from './impossible-level';
+import { 
+  AngularFirestore, DocumentReference,
+ } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +10,20 @@ import { ImpossibleLevel } from 'src/app/shared/impossible-level'
 export class LevelServiceService {
   constructor(public firestore: AngularFirestore) {}
   
-  getList() {
-    return this.firestore.collection("ill")
-        .snapshotChanges()
+  getEntireLevelList() {
+    return this.firestore.collection('ill').snapshotChanges();
   }
 
-  addLevel(level:object) {
+  addLevel(level:ImpossibleLevel) {
+    level.id = this.firestore.createId();
     return this.firestore.collection("ill").add(level)
   }
 
-  levelExistsInDatabase(name:string, creators:string) {
-    return false;
+  updateLevel(level:ImpossibleLevel) {
+    return this.firestore.doc(`ill/${level.id}`).update(level);
+  }
+
+  deleteLevel(level:ImpossibleLevel) {
+    return this.firestore.doc(`ill/${level.id}`).delete();
   }
 }

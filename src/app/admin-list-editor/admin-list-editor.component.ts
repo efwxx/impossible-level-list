@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ImpossibleLevel } from '../shared/impossible-level';
+import { LevelServiceService } from '../shared/level-service.service';
+
 
 @Component({
   selector: 'app-admin-list-editor',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminListEditorComponent implements OnInit {
 
-  constructor() { }
+  levelList: ImpossibleLevel[] = [];
+
+  constructor(public ill_service: LevelServiceService) { }
 
   ngOnInit(): void {
+    this.refreshLevelList();
   }
 
+  refreshLevelList() {
+    this.ill_service.getEntireLevelList().subscribe(res => {
+      this.levelList = res.map((e:any ) => {
+        const data = e.payload.doc.data();
+        data.id = e.payload.id;
+        return data;
+      })
+    }, err => {
+      alert(err.toString());
+    })
+  }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import { ImpossibleLevel } from '../shared/impossible-level';
 
 import { LevelServiceService } from '../shared/level-service.service';
@@ -12,7 +11,7 @@ import { LevelServiceService } from '../shared/level-service.service';
 export class AdminDataEditorComponent implements OnInit {
 
   bil_name:string = ''
-  bil_fps:number | undefined = 0
+  bil_fps:number = 0
   bil_id:string = ''
   bil_gdv:string = '' //Gd version
   bil_ytid:string = '' //Youtube video id
@@ -29,6 +28,7 @@ export class AdminDataEditorComponent implements OnInit {
   bil_index:number | undefined = 1;
 
   bil_packaged:ImpossibleLevel = {
+    id: '',
     name: '',
     fps: 0,
     level_id: '',
@@ -43,10 +43,12 @@ export class AdminDataEditorComponent implements OnInit {
     wr_yt: '',
     marked_for_removal: false,
     annotated: false,
-    marking_reason: ''
+    marking_reason: '',
+    position: 0
   }
 
   lb_editStatus:string = 'Empty form'
+  levelList: ImpossibleLevel[] = [];
 
   constructor(public ill_service:LevelServiceService) { }
 
@@ -55,7 +57,7 @@ export class AdminDataEditorComponent implements OnInit {
 
   clearForm() {
     this.bil_name = '';
-    this.bil_fps = undefined;
+    this.bil_fps = 0;
     this.bil_gdv = '';
     this.bil_ytid = '';
     this.bil_c_s = '';
@@ -68,15 +70,54 @@ export class AdminDataEditorComponent implements OnInit {
     this.bil_removal = false;
     this.bil_annotation = false;
     this.bil_index = undefined;
-    this.lb_editStatus = 'Empty form'
   }
-
+  
   submitLevel() {
-    this.packageLevel();
+    this.packageLevel(); //package data to object
+    this.lb_editStatus = 'Sending level to database...'
     this.ill_service.addLevel(this.bil_packaged).then(res => {
-      this.clearForm();
       console.log(res);
+    }).catch(error => {
+      this.lb_editStatus = error.toString();
+    });
+    this.remapLevels();
+    this.lb_editStatus = 'Success!'
+  }
+  
+  
+  refreshLevelListArray() {
+    this.ill_service.getEntireLevelList().subscribe(res => {
+      this.levelList = res.map((e:any ) => {
+        const data = e.payload.doc.data();
+        data.id = e.payload.id;
+        return data;
+      })
+    }, err => {
+      alert(err.toString());
     })
+  }
+  
+  
+  remapLevels() {
+    let _changes = 0;
+    this.lb_editStatus = 'Re-mapping level positions...'
+    this.refreshLevelListArray(); //get latest array
+    this.levelList.sort((a, b) => { //sort array by position
+      return a.position - b.position
+    });
+    this.levelList.forEach((level, i) => { 
+      if(level.position != i) {
+        level.position = i; //remap position if incorrect position
+        console.log('re-mapped '+level.name+' to #'+level.position)
+        _changes++;
+        this.ill_service.updateLevel(level).then(res => {
+          console.log(res);
+        }).catch(error => {
+          this.lb_editStatus = error.toString();
+        }); //update the level
+      }
+    });
+    this.lb_editStatus = 'Re-mapping complete, '+_changes+' changes'
   }
 
   packageLevel() {
@@ -100,5 +141,10 @@ export class AdminDataEditorComponent implements OnInit {
     this.bil_packaged.tags = this.bil_tags.split(",");
 
     console.log(this.bil_packaged);
+  }
+
+  loadDataFromLevel() {
+    const matchingNames = this.ill_service.firestore.collection('ill').ref.where('name', '==', this.bil_name).where('creators_short', '==', this.bil_c_s).get();
+    
   }
 }

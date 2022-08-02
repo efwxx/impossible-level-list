@@ -1,11 +1,15 @@
 <!-- Position map -->
 <div class="ILL_AdminMain dark:text-white relative left-0 bg-slate-300 dark:bg-slate-800 w-fit min-w-[320px] h-[1016px] p-5 shadow-lg overflow-y-scroll">
+    <button class="bg-slate-300 dark:bg-slate-700 m-1 p-1 text-lg w-auto h-auto 
+    rounded-lg shadow-md select-none hover:scale-105 hover:shadow-lg transition-all duration-200" (click)="refreshLevelList()">
+        <mat-icon class="align-middle">refresh</mat-icon>
+    </button>
     <ul>
         <!-- the level micro-card -->
-        <app-admin-list-element></app-admin-list-element>
-        <app-admin-list-element></app-admin-list-element>
-        <app-admin-list-element></app-admin-list-element>
-        <app-admin-list-element></app-admin-list-element>
+        <li class="flex flex-row items-center hover:scale-105 hover:shadow-xl transition-all duration-200" *ngFor="let level of levelList">
+            <b class="bg-slate-300 dark:bg-slate-700 m-1 p-1 text-lg rounded-lg shadow-md select-none">{{level.position}}</b>
+            <b class="bg-slate-300 dark:bg-slate-700 m-1 p-1 text-lg rounded-lg shadow-md select-none">{{level.name}}</b>
+        </li>
     </ul>
 
 </div>
