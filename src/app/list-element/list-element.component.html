@@ -1,17 +1,19 @@
-<div class="ILL_ListElem -z-10" className="group" (click)="expandCard()">
+<div class="ILL_ListElem -z-10" (click)="expandCard()">
     <!--img class="rounded-md group-hover:shadow-lg" src="../../assets/thumbnail_placeholder.png" width="196" height="72"-->
     <div class="flex flex-col">
         <!-- Base list item -->
         <div class="flex flex-row items-center">
             <div *ngIf="level_marked_for_removal" 
-            class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly">
+            class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly" className="group">
                 <img src="../../assets/marked_for_removal.png" width="128" height="128"
                 class="p-1 rounded-lg relative mb-1 mt-1">
+                <p class="bg-slate-800 text-lg p-2 -translate-x-48 rounded-lg absolute origin-right shadow-lg select-none">{{ "Marked for removal: " + level_markdown_reason }}</p>
             </div>
             <div *ngIf="level_annotated" 
             class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly">
                 <img src="../../assets/annotation.png" width="128" height="128"
                 class="p-1 rounded-lg relative mb-1 mt-1">
+                <p class="bg-slate-800 text-base p-2 -translate-x-48 rounded-lg absolute origin-right shadow-lg select-none">Annotation: Subject to gameplay and decoration quality exemptions</p>
             </div>
             <b class="font-bold p-2 left-0 h-full text-4xl align-middle m-3 select-none">{{ '#' + level_position }}</b>
             <div class="flex flex-col items-start">

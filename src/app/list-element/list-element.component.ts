@@ -45,7 +45,8 @@ export class ListElementComponent implements OnInit {
   level_wr_yt = 'https://youtu.be/xD9BWvMZGm4'
   level_uploader = 'Xane88'
   level_marked_for_removal = false;
-  level_annotated = false;
+  level_annotated = true;
+  level_markdown_reason = 'Level is too hard on 86%'
 
   card_expanded = false;
   card_yt_videoID = 'DqB2uTY9-Ss'

@@ -1,41 +1,43 @@
 <div class="bg-slate-300 dark:bg-slate-600 m-5 p-10 h-full flex flex-col">
     <div>
-        <form>
+        <form (ngSubmit)="submitLevel()">
             <div class="bg-slate-200 flex flex-col p-5 shadow-lg rounded-lg">
                 <p class="font-semibold">Basic information</p>
                 <div class="flex flex-row items-center justify-start">
-                    <input id="ILLA_Name" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Level Name" />
-                    <input id="ILLA_ID" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Level ID" />
-                    <input id="ILLA_FPS" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Required FPS" />
+                    <input [(ngModel)]="bil_name" id="ILLA_Name" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg bg-green-300" type="text" placeholder="Level Name" />
+                    <input [(ngModel)]="bil_id" id="ILLA_ID" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Level ID" />
+                    <input [(ngModel)]="bil_fps" id="ILLA_FPS" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Required FPS" />
                 </div>
                 <div class="flex flex-row items-center justify-start">
-                    <input id="ILLA_CreatorsShort" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Creator/s short" />
-                    <input id="ILLA_Uploader" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Uploader Name" />
-                    <input id="ILLA_Position" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Level position" />
+                    <input [(ngModel)]="bil_c_s" id="ILLA_CreatorsShort" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg bg-green-300" type="text" placeholder="Creator/s short" />
+                    <input [(ngModel)]="bil_upld" id="ILLA_Uploader" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Uploader Name" />
+                    <input [(ngModel)]="bil_index" id="ILLA_Position" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="number" placeholder="Level position" />
                 </div>
-                <input id="ILLA_YTID" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="YouTube Video ID" />
-                <input id="ILLA_CreatorsFull" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Creator/s full" />
-                <input id="ILLA_Tags" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Tags" />
+                <input [(ngModel)]="bil_ytid" id="ILLA_YTID" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="YouTube Video ID" />
+                <input [(ngModel)]="bil_c_f" id="ILLA_CreatorsFull" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Creator/s full" />
+                <input [(ngModel)]="bil_tags" id="ILLA_Tags" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Tags" />
                 <hr/>
                 <p class="font-semibold">WR information</p>
-                <input id="ILLA_WR_Min" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="WR Minimum percentage" />
-                <input id="ILLA_WR" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Current World Record" />
-                <input id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Current World Record Video" />
+                <input [(ngModel)]="bil_wr_min" id="ILLA_WR_Min" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="WR Minimum percentage" />
+                <input [(ngModel)]="bil_wr" id="ILLA_WR" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Current World Record" />
+                <input [(ngModel)]="bil_wr_yt" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Current World Record Video" />
                 <hr/>
                 <p class="font-semibold">Annotation & Marking</p>
                 <div class="flex flex-row items-center justify-start">
-                    <input id="ILLA_Deletion" class="m-1 p-2 w-6 h-6 shadow-md" type="checkbox"/>
+                    <input [(ngModel)]="bil_removal" id="ILLA_Deletion" class="m-1 p-2 w-6 h-6 shadow-md" type="checkbox"/>
                     <p class="p-1 m-1 text-white  bg-red-400 rounded-lg shadow-md">Mark Level for Removal</p>
                 </div>
                 <div class="flex flex-row items-center justify-start">
-                    <input id="ILLA_Annotation" class="m-1 p-2 w-6 h-6 shadow-md" type="checkbox"/>
+                    <input [(ngModel)]="bil_annotation" id="ILLA_Annotation" class="m-1 p-2 w-6 h-6 shadow-md" type="checkbox"/>
                     <p class="p-1 m-1 text-white  bg-gray-500 rounded-lg shadow-md">Annotate Level</p>
                 </div>
-
+                <input [(ngModel)]="bil_wr_yt" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Reason for Removal/Annotation" />
+                <p class="italic text-center text-green-800">{{lb_editStatus}}</p>
             </div>
-            <button class="m-2 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200">Save</button>
+            <button class="m-2 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 disabled:bg-neutral-500" 
+            [disabled]="!bil_name || !bil_c_s">Save</button>
         </form>
-        <button class="m-2 p-2 bg-gray-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200">Clear</button>
+        <button class="m-2 p-2 bg-gray-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="clearForm()">Clear</button>
         <button class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200"><mat-icon>keyboard_arrow_up</mat-icon></button>
         <button class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200"><mat-icon>keyboard_arrow_down</mat-icon></button>
         <input class="m-2 p-2 bg-slate-200 w-16 text-black rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" type="number"/>

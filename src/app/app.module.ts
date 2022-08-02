@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 //Components
 import { ListElementComponent } from './list-element/list-element.component';
@@ -46,6 +47,7 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
     FirestoreModule,
     BrowserAnimationsModule,
     MatIconModule,
+    FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

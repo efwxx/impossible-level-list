@@ -1,7 +1,6 @@
 export interface ImpossibleLevel {
-    $key: string, //This is the access ID of the collection stuff
     name: string,
-    fps: number,
+    fps: number | undefined,
     level_id: string,
     gd_version: string,
     yt_videoID: string,
@@ -13,5 +12,6 @@ export interface ImpossibleLevel {
     wr: string,
     wr_yt: string,
     marked_for_removal: boolean,
-    annotated: boolean
+    annotated: boolean,
+    marking_reason: string
 }

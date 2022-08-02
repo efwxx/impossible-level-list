@@ -12,10 +12,18 @@ import { ImpossibleLevel } from 'src/app/shared/impossible-level'
   providedIn: 'root'
 })
 export class LevelServiceService {
-  constructor(private firestore: AngularFirestore) {}
+  constructor(public firestore: AngularFirestore) {}
   
   getList() {
     return this.firestore.collection("ill")
         .snapshotChanges()
+  }
+
+  addLevel(level:object) {
+    return this.firestore.collection("ill").add(level)
+  }
+
+  levelExistsInDatabase(name:string, creators:string) {
+    return false;
   }
 }
