@@ -1,53 +1,73 @@
 
-<div class="bg-slate-100 ILL_ListMain dark:bg-slate-700">
-  
+<div class="ILL_ListMain">
+  <div class="ILL_BG" *ngIf="_themeRef === 'light'"></div>
+  <img src="../assets/SideBar_Light_L.png" class="fixed h-full left-0 top-0 -z-10 lg:scale-100 sm:scale-0" *ngIf="_themeRef === 'light'"/>
+  <img src="../assets/SideBar_Light_R.png" class="fixed h-full right-0 top-0 -z-10 lg:scale-100 sm:scale-0" *ngIf="_themeRef === 'light'"/>
+  <div class="ILL_BG_Dark" *ngIf="_themeRef === 'dark'"></div>
+  <img src="../assets/SideBar_Dark_L.png" class="fixed h-full left-0 top-0 -z-10 lg:scale-100 sm:scale-0" *ngIf="_themeRef === 'dark'"/>
+  <img src="../assets/SideBar_Dark_R.png" class="fixed h-full right-0 top-0 -z-10 lg:scale-100 sm:scale-0" *ngIf="_themeRef === 'dark'"/>
   
   <!-- List -->
   <router-outlet></router-outlet>
   
   
 </div>
+
 <!-- NavBar -->
-<div class="ILL_Navbar">
+<div class="ILL_Navbar bg-gray-300 dark:bg-gray-800 text-black dark:text-white">
   <a href="">
       <img class="p-2 rounded-lg" src="../../assets/logo.png" width="64" height="64" />
   </a>
+  <a *ngIf="(afAuth.authState |async)" (click)="refreshAdminAccess()">
+    <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
+    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
+    dark:bg-slate-600">
+    <mat-icon class="align-middle">refresh</mat-icon>
+  </span>   
+  </a>
+  <a (click)="toggleTheme()">
+    <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
+    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
+    dark:bg-slate-600">
+    <mat-icon class="align-middle">wb_sunny</mat-icon>
+  </span>   
+  </a>
   <div class="justify-self-center mx-auto">
     <a href="https://discord.gg/MHx4Nbp">
-        <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
-        hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-        dark:bg-slate-600">
-            <mat-icon class="align-middle">videogame_asset</mat-icon> Discord server</span>
+      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+        <mat-icon class="align-middle">videogame_asset</mat-icon> 
+        <b class="lg:scale-100 lg:relative sm:absolute sm:scale-0">Discord server</b>
+      </span>
     </a>
     <a href="https://docs.google.com/document/d/1TNNkuLVUE4kUv6bCnh-RuXroLky8yyL-HdWJoYNbRlI/edit?usp=sharing">
-        <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
-    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-    dark:bg-slate-600">
-        <mat-icon class="align-middle">history</mat-icon> Old list</span>
+      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <mat-icon class="align-middle">history</mat-icon>
+      <b class="lg:scale-100 lg:relative sm:absolute sm:scale-0">Old list</b>
+    </span>
     </a>
     <a href="https://www.patreon.com/mateussdev">
-        <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
-    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-    dark:bg-slate-600">
-        <mat-icon class="align-middle">attach_money</mat-icon> MateussDev Patreon</span>   
+      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <mat-icon class="align-middle">attach_money</mat-icon> 
+      <b class="lg:scale-100 lg:relative sm:absolute sm:scale-0">Donate to Mateuss</b>
+    </span>   
     </a>
-    <a routerLink="/admin" *ngIf="afAuth.authState |async as user">
-        <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
-    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-    dark:bg-slate-600">   
-        <mat-icon class="align-middle">border_color</mat-icon> Admin panel</span>
+    <a routerLink="/admin" *ngIf="afAuth.authState |async as user" [hidden]="!_adminAccess">
+      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <mat-icon class="align-middle">border_color</mat-icon>
+      <b class="lg:scale-100 lg:relative sm:absolute sm:scale-0">Admin panel</b>
+    </span>
     </a>
-    <a *ngIf="(afAuth.authState |async) === null" (click)="signIn()">
-      <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
-    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-    dark:bg-slate-600">
-      <mat-icon class="align-middle">account_circle</mat-icon> Sign in with Google</span>   
+    <a *ngIf="(afAuth.authState |async) === null" routerLink="/login">
+      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <mat-icon class="align-middle">account_circle</mat-icon>
+      <b class="lg:scale-100 lg:relative sm:absolute sm:scale-0">Sign In</b>
+    </span>   
     </a>
-    <a *ngIf="(afAuth.authState |async)" (click)="signOut()">
-      <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
-    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-    dark:bg-slate-600">
-      <mat-icon class="align-middle">exit_to_app</mat-icon> Sign out</span>   
+    <a *ngIf="(afAuth.authState |async)" (click)="afAuth.signOut()">
+      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <mat-icon class="align-middle">exit_to_app</mat-icon> 
+      <b class="lg:scale-100 lg:relative sm:absolute sm:scale-0">Sign Out</b>
+    </span>   
     </a>
   </div>
 </div>

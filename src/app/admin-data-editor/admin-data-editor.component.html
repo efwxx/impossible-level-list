@@ -1,17 +1,36 @@
-<div class="bg-slate-300 dark:bg-slate-600 m-5 p-10 h-full flex flex-col">
-    <div>
-        <form (ngSubmit)="submitLevel()">
-            <div class="bg-slate-200 flex flex-col p-5 shadow-lg rounded-lg">
+<div class="flex flex-row ILL_Admin">
+    <!-- Position map -->
+    <div class="ILL_AdminScroll dark:text-white relative left-0 bg-slate-300 dark:bg-slate-800 lg:w-fit sm:w-48 lg:min-w-[320px] h-screen p-5 shadow-lg overflow-y-scroll lg:text-base sm:text-xs ">
+        <button class="bg-slate-300 dark:bg-slate-700 m-1 p-1 text-lg w-auto h-auto 
+        rounded-lg shadow-md select-none hover:scale-105 hover:shadow-lg transition-all duration-200" (click)="refreshLevelListArray()">
+            <mat-icon class="align-middle">refresh</mat-icon>
+        </button>
+        <ul>
+            <!-- the level micro-card -->
+            <li class="flex flex-row items-center hover:scale-105 hover:shadow-xl transition-all duration-200" *ngFor="let level of levelList" (click)="loadDataFromLevel(level)">
+                <b class="bg-slate-300 dark:bg-slate-700 m-1 p-1 lg:text-lg sm:text-sm rounded-lg shadow-md select-none">{{level.position}}</b>
+                <div class="bg-slate-300 dark:bg-slate-700 m-1 p-1 lg:text-lg sm:text-sm rounded-lg shadow-md select-none flex flex-col">
+                    <b>{{level.name}}</b>
+                    <b class="text-sm font-light">{{level.creators_short}}</b>
+                </div>
+            </li>
+        </ul>
+    
+    </div>
+    <div class="bg-slate-300 dark:bg-slate-600 m-5 lg:p-10 sm:p-3 h-full flex flex-col lg:w-fit sm:w-[450px]">
+        <div>
+            <div class="bg-slate-200 flex flex-col lg:p-5 sm:p-1  shadow-lg rounded-lg">
                 <p class="font-semibold">Basic information</p>
-                <div class="flex flex-row items-center justify-start">
-                    <input [(ngModel)]="bil_name" id="ILLA_Name" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg bg-green-300" type="text" placeholder="Level Name" />
+                <div class="flex lg:flex-row sm:flex-wrap items-baseline">
+                    <input [(ngModel)]="bil_name" id="ILLA_Name" class="m-1 p-2 border-l-4 border-blue-400 shadow-md rounded-lg bg-green-300" type="text" placeholder="Level Name" />
                     <input [(ngModel)]="bil_id" id="ILLA_ID" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Level ID" />
                     <input [(ngModel)]="bil_fps" id="ILLA_FPS" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Required FPS" />
                 </div>
-                <div class="flex flex-row items-center justify-start">
-                    <input [(ngModel)]="bil_c_s" id="ILLA_CreatorsShort" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg bg-green-300" type="text" placeholder="Creator/s short" />
+                <div class="flex lg:flex-row sm:flex-wrap items-center justify-start">
+                    <input [(ngModel)]="bil_c_s" id="ILLA_CreatorsShort" class="m-1 p-2 border-l-4 border-blue-400 shadow-md rounded-lg bg-green-300" type="text" placeholder="Creator/s short" />
                     <input [(ngModel)]="bil_upld" id="ILLA_Uploader" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Uploader Name" />
-                    <input [(ngModel)]="bil_index" id="ILLA_Position" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="number" placeholder="Level position" />
+                    <input [(ngModel)]="bil_gdv" id="ILLA_Position" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="GD version" />
+                    <input [(ngModel)]="bil_index" id="ILLA_Position" class="m-1 p-2 border-l-4 border-blue-400 shadow-md rounded-lg bg-green-300" type="text" placeholder="Level position" />
                 </div>
                 <input [(ngModel)]="bil_ytid" id="ILLA_YTID" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="YouTube Video ID" />
                 <input [(ngModel)]="bil_c_f" id="ILLA_CreatorsFull" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Creator/s full" />
@@ -20,7 +39,7 @@
                 <p class="font-semibold">WR information</p>
                 <input [(ngModel)]="bil_wr_min" id="ILLA_WR_Min" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="WR Minimum percentage" />
                 <input [(ngModel)]="bil_wr" id="ILLA_WR" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Current World Record" />
-                <input [(ngModel)]="bil_wr_yt" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Current World Record Video" />
+                <input [(ngModel)]="bil_wr_yt" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="url" placeholder="Current World Record Video" />
                 <hr/>
                 <p class="font-semibold">Annotation & Marking</p>
                 <div class="flex flex-row items-center justify-start">
@@ -31,19 +50,26 @@
                     <input [(ngModel)]="bil_annotation" id="ILLA_Annotation" class="m-1 p-2 w-6 h-6 shadow-md" type="checkbox"/>
                     <p class="p-1 m-1 text-white  bg-gray-500 rounded-lg shadow-md">Annotate Level</p>
                 </div>
-                <input [(ngModel)]="bil_wr_yt" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Reason for Removal/Annotation" />
+                <input [(ngModel)]="bil_reason" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Reason for Removal/Annotation" />
                 <p class="italic text-center text-green-800">{{lb_editStatus}}</p>
             </div>
             <button class="m-2 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 disabled:bg-neutral-500" 
-            [disabled]="!bil_name || !bil_c_s">Save</button>
-        </form>
-        <button class="m-2 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 disabled:bg-neutral-500" 
-        [disabled]="!bil_name || !bil_c_s" (click)="loadDataFromLevel()">Load</button>
-        <button class="m-2 p-2 bg-gray-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="clearForm()">Clear</button>
-        <button class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200"><mat-icon>keyboard_arrow_up</mat-icon></button>
-        <button class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200"><mat-icon>keyboard_arrow_down</mat-icon></button>
-        <button class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="remapLevels()">Remap level positions</button>
-        <input class="m-2 p-2 bg-slate-200 w-16 text-black rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" type="number"/>
-        <button class="m-2 p-2 bg-red-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200">Remove Level</button>
+            [disabled]="!bil_name || !bil_c_s" (click)="submitLevel()">Save</button>
+            <button class="m-2 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 disabled:bg-neutral-500" 
+            [disabled]="!bil_name || !bil_c_s" (click)="logLevelArray()">Log</button>
+            <button class="m-2 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 disabled:bg-neutral-500" 
+            (click)="reSortLevels()">Sort</button>
+            <button class="m-2 p-2 bg-gray-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="clearForm()">Clear</button>
+            <button class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="remapLevels()">Remap level positions</button>
+            <button class="m-2 p-2 bg-red-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="removeLevel()">Remove Level</button>
+        </div>
+        <!-- Logger -->
+        <div class="bg-slate-400 m-2 p-3 rounded-lg shadow-lg flex flex-col items-stretch text-white">
+            <p>Admin Log</p>
+            <div class="bg-slate-700 m-1 p-2 rounded-lg shadow-lg text-white font-light" *ngFor="let log of auditLog">
+                <p class="border-l-2 border-slate-400 pl-1">> {{log}}</p>
+            </div>
+
+        </div>
     </div>
 </div>

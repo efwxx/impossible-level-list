@@ -11,4 +11,5 @@ export const environment = {
     measurementId: 'G-ZKBS41E5YT',
   },
   production: true,
+  adminAccessKey: 'Jy8ay#F23v2ZG#b96$MnIcH2#RvJMm^Ue8py#Zp815^h1zLT'
  };

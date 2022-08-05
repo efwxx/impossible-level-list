@@ -10,3 +10,26 @@ body {
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
     @apply bg-slate-100 dark:bg-slate-700;
 }
+
+body::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+body::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #1e293b;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #0f172a;
+  padding: 1px;
+  border-radius: 100vh;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #0f172a;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

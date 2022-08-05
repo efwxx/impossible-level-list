@@ -1,23 +1,24 @@
-<div class="ILL_ListElem -z-10" (click)="expandCard()">
+<div class="ILL_ListElem -z-10 group bg-slate-100 dark:bg-slate-800 dark:text-white 
+ w-48border-slate-400 dark:border-slate-900 hover:bg-slate-500 dark:hover:bg-slate-900 text-slate-700" (click)="expandCard()">
     <!--img class="rounded-md group-hover:shadow-lg" src="../../assets/thumbnail_placeholder.png" width="196" height="72"-->
     <div class="flex flex-col">
         <!-- Base list item -->
         <div class="flex flex-row items-center">
             <div *ngIf="level_marked_for_removal" 
-            class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly" className="group">
-                <img src="../../assets/marked_for_removal.png" width="128" height="128"
-                class="p-1 rounded-lg relative mb-1 mt-1">
-                <p class="bg-slate-800 text-lg p-2 -translate-x-48 rounded-lg absolute origin-right shadow-lg select-none">{{ "Marked for removal: " + level_markdown_reason }}</p>
+            class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly">
+                <img src="../../assets/marked_for_removal.png" width="116" height="116"/>
+                <p class="bg-slate-800 text-base p-2 -translate-x-48 rounded-lg absolute origin-right shadow-lg select-none scale-0 group-hover:scale-100 transition-all duration-300 w-48">{{ "Marked for removal: " + level_markdown_reason }}</p>
             </div>
             <div *ngIf="level_annotated" 
             class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly">
-                <img src="../../assets/annotation.png" width="128" height="128"
-                class="p-1 rounded-lg relative mb-1 mt-1">
-                <p class="bg-slate-800 text-base p-2 -translate-x-48 rounded-lg absolute origin-right shadow-lg select-none">Annotation: Subject to gameplay and decoration quality exemptions</p>
+                <img src="../../assets/annotation.png" width="116" height="116"/>
+                <p class="bg-slate-800 text-base p-2 -translate-x-48 rounded-lg absolute origin-right shadow-lg select-none scale-0 group-hover:scale-100 transition-all duration-300 w-48">Annotation: Subject to gameplay and decoration quality exemptions</p>
             </div>
             <b class="font-bold p-2 left-0 h-full text-4xl align-middle m-3 select-none">{{ '#' + level_position }}</b>
             <div class="flex flex-col items-start">
-                <h3 class="font-semibold text-2xl">{{ level_name }}</h3>
+                <h3 class="font-semibold text-2xl">
+                    {{ level_name }}
+                </h3>
                 <p class="text-sm align-bottom p-1 font-light text-justify">{{"by " + level_creators_short }}</p>
                 
             </div>
@@ -56,8 +57,8 @@
                     </div>
                     <div class="bg-slate-300 dark:bg-slate-600 p-2 m-1 rounded-md shadow-md h-fit mx-2 hover:scale-105 hover:shadow-xl transition-all duration-300">
                         <mat-icon class="align-middle">stars</mat-icon> <b>World Record:</b>
-                        <p class="font-light italic text-sm">{{"Minimum percent for WR: "+level_minimal_wr_percent}}</p>
-                        <p>{{level_wr}}<a [href]="level_wr_yt" class="text-purple-600 underline font-bold"> link</a></p>
+                        <p class="font-light italic text-sm">{{"Minimum percent for WR: ≥"+level_minimal_wr_percent+"%"}}</p>
+                        <p>{{level_wr}}<a [href]="level_wr_yt" *ngIf="level_wr != 'N/A'" class="text-purple-600 underline font-bold"> link</a></p>
                     </div>
                 </div>
             </div>

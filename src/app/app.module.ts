@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
 //Components
 import { ListElementComponent } from './list-element/list-element.component';
 import { ListComponent } from './list/list.component';
-import { AdminListEditorComponent } from './admin-list-editor/admin-list-editor.component';
 import { AdminDataEditorComponent } from './admin-data-editor/admin-data-editor.component';
 import { AdminMenuComponent } from './admin-menu/admin-menu.component';
 
@@ -24,18 +23,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 //Material
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { LoginPageComponent } from './login-page/login-page.component';
+
+import { ScrollingModule } from '@angular/cdk/scrolling'
 
 @NgModule({
   declarations: [
     AppComponent,
     ListElementComponent,
     ListComponent,
-    AdminListEditorComponent,
     AdminDataEditorComponent,
     AdminMenuComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,9 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
     FirestoreModule,
     BrowserAnimationsModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     FormsModule,
+    ScrollingModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
@@ -54,4 +59,6 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
   providers: [LevelServiceService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

@@ -1,10 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&family=Raleway:wght@100;300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .ILL_ListMain {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .ILL_Navbar {
-    font-family: 'Raleway', sans-serif;
-    @apply w-screen fixed top-0 left-0 bg-gray-300 dark:bg-gray-800 text-black dark:text-white shadow-md flex flex-row flex-nowrap flex-shrink items-center
+    font-family: 'Montserrat', sans-serif;
+    @apply w-screen fixed top-0 left-0  shadow-md flex flex-row flex-wrap flex-shrink items-center
+}
+
+.ILL_NavbarBtn {
+    @apply font-light m-2 p-2 shadow-md rounded-lg hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
+    lg:text-base sm:text-2xl
+}
+
+.ILL_BG {
+    background-image: url('../assets/BG_Light1.png');
+    @apply w-screen h-screen fixed -z-20 top-0
+}
+.ILL_BG_Dark {
+    background-image: url('../assets/BG_Dark1.png');
+    @apply w-screen h-screen fixed -z-20 top-0
 }

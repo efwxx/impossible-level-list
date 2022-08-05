@@ -45,7 +45,7 @@ export class ListElementComponent implements OnInit {
   level_wr_yt = 'https://youtu.be/xD9BWvMZGm4'
   level_uploader = 'Xane88'
   level_marked_for_removal = false;
-  level_annotated = false;
+  level_annotated = true;
   level_markdown_reason = ''
 
   card_expanded = false;
@@ -80,10 +80,9 @@ export class ListElementComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.card_yt_vidEmbedURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.card_yt_videoID)
     this.level_name = this.ill_level.name;
     this.level_fps = this.ill_level.fps;
-    this.level_id = this.ill_level.level_id;
+    this.level_id = this.ill_level.level_id.toString();
     this.level_gd_version = this.ill_level.gd_version;
     this.card_yt_videoID = this.ill_level.yt_videoID;
     this.level_creators_short = this.ill_level.creators_short;
@@ -95,7 +94,9 @@ export class ListElementComponent implements OnInit {
     this.level_wr_yt = this.ill_level.wr_yt;
     this.level_marked_for_removal = this.ill_level.marked_for_removal;
     this.level_annotated = this.ill_level.annotated;
-    this.level_position = this.ill_level.position+1;
+    this.level_position = this.ill_level.position;
+    this.level_gd_version = this.ill_level.gd_version;
+    this.card_yt_vidEmbedURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.card_yt_videoID)
   }
 
   expandCard() {

@@ -16,11 +16,11 @@ export class LevelServiceService {
 
   addLevel(level:ImpossibleLevel) {
     level.id = this.firestore.createId();
-    return this.firestore.collection("ill").add(level)
+    return this.firestore.collection("ill").doc(level.id).set(level);
   }
 
   updateLevel(level:ImpossibleLevel) {
-    return this.firestore.doc(`ill/${level.id}`).update(level);
+    return this.firestore.collection("ill").doc(level.id).update(level);
   }
 
   deleteLevel(level:ImpossibleLevel) {
