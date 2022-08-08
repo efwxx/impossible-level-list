@@ -126,22 +126,19 @@ export class AdminDataEditorComponent implements OnInit {
       this.levelList[matchingLevelIndex] = this.bil_packaged;
       this.ill_service.updateLevel(this.bil_packaged);
       this.lb_editStatus = 'Successfully updated level!'
-      this.auditLog.push('Updated data for level '+this.bil_packaged.name);
+      this.adminLogChangedData(matchingLevel, this.bil_packaged);
     }
-    setTimeout(() => {
-      this.reSortLevels();
-    }, 333)
   }
   
   
   refreshLevelListArray() {
-    this.ill_service.getEntireLevelList().subscribe(res => {
-      this.levelList = res.map((e:any ) => {
-        const data = e.payload.doc.data();
+    this.ill_service.getOrderedLevelList().then(snapshot => {
+      this.levelList = snapshot.docs.map((e:any) => {
+        const data = e.data();
         return data;
       })
-    }, err => {
-      alert(err.toString());
+    }).catch(err => {
+      console.log(err);
     })
   }
   
@@ -163,7 +160,6 @@ export class AdminDataEditorComponent implements OnInit {
           _changes++;
         }
       }
-      
     }
     this.lb_editStatus = 'Re-mapping complete: '+_changes+' changes'
   }
@@ -190,6 +186,7 @@ export class AdminDataEditorComponent implements OnInit {
     this.bil_packaged.marked_for_removal = this.bil_removal;
     this.bil_packaged.annotated = this.bil_annotation;
     this.bil_packaged.position = this.bil_index;
+    this.bil_packaged.marking_reason = this.bil_reason;
     
     //packing arrays
     this.bil_packaged.creators_full = this.bil_c_f.split(",");
@@ -253,5 +250,48 @@ export class AdminDataEditorComponent implements OnInit {
     }
   }
 
-
+  adminLogChangedData(old_data:ImpossibleLevel, new_data:ImpossibleLevel) {
+    //compare
+    this.auditLog.push('Updated '+new_data.name+'. Here are the changes: ')
+    let resultLog = 'Changed data for: '+new_data.name+'\n';
+    if(old_data.fps != new_data.fps) {
+      this.auditLog.push('Updated FPS from '+old_data.fps+' to '+new_data.fps+"\n")
+    }
+    if(old_data.level_id != new_data.level_id) {
+      this.auditLog.push('Changed level id from '+old_data.level_id+' to '+new_data.level_id+"\n")
+    }
+    if(old_data.position != new_data.position) {
+      this.auditLog.push('Moved the level '+old_data.position+' -> '+new_data.position+"\n")
+    }
+    if(old_data.uploader != new_data.uploader) {
+      this.auditLog.push('Changed level uploader: '+old_data.uploader+' -> '+new_data.uploader+"\n")
+    }
+    if(old_data.creators_full.toString() != new_data.creators_full.toString()) {
+      this.auditLog.push('Changed level creators: '+old_data.creators_full.toString()+' -> '+new_data.creators_full.toString()+"\n")
+    }
+    if(old_data.tags.toString() != new_data.tags.toString()) {
+      this.auditLog.push('Changed tags: '+old_data.tags.toString()+' -> '+new_data.tags.toString()+"\n")
+    }
+    if(old_data.wr != new_data.wr) {
+      this.auditLog.push('New World record achieved on'+new_data.name+': '+new_data.wr+' -> '+'(Link: '+new_data.wr_yt+')'+"\n")
+    }
+    if(old_data.wr_min_percent != new_data.wr_min_percent) {
+      this.auditLog.push('World Record minimal percentage changed from >'+old_data.wr_min_percent+'% to >'+new_data.wr_min_percent+"% \n")
+    }
+    if(!old_data.annotated && new_data.annotated) {
+      this.auditLog.push('Annotated '+new_data.name+'\n')
+    }
+    if(!old_data.marked_for_removal && new_data.marked_for_removal) {
+      this.auditLog.push('Marked '+new_data.name+' for removal: '+new_data.marking_reason+"\n")
+    }
+    if(old_data.annotated && !new_data.annotated) {
+      this.auditLog.push('Un-Annotated '+new_data.name+'\n')
+    }
+    if(old_data.marked_for_removal && !new_data.marked_for_removal) {
+      this.auditLog.push('Unmarked '+new_data.name+' for removal')
+    }
+    if(old_data.yt_videoID != new_data.yt_videoID) {
+      this.auditLog.push('Changed showcase video for '+new_data.name+': htpps://www.youtube.com/watch?v='+new_data.yt_videoID+'\n')
+    }
+  }
 }

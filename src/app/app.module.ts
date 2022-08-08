@@ -10,12 +10,16 @@ import { ListElementComponent } from './list-element/list-element.component';
 import { ListComponent } from './list/list.component';
 import { AdminDataEditorComponent } from './admin-data-editor/admin-data-editor.component';
 import { AdminMenuComponent } from './admin-menu/admin-menu.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 
 //Firebase setup
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database'
 import { FirestoreModule, provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
 
 //Import services
 import { LevelServiceService } from 'src/app/shared/level-service.service';
@@ -24,10 +28,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 //Material
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { provideAuth,getAuth } from '@angular/fire/auth';
-import { provideDatabase,getDatabase } from '@angular/fire/database';
-import { LoginPageComponent } from './login-page/login-page.component';
 
 import { ScrollingModule } from '@angular/cdk/scrolling'
 

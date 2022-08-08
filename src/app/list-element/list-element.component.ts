@@ -96,6 +96,7 @@ export class ListElementComponent implements OnInit {
     this.level_annotated = this.ill_level.annotated;
     this.level_position = this.ill_level.position;
     this.level_gd_version = this.ill_level.gd_version;
+    this.level_markdown_reason = this.ill_level.marking_reason;
     this.card_yt_vidEmbedURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.card_yt_videoID)
   }
 

@@ -3,6 +3,7 @@ import { ImpossibleLevel } from './impossible-level';
 import { 
   AngularFirestore, DocumentReference,
  } from '@angular/fire/compat/firestore';
+import { orderBy, query } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,11 @@ export class LevelServiceService {
   
   getEntireLevelList() {
     return this.firestore.collection('ill').snapshotChanges();
+  }
+
+  getOrderedLevelList() {
+    const coll = this.firestore.collection('ill').ref;
+    return coll.orderBy('position', 'asc').get();
   }
 
   addLevel(level:ImpossibleLevel) {

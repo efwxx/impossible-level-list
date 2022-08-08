@@ -33,12 +33,11 @@ export class ListComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
-    this.loadLevelList();
+  async ngOnInit() {
+    await this.loadLevelList();
     setTimeout(() => {
-      this.reSortLevels();
       this.cutoutPage(0, this.pageSize);
-    }, 1500);
+    }, 2000);
   }
 
   cutoutPage(start:number, length:number) {
@@ -77,15 +76,15 @@ export class ListComponent implements OnInit {
     }
   }
   
-  loadLevelList() {
-    this.ill_service.getEntireLevelList().subscribe(res => {
-      this.levelList = res.map((e:any ) => {
-        const data = e.payload.doc.data();
+  async loadLevelList() {
+    this.ill_service.getOrderedLevelList().then(snapshot => {
+      this.levelList = snapshot.docs.map((e:any) => {
+        const data = e.data();
         return data;
       })
-    }, err => {
-      alert(err.toString());
-    });
+    }).catch(err => {
+      console.log(err);
+    })
   }
   
   reSortLevels() {

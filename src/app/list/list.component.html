@@ -1,25 +1,26 @@
 <!-- Title -->
 <div class="lg:mt-20 lg:mb-32 origin-center lg:relative lg:scale-100
-sm:relative sm:w-fit h-fit sm:mx-auto mt-16 sm:scale-90 
+sm:relative sm:w-fit h-fit sm:mx-auto mt-16 sm:scale-90
 dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg">
-  <img src="../assets/logo.png" width="128" height="128" 
+  <img src="../assets/logo.png" width="128" height="128"
   class="relative mx-auto p-5 rounded-lg hover:scale-125 transition-all duration-200 active:scale-95 active:rounded-2xl" (click)="increaseEasterEgg()"/>
   <h1 class="text-3xl text-center relative font-medium">Impossible Levels List</h1>
-  <h3 class="text-center font-normal text-lg">Owned by Doki, Wuro & Tomejto</h3>  
-  <h4 class="text-center font-light italic text-sm">Website built by MateussDev</h4>  
+  <h3 class="text-center font-normal text-lg">Owned by Doki, Wuro & Tomejto</h3>
+  <h4 class="text-center font-light italic text-sm">Website built by MateussDev</h4>
+</div>
+<div class=" absolute mx-5 top-20 max-w-lg w-full p-4 mb-3 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black 
+dark:text-white text-xs sm:scale-0 lg:scale-100">
+  <b class="text-lg">Basic Rules:</b>
+  <li>Levels must be considered impossible or harder than any rated level at the time of their creation.</li>
+  <li>Levels must be physically possible.</li>
+  <li>Levels must be finished and of decent quality.</li>
+  <li>Levels must not have spam faster than 15 inputs per player in a second.</li>
+  <li>World records have a minimum progress percentage that is stated next to a level’s WR field.</li>
+  <a class="m-1 p-2 text-sm rounded-lg bg-purple-700 text-white shadow-lg hover:scale-105 transition-all duration-300 w-fit"
+  href="https://docs.google.com/document/d/1y7MwlMyiXxFiw0MRE2BYKHdThT-Q9DI6uN-9F3bOc5c">Link to more detailed rules</a>
 </div>
 <div class="flex flex-row justify-end absolute right-0 top-0">
   <div class="flex flex-col mt-20 items-end">
-    <div class="mx-5 max-w-lg w-full p-4 mb-3 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black dark:text-white text-xs sm:scale-0 lg:relative sm:absolute lg:scale-100">
-      <b class="text-lg">Basic Rules:</b>
-      <li>Levels must be considered impossible or harder than any rated level at the time of their creation.</li>
-      <li>Levels must be physically possible.</li>
-      <li>Levels must be finished and of decent quality.</li>
-      <li>Levels must not have spam faster than 15 inputs per player in a second.</li>
-      <li>World records have a minimum progress percentage that is stated next to a level’s WR field.</li>
-      <a class="m-1 p-2 text-sm rounded-lg bg-purple-700 text-white shadow-lg hover:scale-105 transition-all duration-300 w-fit" 
-      href="https://docs.google.com/document/d/1y7MwlMyiXxFiw0MRE2BYKHdThT-Q9DI6uN-9F3bOc5c">Link to more detailed rules</a>
-    </div>
     <div class="mx-5 max-w-2xl w-fit justify-self-center p-4 mb-3 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black dark:text-white text-xs items-center text-left sm:scale-0 lg:relative sm:absolute lg:scale-100">
       <b class="text-lg">Staff Members:</b>
       <div class="flex flex-row items-center justify-center">
@@ -39,7 +40,6 @@ dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg">
         <p class="italic font-semibold text-xs p-1">Normal Staff: </p>
         <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Eightos</p>
         <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Akyse</p>
-        <p class="p-1 hover:scale-110 transition-all duration-200 select-none">AuraXalaiv</p>
         <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Pamka</p>
         <p class="p-1 hover:scale-110 transition-all duration-200 select-none">KrX</p>
       </div>
@@ -60,6 +60,11 @@ dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg">
         <p class="italic font-semibold text-xs p-1">Coders: </p>
         <p class="p-1 hover:scale-110 transition-all duration-200 select-none">MateussDev</p>
       </div>
+      <div class="flex flex-row items-center justify-center">
+        <p class="italic font-semibold text-xs p-1">Artists: </p>
+        <p class="p-1 hover:scale-110 transition-all duration-200 select-none">AuraXalaiv</p>
+        <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Eightos</p>
+      </div>
     </div>
   </div>
 
@@ -76,10 +81,16 @@ dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg">
 
 </div>
 <div className="flex" class="flex flex-auto justify-center dark:text-white">
-  <div class="h-fit w-full lg:mx-[250px] sm:mx-4  p-2 bg-slate-200 dark:bg-slate-600 text-gray-600 dark:text-white 
+  <div class="h-fit w-full lg:mx-[250px] sm:mx-4  p-2 bg-slate-200 dark:bg-slate-600 text-gray-600 dark:text-white
   shadow-lg flex flex-col mt-2 mb-2 items-stretch rounded-md min-w-[512px]"
   id="ILL_ListParent" *ngIf="listSorted">
   <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>
+  <div *ngIf="levelListToDisplay.length == 0" class="text-center flex flex-col">
+    <p>Oops! Something went wrong</p>
+    <img src="../../assets/No_Results_Light.png" width="196" height="196" class="mx-auto origin-center"/>
+    <p>Check your internet connection and reload the page</p>
+
+  </div>
 </div>
 <div class="bg-slate-200 dark:bg-slate-600 p-2 rounded-lg shadow-lg m-2">
   <mat-progress-spinner *ngIf="!listSorted" mode="indeterminate" class="m-5" color="accent"></mat-progress-spinner>
