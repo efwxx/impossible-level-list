@@ -1,6 +1,6 @@
 <!-- Title -->
 <div class="lg:mt-20 lg:mb-32 origin-center lg:relative lg:scale-100
-sm:relative sm:w-fit h-fit sm:mx-auto mt-16 sm:scale-90
+relative w-fit h-fit mx-auto mt-16 mb-16 sm:scale-90
 dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg">
   <img src="../assets/logo.png" width="128" height="128"
   class="relative mx-auto p-5 rounded-lg hover:scale-125 transition-all duration-200 active:scale-95 active:rounded-2xl" (click)="increaseEasterEgg()"/>
@@ -9,7 +9,7 @@ dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg">
   <h4 class="text-center font-light italic text-sm">Website built by MateussDev</h4>
 </div>
 <div class=" absolute mx-5 top-20 max-w-lg w-full p-4 mb-3 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black 
-dark:text-white text-xs sm:scale-0 lg:scale-100">
+dark:text-white text-xs scale-0 lg:scale-100">
   <b class="text-lg">Basic Rules:</b>
   <li>Levels must be considered impossible or harder than any rated level at the time of their creation.</li>
   <li>Levels must be physically possible.</li>
@@ -21,7 +21,7 @@ dark:text-white text-xs sm:scale-0 lg:scale-100">
 </div>
 <div class="flex flex-row justify-end absolute right-0 top-0">
   <div class="flex flex-col mt-20 items-end">
-    <div class="mx-5 max-w-2xl w-fit justify-self-center p-4 mb-3 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black dark:text-white text-xs items-center text-left sm:scale-0 lg:relative sm:absolute lg:scale-100">
+    <div class="mx-5 max-w-2xl w-fit justify-self-center p-4 mb-3 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black dark:text-white text-xs items-center text-left scale-0 lg:relative absolute lg:scale-100">
       <b class="text-lg">Staff Members:</b>
       <div class="flex flex-row items-center justify-center">
         <p class="italic font-semibold text-xs p-1">Owners: </p>
@@ -75,7 +75,7 @@ dark:text-white text-xs sm:scale-0 lg:scale-100">
     <mat-icon>arrow_back</mat-icon>
   </button>
   <b>{{currentPage}}</b>
-  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white" (click)="pageFwd()" [disabled]="currentPage*pageSize>levelList.length-1">
+  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white" (click)="pageFwd()" [disabled]="false">
     <mat-icon>arrow_forward</mat-icon>
   </button>
 
@@ -102,7 +102,7 @@ dark:text-white text-xs sm:scale-0 lg:scale-100">
     <mat-icon>arrow_back</mat-icon>
   </button>
   <b>{{currentPage}}</b>
-  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white" (click)="pageFwd()" [disabled]="currentPage*pageSize>=levelList.length-1">
+  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white" (click)="pageFwd()" [disabled]="false">
     <mat-icon>arrow_forward</mat-icon>
   </button>
 </div>

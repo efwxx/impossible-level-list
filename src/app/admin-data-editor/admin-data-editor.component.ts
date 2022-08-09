@@ -78,18 +78,14 @@ export class AdminDataEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.refreshLevelListArray();
-    setTimeout(() => {
-      this.reSortLevels();
-    }, 1000);
-
     //handle admin
-    
   }
 
   clearForm() {
     this.bil_name = '';
     this.bil_fps = 0;
     this.bil_gdv = '';
+    this.bil_id = '';
     this.bil_ytid = '';
     this.bil_c_s = '';
     this.bil_c_f = '';
@@ -100,14 +96,14 @@ export class AdminDataEditorComponent implements OnInit {
     this.bil_wr = '';
     this.bil_removal = false;
     this.bil_annotation = false;
-    this.bil_index = 0;
+    this.bil_reason = '';
   }
   
   submitLevel() {
     this.packageLevel(); //package data to object
     this.lb_editStatus = 'Sending level to database...'
     let matchingLevel = this.levelList.find((arr_level) => {
-      return arr_level.name == this.bil_packaged.name && arr_level.creators_short == this.bil_packaged.creators_short;
+      return arr_level.name == this.bil_name && arr_level.creators_short == this.bil_c_s;
     }); //check for existing level with same name/creator
     if(matchingLevel == undefined) {
       this.levelList.splice(this.bil_index-1, 0, this.bil_packaged) //insert the level using splice
@@ -118,9 +114,9 @@ export class AdminDataEditorComponent implements OnInit {
       });
       this.lb_editStatus = 'Successfully added level!'
       this.auditLog.push('Added level '+this.bil_packaged.name+' at #'+this.bil_index);
-    } else {
+    } else if(matchingLevel != undefined) {
       let matchingLevelIndex = this.levelList.findIndex((arr_level) => {
-        return arr_level.name == this.bil_packaged.name && arr_level.creators_short == this.bil_packaged.creators_short;
+        return arr_level.name == matchingLevel?.name && arr_level.creators_short == matchingLevel?.creators_short
       });
       this.bil_packaged.id = matchingLevel.id;
       this.levelList[matchingLevelIndex] = this.bil_packaged;
@@ -195,7 +191,6 @@ export class AdminDataEditorComponent implements OnInit {
     //removal of URL
     this.bil_packaged.yt_videoID = this.bil_ytid.replace('youtube.com/watch?v=', '').replace('https://','').replace('www.','').replace('youtu.be/','');
     
-    console.log(this.bil_packaged);
   }
   
   logLevelArray() {
@@ -237,7 +232,6 @@ export class AdminDataEditorComponent implements OnInit {
   }
   
   removeLevel() {
-    this.refreshLevelListArray();
     this.packageLevel()
     let matchingLevel = this.levelList.find((arr_level) => {
       return arr_level.name == this.bil_packaged.name && arr_level.creators_short == this.bil_packaged.creators_short;

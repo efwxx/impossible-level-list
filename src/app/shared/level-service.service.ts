@@ -20,6 +20,11 @@ export class LevelServiceService {
     return coll.orderBy('position', 'asc').get();
   }
 
+  getOrderedLevelPage(start:number, end:number) {
+    const coll = this.firestore.collection('ill').ref;
+    return coll.orderBy('position', 'asc').startAt(start).limit(end).get();
+  }
+
   addLevel(level:ImpossibleLevel) {
     level.id = this.firestore.createId();
     return this.firestore.collection("ill").doc(level.id).set(level);

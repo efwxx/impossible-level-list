@@ -34,39 +34,36 @@ export class ListComponent implements OnInit {
 
 
   async ngOnInit() {
-    await this.loadLevelList();
-    setTimeout(() => {
-      this.cutoutPage(0, this.pageSize);
-    }, 2000);
+    this.cutoutPage(0, this.pageSize);
   }
 
-  cutoutPage(start:number, length:number) {
-    this.listSorted = false;
+  async cutoutPage(start:number, end:number) {
     this.levelListToDisplay = [];
-    for(let i=start; i<start+length && i<this.levelList.length; i++) {
-      this.levelListToDisplay.push(this.levelList[i]);
-    }
+    this.listSorted = false;
+    await this.ill_service.getOrderedLevelPage(start, end).then(snapshot => {
+      this.levelListToDisplay = snapshot.docs.map((e:any) => {
+        const data = e.data();
+        return data;
+      })
+    }).catch(err => {
+      console.log(err);
+    })
     this.listSorted = true;
-
   }
 
   pageFwd() {
-    if(this.currentPage*this.pageSize<this.levelList.length-1) {
-      this.currentPage+=1;
-      this.cutoutPage(this.currentPage*this.pageSize, this.pageSize);
-    } else {
-      this.showErrorLabel = true;
-      this.errorLabelText = 'No more pages avaliable'
-      setTimeout(() => {
-        this.showErrorLabel = false;
-      }, 3000);
-    }
+    console.log('Moving forward')
+    this.currentPage+=1;
+    console.log("loading elements from", this.currentPage*this.pageSize,"to", (this.currentPage*this.pageSize)+this.pageSize)
+    this.cutoutPage(this.currentPage*this.pageSize, (this.currentPage*this.pageSize)+this.pageSize);
   }
   
   pageBck() {
+    console.log('Moving back')
     if(this.currentPage>0) {
       this.currentPage-=1;
-      this.cutoutPage(this.currentPage*this.pageSize, this.pageSize);
+      console.log("loading elements from", this.currentPage*this.pageSize,"to", (this.currentPage*this.pageSize)+this.pageSize)
+      this.cutoutPage(this.currentPage*this.pageSize, (this.currentPage*this.pageSize)+this.pageSize);
     } else {
       this.showErrorLabel = true;
       this.errorLabelText = 'No pages avaliable before page 0'
@@ -85,11 +82,6 @@ export class ListComponent implements OnInit {
     }).catch(err => {
       console.log(err);
     })
-  }
-  
-  reSortLevels() {
-    this.levelList = this.levelList.sort((a, b) => { return a.position - b.position});
-    this.listSorted = true;
   }
 
   log() {
