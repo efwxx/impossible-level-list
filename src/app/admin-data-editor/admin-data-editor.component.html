@@ -1,11 +1,13 @@
 <div class="flex flex-row ILL_Admin">
     <!-- Position map -->
     <div class="ILL_AdminScroll dark:text-white relative left-0 bg-slate-300 dark:bg-slate-800 lg:w-fit w-48 lg:min-w-[320px] h-screen p-5 shadow-lg overflow-y-scroll lg:text-base text-xs ">
-        <button class="bg-slate-300 dark:bg-slate-700 m-1 p-1 text-lg w-auto h-auto 
-        rounded-lg shadow-md select-none hover:scale-105 hover:shadow-lg transition-all duration-200" (click)="refreshLevelListArray()">
-            <mat-icon class="align-middle">refresh</mat-icon>
-        </button>
-        <ul>
+        <div class="w-48 bg-slate-500 fixed">
+            <button class="bg-slate-300 dark:bg-slate-700 m-1 p-1 text-lg w-auto h-auto 
+            rounded-lg shadow-md select-none hover:scale-105 hover:shadow-lg transition-all duration-200" (click)="refreshLevelListArray()">
+                <mat-icon class="align-middle">refresh</mat-icon>
+            </button>
+        </div>
+        <ul class="mt-16">
             <!-- the level micro-card -->
             <li class="flex flex-row items-center hover:scale-105 hover:shadow-xl transition-all duration-200" *ngFor="let level of levelList" (click)="loadDataFromLevel(level)">
                 <b class="bg-slate-300 dark:bg-slate-700 m-1 p-1 lg:text-lg text-sm rounded-lg shadow-md select-none">{{level.position}}</b>
@@ -58,6 +60,7 @@
             <button class="m-2 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 disabled:bg-neutral-500" 
             (click)="reSortLevels()">Sort</button>
             <button class="m-2 p-2 bg-gray-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="clearForm()">Clear</button>
+            <button class="m-2 p-2 bg-gray-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="log()">Log</button>
             <button class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="remapLevels()">Remap level positions</button>
             <button class="m-2 p-2 bg-red-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="removeLevel()">Remove Level</button>
         </div>

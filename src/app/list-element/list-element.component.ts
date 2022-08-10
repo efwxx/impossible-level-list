@@ -51,6 +51,7 @@ export class ListElementComponent implements OnInit {
   card_expanded = false;
   card_yt_videoID = 'DqB2uTY9-Ss'
   card_yt_vidEmbedURL: SafeResourceUrl | undefined;
+  card_yt_thumbnailURL: SafeResourceUrl | undefined;
 
   //all data in 1 object
   
@@ -98,6 +99,7 @@ export class ListElementComponent implements OnInit {
     this.level_gd_version = this.ill_level.gd_version;
     this.level_markdown_reason = this.ill_level.marking_reason;
     this.card_yt_vidEmbedURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.card_yt_videoID)
+    this.card_yt_thumbnailURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://img.youtube.com/vi/'+this.card_yt_videoID+'/sddefault.jpg')
   }
 
   expandCard() {

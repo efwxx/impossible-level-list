@@ -10,8 +10,8 @@
 }
 
 .ILL_NavbarBtn {
-    @apply font-light m-2 p-2 shadow-md rounded-lg hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-    lg:text-base text-2xl
+    @apply font-light lg:m-2 lg:p-2 m-1 p-1 shadow-md rounded-lg hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
+    lg:text-base text-lg
 }
 
 .ILL_BG {

@@ -22,7 +22,7 @@ export class LevelServiceService {
 
   getOrderedLevelPage(start:number, end:number) {
     const coll = this.firestore.collection('ill').ref;
-    return coll.orderBy('position', 'asc').startAt(start).limit(end).get();
+    return coll.orderBy('position', 'asc').startAt(start).limit(end).get()
   }
 
   addLevel(level:ImpossibleLevel) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ImpossibleLevel } from '../shared/impossible-level';
@@ -97,32 +97,34 @@ export class AdminDataEditorComponent implements OnInit {
     this.bil_removal = false;
     this.bil_annotation = false;
     this.bil_reason = '';
+    console.log(this.bil_name)
   }
   
   submitLevel() {
     this.packageLevel(); //package data to object
+    this.refreshLevelListArray();
     this.lb_editStatus = 'Sending level to database...'
+
     let matchingLevel = this.levelList.find((arr_level) => {
-      return arr_level.name == this.bil_name && arr_level.creators_short == this.bil_c_s;
+      return arr_level.name == this.bil_packaged.name && arr_level.creators_short == this.bil_packaged.creators_short
     }); //check for existing level with same name/creator
+    console.log(matchingLevel?.name, '<- Matched level', this.bil_packaged.name, '<- packaged level');
+
     if(matchingLevel == undefined) {
-      this.levelList.splice(this.bil_index-1, 0, this.bil_packaged) //insert the level using splice
-      this.ill_service.addLevel(this.bil_packaged).then(res => { //add level to database
-        console.log(res);
-      }).catch(error => {
+      this.ill_service.addLevel(this.bil_packaged).catch(error => {
         this.lb_editStatus = error.toString();
       });
+      this.levelList.splice(this.bil_packaged.position-1, 0, this.bil_packaged)
       this.lb_editStatus = 'Successfully added level!'
       this.auditLog.push('Added level '+this.bil_packaged.name+' at #'+this.bil_index);
-    } else if(matchingLevel != undefined) {
+    } else {
       let matchingLevelIndex = this.levelList.findIndex((arr_level) => {
-        return arr_level.name == matchingLevel?.name && arr_level.creators_short == matchingLevel?.creators_short
+        return arr_level.name == this.bil_packaged.name && arr_level.creators_short == this.bil_packaged.creators_short;
       });
       this.bil_packaged.id = matchingLevel.id;
-      this.levelList[matchingLevelIndex] = this.bil_packaged;
+      this.adminLogChangedData(matchingLevel, this.bil_packaged);
       this.ill_service.updateLevel(this.bil_packaged);
       this.lb_editStatus = 'Successfully updated level!'
-      this.adminLogChangedData(matchingLevel, this.bil_packaged);
     }
   }
   
@@ -195,6 +197,10 @@ export class AdminDataEditorComponent implements OnInit {
   
   logLevelArray() {
     console.log(this.levelList);
+  }
+
+  log() {
+    console.log(this.bil_name, this.bil_c_s)
   }
   
   loadDataFromLevel(level:ImpossibleLevel) {

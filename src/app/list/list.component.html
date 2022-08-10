@@ -1,6 +1,6 @@
 <!-- Title -->
 <div class="lg:mt-20 lg:mb-32 origin-center lg:relative lg:scale-100
-relative w-fit h-fit mx-auto mt-16 mb-16 sm:scale-90
+relative w-fit h-fit mx-auto mt-16 mb-16 scale-90
 dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg">
   <img src="../assets/logo.png" width="128" height="128"
   class="relative mx-auto p-5 rounded-lg hover:scale-125 transition-all duration-200 active:scale-95 active:rounded-2xl" (click)="increaseEasterEgg()"/>
@@ -80,9 +80,9 @@ dark:text-white text-xs scale-0 lg:scale-100">
   </button>
 
 </div>
-<div className="flex" class="flex flex-auto justify-center dark:text-white">
-  <div class="h-fit w-full lg:mx-[250px] sm:mx-4  p-2 bg-slate-200 dark:bg-slate-600 text-gray-600 dark:text-white
-  shadow-lg flex flex-col mt-2 mb-2 items-stretch rounded-md min-w-[512px]"
+<div class="w-full lg:w-fit dark:text-white mx-auto">
+  <div class="h-fit lg:mx-[250px] mx-2  lg:p-2 p-0 bg-slate-200 dark:bg-slate-600 text-gray-600 dark:text-white
+  lg:shadow-lg flex flex-col mt-2 mb-2 items-stretch lg:rounded-md lg:min-w-[512px] min-w-0"
   id="ILL_ListParent" *ngIf="listSorted">
   <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>
   <div *ngIf="levelListToDisplay.length == 0" class="text-center flex flex-col">
@@ -92,8 +92,8 @@ dark:text-white text-xs scale-0 lg:scale-100">
 
   </div>
 </div>
-<div class="bg-slate-200 dark:bg-slate-600 p-2 rounded-lg shadow-lg m-2">
-  <mat-progress-spinner *ngIf="!listSorted" mode="indeterminate" class="m-5" color="accent"></mat-progress-spinner>
+<div class="bg-slate-200 dark:bg-slate-600 p-2 rounded-lg shadow-lg m-2 mx-auto" *ngIf="!listSorted">
+  <mat-progress-spinner  mode="indeterminate" class="m-5 mx-auto" color="accent"></mat-progress-spinner>
 </div>
 </div>
 <!-- page navigation Bottom -->

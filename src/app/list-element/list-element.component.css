@@ -6,3 +6,23 @@
     hover:shadow-xl hover:rounded-xl transition-all duration-300 ease-in-out hover:text-white
     disabled:border-red-900 disabled:bg-red-800;
 }
+
+.ILL_ListElemScroll::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.ILL_ListElemScroll::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #475569;
+}
+
+.ILL_ListElemScroll::-webkit-scrollbar-thumb {
+  background: #0f172a;
+  padding: 1px;
+  border-radius: 100vh;
+}
+
+.ILL_ListElemScroll::-webkit-scrollbar-thumb:hover {
+  background: #0f172a;
+}
