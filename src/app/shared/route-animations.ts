@@ -6,7 +6,8 @@ import {
     group,
     animateChild,
     animate,
-    keyframes
+    keyframes,
+    state
 } from '@angular/animations'
 
 export const fader = 

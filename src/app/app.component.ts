@@ -6,6 +6,9 @@ import { AuthService } from './shared/auth.service';
 import { UserData } from './shared/user-data';
 import { Router, RouterOutlet } from '@angular/router';
 
+const perf = firebase.performance()
+const analytics = firebase.analytics();
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -34,18 +37,21 @@ export class AppComponent implements OnInit {
   
   ngOnInit(): void {
     //themes
-    if (localStorage['theme'] === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    if (localStorage['theme'] === 'dark' || (!('theme' in localStorage))) {
       document.documentElement.classList.add('dark')
       document.documentElement.classList.remove('light')
       this._themeRef = 'dark';
+      localStorage['theme'] = 'dark'
     } else {
       document.documentElement.classList.add('light')
       document.documentElement.classList.remove('dark')
       this._themeRef = 'light';
+      localStorage['theme'] = 'light'
     }
   }
   
   toggleTheme() {
+    console.log('here')
     if(localStorage['theme'] === 'dark') {
       this._themeRef = 'light'
       document.documentElement.classList.add('light')

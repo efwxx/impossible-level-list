@@ -28,6 +28,14 @@ export class ListComponent implements OnInit {
   //easter eggs
   _timesClickedOnLogo:number = 0;
 
+  //search
+  srch_input: string = '';
+  srch_criteria: string = 'name';
+  srch_dropdown: boolean = false;
+  srch_showingSearchResults: boolean = false;
+
+  _currentTheme = localStorage['theme'];
+
   constructor(private ill_service: LevelServiceService) {
   }
 
@@ -39,6 +47,7 @@ export class ListComponent implements OnInit {
 
   async cutoutPage(start:number, end:number) {
     this.levelListToDisplay = [];
+    this.srch_showingSearchResults = false;
     this.listSorted = false;
     await this.ill_service.getOrderedLevelPage(start, end).then(snapshot => {
       this.levelListToDisplay = snapshot.docs.map((e:any) => {
@@ -56,6 +65,11 @@ export class ListComponent implements OnInit {
     this.currentPage+=1;
     console.log("loading elements from", this.currentPage*this.pageSize,"to", (this.currentPage*this.pageSize)+this.pageSize)
     this.cutoutPage(this.currentPage*this.pageSize, (this.currentPage*this.pageSize)+this.pageSize);
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
   }
   
   pageBck() {
@@ -64,6 +78,11 @@ export class ListComponent implements OnInit {
       this.currentPage-=1;
       console.log("loading elements from", this.currentPage*this.pageSize,"to", (this.currentPage*this.pageSize)+this.pageSize)
       this.cutoutPage(this.currentPage*this.pageSize, (this.currentPage*this.pageSize)+this.pageSize);
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
     } else {
       this.showErrorLabel = true;
       this.errorLabelText = 'No pages avaliable before page 0'
@@ -81,6 +100,11 @@ export class ListComponent implements OnInit {
       })
     }).catch(err => {
       console.log(err);
+    })
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
     })
   }
 
@@ -117,5 +141,98 @@ export class ListComponent implements OnInit {
     if(this._timesClickedOnLogo == 200) {
       alert("Go outside")
     }
+  }
+
+  toggleSearchDropdown() {
+    if(this.srch_dropdown) {
+      this.srch_dropdown = false;
+    } else {
+      this.srch_dropdown = true;
+    }
+  }
+
+  selectCriteria(crit:string) {
+    this.srch_criteria = crit;
+    this.srch_dropdown = false;
+  }
+
+  async search(crit:string, input:string) {
+    this.listSorted = false;
+    this.levelList = [];
+    this.srch_showingSearchResults = true;
+    console.log('begin search')
+    switch (crit) {
+      case 'name':
+        console.log('searching through names')
+        await this.ill_service.firestore.collection('ill').ref.where('name', '==', input).orderBy('position').get().then(res => {
+          this.levelListToDisplay = res.docs.map((e:any) => {
+            const data = e.data();
+            return data;
+          })
+        }).catch(err => {
+          this.listSorted = true;
+          console.log(err);
+        })
+        this.listSorted = true;
+        break;
+      case 'id':
+        console.log('searching through normal fields')
+        await this.ill_service.firestore.collection('ill').ref.where('level_id', '==', input).orderBy('position').get().then(res => {
+          this.levelListToDisplay = res.docs.map((e:any) => {
+            const data = e.data();
+            return data;
+          })
+        }).catch(err => {
+          this.listSorted = true;
+          console.log(err);
+        })
+        this.listSorted = true;
+        break;
+      case 'update':
+        console.log('searching through normal fields')
+        await this.ill_service.firestore.collection('ill').ref.where('gd_version', '==', input).orderBy('position').get().then(res => {
+          this.levelListToDisplay = res.docs.map((e:any) => {
+            const data = e.data();
+            return data;
+          })
+        }).catch(err => {
+          this.listSorted = true;
+          console.log(err);
+        })
+        this.listSorted = true;
+        break;
+      case 'creator':
+        console.log('earching through array fields')
+        await this.ill_service.firestore.collection('ill').ref.where('creators_full', 'array-contains', input).orderBy('position').get().then(res => {
+          this.levelListToDisplay = res.docs.map((e:any) => {
+            const data = e.data();
+            return data;
+          })
+        }).catch(err => {
+          this.listSorted = true;
+          console.log(err);
+        })
+        this.listSorted = true;
+        break;
+      case 'tag':
+        console.log('earching through array fields')
+        await this.ill_service.firestore.collection('ill').ref.where('tags', 'array-contains', input).orderBy('position').get().then(res => {
+          this.levelListToDisplay = res.docs.map((e:any) => {
+            const data = e.data();
+            return data;
+          })
+        }).catch(err => {
+          this.listSorted = true;
+          console.log(err);
+        })
+        this.listSorted = true;
+        break;
+      
+    }
+    window.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
   }
 }

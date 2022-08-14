@@ -30,17 +30,4 @@ export class LoginPageComponent implements OnInit {
       this.router.navigate(['../home']);
     }
   }
-
-  createNewAccount() {
-    if (this.adminUserKey == environment.adminAccessKey) {
-      console.log('Admin key correct');
-      this.authService.createAdminAccount(this.userEmail, this.userPassword);
-      this.router.navigate(['../admin']);
-    } else {
-      this.authService.createAccount(this.userEmail, this.userPassword);
-      this.router.navigate(['../home']);
-    }
-  }
-
-
 }

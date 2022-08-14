@@ -45,17 +45,16 @@ export class AuthService {
     })
   }
 
-  createAccount(email:string, password:string) {
-    this.afAuth.createUserWithEmailAndPassword(email, password).then(res => {
+  createAccount(username:string, email:string, password:string) {
+    return this.afAuth.createUserWithEmailAndPassword(email, password).then(res => {
       const data: UserData = {
         uid: res.user?.uid,
+        username: username,
         email: email,
         roles: {admin:false, reader:true}
       }
       this.firestore.collection('user').doc(data.uid).set(data);
       console.log('Successfully created account: ', email);
-    }).catch(err => {
-      console.log(err);
     })
   }
 
@@ -96,4 +95,6 @@ export class AuthService {
     console.log('Current user is NOT ADMIN')
     return false;
   }
+
+  
 }

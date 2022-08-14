@@ -6,12 +6,47 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { LevelServiceService } from 'src/app/shared/level-service.service'
 import { ImpossibleLevel } from '../shared/impossible-level'
 import { Attribute } from '@angular/compiler';
+import { 
+  animate, state, style, transition, trigger 
+} from '@angular/animations';
 
 
 @Component({
   selector: 'app-list-element',
   templateUrl: './list-element.component.html',
-  styleUrls: ['./list-element.component.css']
+  styleUrls: ['./list-element.component.css'],
+  animations: [
+    trigger('openClose', [
+      // ...
+      state('open', style({
+        height: '485px',
+      })),
+      state('closed', style({
+        height: '160px',
+      })),
+      transition('open => closed', [
+        animate('0.3s ease-in-out')
+      ]),
+      transition('closed => open', [
+        animate('0.2s ease-in-out')
+      ]),
+    ]),
+    trigger('mobileOpenClose', [
+      // ...
+      state('m_open', style({
+        height: '830px',
+      })),
+      state('m_closed', style({
+        height: 'fit-content',
+      })),
+      transition('m_open => m_closed', [
+        animate('0.3s ease-in-out')
+      ]),
+      transition('m_closed => m_open', [
+        animate('0.2s ease-in-out')
+      ]),
+    ])
+  ]
 })
 export class ListElementComponent implements OnInit {
 
@@ -49,6 +84,7 @@ export class ListElementComponent implements OnInit {
   level_markdown_reason = ''
 
   card_expanded = false;
+  card_mobile_expanded = false;
   card_yt_videoID = 'DqB2uTY9-Ss'
   card_yt_vidEmbedURL: SafeResourceUrl | undefined;
   card_yt_thumbnailURL: SafeResourceUrl | undefined;
@@ -99,14 +135,21 @@ export class ListElementComponent implements OnInit {
     this.level_gd_version = this.ill_level.gd_version;
     this.level_markdown_reason = this.ill_level.marking_reason;
     this.card_yt_vidEmbedURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.card_yt_videoID)
-    this.card_yt_thumbnailURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://img.youtube.com/vi/'+this.card_yt_videoID+'/sddefault.jpg')
+    this.card_yt_thumbnailURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://img.youtube.com/vi/'+this.card_yt_videoID+'/default.jpg')
   }
 
   expandCard() {
-    if(!this.card_expanded) {
-      this.card_expanded = true;
-    } else {
-      this.card_expanded = false;
+    if (!this.card_mobile_expanded) {
+      this.card_mobile_expanded = true && window.innerWidth <= 820;
+    }
+    else if (this.card_mobile_expanded) {
+      this.card_mobile_expanded = !(true && window.innerWidth <= 820);
+    }
+    if (!this.card_expanded) {
+      this.card_expanded = true && window.innerWidth > 820;
+    }
+    else if (this.card_expanded) {
+      this.card_expanded = !(true && window.innerWidth > 820);
     }
   }
 }

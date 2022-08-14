@@ -77,7 +77,14 @@ export class AdminDataEditorComponent implements OnInit {
   constructor(public ill_service:LevelServiceService, private auth_service: AuthService, private afAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
-    this.refreshLevelListArray();
+    //setup basic stuff
+    this.ill_service.firestore.collection('ill').ref.orderBy('position').onSnapshot(snapshot => {
+      let changes = snapshot.docChanges().map(change => change)
+      //replace all of the changes
+      this.levelList.forEach((level, i) => {
+        
+      })
+    })
     //handle admin
   }
 
@@ -130,14 +137,7 @@ export class AdminDataEditorComponent implements OnInit {
   
   
   refreshLevelListArray() {
-    this.ill_service.getOrderedLevelList().then(snapshot => {
-      this.levelList = snapshot.docs.map((e:any) => {
-        const data = e.data();
-        return data;
-      })
-    }).catch(err => {
-      console.log(err);
-    })
+    
   }
   
   

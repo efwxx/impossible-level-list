@@ -4,17 +4,16 @@
     <input type="email" placeholder="your-email@example.com" class="p-2 m-2 w-full rounded-lg border-l-2 border-blue-600" [(ngModel)]="userEmail"/>
     <p>Password:</p>
     <input type="password" placeholder="Password" class="p-2 m-2 w-full rounded-lg border-l-2 border-blue-600" [(ngModel)]="userPassword"/>
-    <p>(Optional) Admin Private Access key:</p>
-    <input type="password" placeholder="Admin access key. Ignore if unknown" class="p-0.5 text-sm m-2 w-full rounded-lg border-l-2 border-red-600" [(ngModel)]="adminUserKey"/>
     <div class="flex flex-row">
         <button class="bg-neutral-700 text-white shadow-lg rounded-lg p-2 m-1
         hover:scale-105 hover:shadow-xl transition-all duration-300">Cancel</button>
         <button class="bg-blue-700 text-white shadow-lg rounded-lg p-2 m-1
         hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-slate-500 disabled:text-slate-700"
         [disabled]="!userEmail || !userPassword" (click)="logIntoAccount()">Log In</button>
-        <button class="bg-blue-700 text-white shadow-lg rounded-lg p-2 m-1
-        hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-slate-500 disabled:text-slate-700"
-        [disabled]="!userEmail || !userPassword" (click)="createNewAccount()">Create New Account</button>
         
     </div>
+    <p>Don't have an account?</p>
+    <button class="bg-blue-700 text-white shadow-lg rounded-lg p-2 m-1
+    hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-slate-500 disabled:text-slate-700"
+    routerLink="/signup">Create New Account</button>
 </div>

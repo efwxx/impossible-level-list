@@ -29,7 +29,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { ScrollingModule } from '@angular/cdk/scrolling'
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { CreateAccountComponent } from './create-account/create-account.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { CreatorLeaderboardComponent } from './creator-leaderboard/creator-leaderboard.component'
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
     AdminDataEditorComponent,
     AdminMenuComponent,
     LoginPageComponent,
+    CreateAccountComponent,
+    ProfilePageComponent,
+    CreatorLeaderboardComponent,
   ],
   imports: [
     BrowserModule,

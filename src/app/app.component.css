@@ -16,9 +16,11 @@
 
 .ILL_BG {
     background-image: url('../assets/BG_Light1.png');
+    background-size: cover;
     @apply w-screen h-screen fixed -z-20 top-0
 }
 .ILL_BG_Dark {
     background-image: url('../assets/BG_Dark1.png');
+    background-size: cover;
     @apply w-screen h-screen fixed -z-20 top-0
 }

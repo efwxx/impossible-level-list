@@ -7,5 +7,6 @@ export interface UserData {
     uid?: string;
     email: string;
     roles: Roles;
-    displayName?: string;
+    username?: string;
+    creatorPoints?: number;
 }
