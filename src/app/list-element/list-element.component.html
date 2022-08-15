@@ -8,24 +8,28 @@ border-slate-400 dark:border-slate-900 hover:bg-slate-500 dark:hover:bg-slate-90
             <div *ngIf="level_marked_for_removal" 
             class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly lg:w-[116px] w-0">
                 <img src="../../assets/marked_for_removal.png" width="116" height="116"/>
-                <p class="bg-slate-800 text-base p-2 -translate-x-48 rounded-lg absolute origin-right shadow-lg select-none scale-0 group-hover:scale-100 transition-all duration-300 w-48">{{ "Marked for removal: " + level_markdown_reason }}</p>
+                <p class="bg-slate-800 text-base p-2 -translate-x-[420px] rounded-lg absolute origin-right shadow-lg select-none scale-0 group-hover:scale-100 transition-all duration-300 w-48">
+                    {{ "Marked for removal: " + level_markdown_reason }}
+                </p>
             </div>
             <div *ngIf="level_annotated" 
             class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly lg:w-[116px] w-0">
                 <img src="../../assets/annotation.png" width="116" height="116"/>
-                <p class="bg-slate-800 text-base p-2 -translate-x-48 rounded-lg absolute origin-right shadow-lg select-none scale-0 group-hover:scale-100 transition-all duration-300 w-48">Annotation: Subject to gameplay and decoration quality exemptions</p>
+                <p class="bg-slate-800 text-base p-2 -translate-x-[420px] rounded-lg absolute origin-right shadow-lg select-none scale-0 group-hover:scale-100 transition-all duration-300 w-48">
+                    Annotation: Subject to gameplay and decoration quality exemptions
+                </p>
             </div>
             <div class="flex flex-row items-start justify-between w-80">
                 <b class="font-bold p-2 left-0 h-full lg:text-4xl text-2xl align-middle m-3 select-none">
                     {{ '#' + level_position }}
                 </b>
-                <div class="flex flex-col items-start w-48">
-                    <h3 class="font-semibold text-2xl">
-                        <mat-icon class="lg:scale-0 scale-100 align-middle" *ngIf="level_annotated">assignment</mat-icon>
-                        <mat-icon class="lg:scale-0 scale-100 align-middle" *ngIf="level_marked_for_removal">clear</mat-icon>
+                <div class="flex flex-col items-start justify-start w-48">
+                    <h3 class="font-semibold text-2xl ">
+                        <mat-icon class="lg:scale-0 lg:absolute relative scale-100 align-middle" *ngIf="level_annotated">assignment</mat-icon>
+                        <mat-icon class="lg:scale-0 lg:absolute relative scale-100 align-middle" *ngIf="level_marked_for_removal">clear</mat-icon>
                         {{ level_name }}
                     </h3>
-                    <p class="text-sm align-bottom p-1 font-light">{{"by " + level_creators_short }}</p>
+                    <p class="text-sm align-bottom p-1 font-light ">{{"by " + level_creators_short }}</p>
                     
                 </div>
             </div>
@@ -34,7 +38,7 @@ border-slate-400 dark:border-slate-900 hover:bg-slate-500 dark:hover:bg-slate-90
                 <br/>
                 <p class="font-medium align-text-bottom lg:text-base text-xs text-right">{{'Level ID: '+level_id}}</p>
                 <!-- Tags for the level -->
-                <div class="flex flex-row flex-wrap flex-shrink">
+                <div class="flex flex-row flex-wrap flex-shrink" *ngIf="level_tags.length > 0">
                     <b *ngFor="let tag of level_tags" class="bg-blue-600 dark:bg-blue-900 text-white rounded-xl relative 
                     w-fit h-fit font-medium lg:p-2 lg:text-base text-xs p-[6px] shadow-md hover:shadow-xl m-1 hover:scale-105 transition-all duration-300 select-none" >{{tag}}</b>
                 </div>

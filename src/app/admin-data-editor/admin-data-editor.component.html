@@ -1,11 +1,12 @@
 <div class="flex flex-row ILL_Admin">
     <!-- Position map -->
     <div class="ILL_AdminScroll dark:text-white relative left-0 bg-slate-300 dark:bg-slate-800 lg:w-fit w-48 lg:min-w-[320px] h-screen p-5 shadow-lg overflow-y-scroll lg:text-base text-xs ">
-        <div class="w-48 bg-slate-500 fixed">
-            <button class="bg-slate-300 dark:bg-slate-700 m-1 p-1 text-lg w-auto h-auto 
+        <div class="fixed w-fit left-64">
+            <button class="m-1 p-1 text-lg h-auto z-30 bg-slate-200 dark:bg-slate-700
             rounded-lg shadow-md select-none hover:scale-105 hover:shadow-lg transition-all duration-200" (click)="refreshLevelListArray()">
                 <mat-icon class="align-middle">refresh</mat-icon>
             </button>
+            
         </div>
         <ul class="mt-16">
             <!-- the level micro-card -->

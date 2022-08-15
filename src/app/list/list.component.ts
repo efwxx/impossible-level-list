@@ -15,7 +15,7 @@ export class ListComponent implements OnInit {
 
   levelListToDisplay: ImpossibleLevel[] = [];
   currentPage:number = 0;
-  pageSize:number = 50;
+  pageSize:number = 100;
   showErrorLabel:boolean = false;
   errorLabelText:string = '';
   the_end = false;
@@ -217,17 +217,24 @@ export class ListComponent implements OnInit {
         break;
       case 'tag':
         console.log('earching through array fields')
-        await this.ill_service.firestore.collection('ill').ref.where('tags', 'array-contains', input).orderBy('position').get().then(res => {
-          this.levelListToDisplay = res.docs.map((e:any) => {
-            const data = e.data();
-            return data;
+        if(this.srch_input != 'No Victors') {
+          await this.ill_service.firestore.collection('ill').ref.where('tags', 'array-contains', input).orderBy('position').get().then(res => {
+            this.levelListToDisplay = res.docs.map((e:any) => {
+              const data = e.data();
+              return data;
+            })
+          }).catch(err => {
+            this.listSorted = true;
+            console.log(err);
           })
-        }).catch(err => {
           this.listSorted = true;
-          console.log(err);
-        })
-        this.listSorted = true;
-        break;
+          break;
+        } else {
+          this.levelListToDisplay = [];
+          console.log('LMFAO')
+          this.listSorted = true;
+          break;
+        }
       
     }
     window.scroll({

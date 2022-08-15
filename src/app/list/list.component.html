@@ -1,13 +1,15 @@
 <!-- Title -->
-<div class="lg:mt-20 lg:mb-32 origin-center lg:relative lg:scale-100
-relative w-fit h-fit mx-auto mt-16 mb-16 scale-90
-dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg">
-  <img src="../assets/logo.png" width="128" height="128"
-  class="relative mx-auto p-5 rounded-lg hover:scale-125 transition-all duration-200 active:scale-95 active:rounded-2xl" (click)="increaseEasterEgg()"/>
-  <h1 class="text-3xl text-center relative font-medium">Impossible Levels List</h1>
-  <h3 class="text-center font-normal text-lg">Owned by Doki, Wuro & Tomejto</h3>
-  <h4 class="text-center font-light italic text-sm">Website built by MateussDev</h4>
-</div>
+<article>
+  <div class="lg:mt-20 lg:mb-32 origin-center lg:relative lg:scale-100
+  relative w-fit h-fit mx-auto mt-16 mb-16 scale-90
+  dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg">
+    <img src="../assets/logo.png" width="128" height="128"
+    class="relative mx-auto p-5 rounded-lg hover:scale-125 transition-all duration-200 active:scale-95 active:rounded-2xl" (click)="increaseEasterEgg()"/>
+    <h1 class="text-3xl text-center relative font-medium">Impossible Levels List</h1>
+    <h3 class="text-center font-normal text-lg">Owned by Doki, Wuro & Tomejto</h3>
+    <h4 class="text-center font-light italic text-sm">Website built by MateussDev</h4>
+  </div>
+</article>
 
 <!-- Rules -->
 <div class=" absolute mx-5 top-20 max-w-lg w-full p-4 mb-3 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black 
@@ -81,11 +83,11 @@ dark:text-white text-xs scale-0 lg:scale-100">
 
 <!-- page navigation Top -->
 <div class="flex flex-row bg-slate-200 dark:bg-slate-600 p-2 w-fit mx-auto text-xl text-black dark:text-white rounded-lg shadow-lg items-center">
-  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white" (click)="pageBck()" [disabled]="currentPage<=0">
+  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageBck()" [disabled]="currentPage<=0">
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <b>{{currentPage}}</b>
-  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white" (click)="pageFwd()" [disabled]="false">
+  <b>{{currentPage+1}}</b>
+  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageFwd()" [disabled]="false">
     <mat-icon>arrow_forward</mat-icon>
   </button>
 
@@ -104,7 +106,7 @@ dark:text-white text-xs scale-0 lg:scale-100">
       <div class="group justify-end">
         <button (click)="toggleSearchDropdown()" class="flex flex-row text-white bg-blue-600 
         rounded-lg p-2 m-2 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 h-fit text-xs align-middle">Pick a criteria: {{srch_criteria}} <mat-icon>keyboard_arrow_down</mat-icon></button>
-        <div class="origin-top absolute bg-slate-100 p-1 w-24 select-none lg:text-sm text-lg" *ngIf="srch_dropdown">
+        <div class="origin-top absolute bg-slate-100 p-1 w-24 select-none lg:text-sm text-lg z-30 shadow-xl" *ngIf="srch_dropdown">
           <p class="hover:bg-slate-300 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('name')">Name</p>
           <p class="hover:bg-slate-300 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('creator')">Creator</p>
           <p class="hover:bg-slate-300 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('tag')">Tag</p>
@@ -123,12 +125,16 @@ dark:text-white text-xs scale-0 lg:scale-100">
   id="ILL_ListParent" *ngIf="listSorted">
   <h3 *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for {{srch_criteria+": "+srch_input}}:</h3>
   <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>
-  <div *ngIf="levelListToDisplay.length == 0" class="text-center flex flex-col bg-slate-100 dark:bg-slate-800 w-fit mx-auto p-5 m-1 rounded-lg shadow-lg">
+  <div *ngIf="levelListToDisplay.length == 0 && !(srch_criteria == 'tag' && srch_input == 'No Victors')" class="text-center flex flex-col bg-slate-100 dark:bg-slate-800 w-fit mx-auto p-5 m-1 rounded-lg shadow-lg">
     <b>Oops! We didn't find what you searched for!</b>
     <img src="../../assets/No_Results_Light.png" width="196" height="196" class="mx-auto origin-center" *ngIf="_currentTheme == 'light'"/>
     <img src="../../assets/No_Results_Dark.png" width="196" height="196" class="mx-auto origin-center" *ngIf="_currentTheme == 'dark'"/>
     <i>Check your search keywords and try again!</i>
-
+  </div>
+  <div *ngIf="srch_criteria == 'tag' && srch_input == 'No Victors'" class="text-center flex flex-col bg-slate-100 dark:bg-slate-800 w-fit mx-auto p-5 m-1 rounded-lg shadow-lg">
+    <b>Why are you searching for this tag?</b>
+    <img src="../../assets/lennard.png" width="196" height="196" class="mx-auto origin-center"/>
+    <i>The list is literally all about this</i>
   </div>
 </div>
 <div class="bg-slate-200 dark:bg-slate-600 p-2 rounded-lg shadow-lg m-2 mx-auto" *ngIf="!listSorted">
@@ -137,11 +143,11 @@ dark:text-white text-xs scale-0 lg:scale-100">
 </div>
 <!-- page navigation Bottom -->
 <div class="flex flex-row bg-slate-200 dark:bg-slate-600 p-2 w-fit mx-auto text-xl text-black dark:text-white rounded-lg shadow-lg items-center">
-  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white" (click)="pageBck()" [disabled]="currentPage<=0">
+  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageBck()" [disabled]="currentPage<=0">
     <mat-icon>arrow_back</mat-icon>
   </button>
-  <b>{{currentPage}}</b>
-  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white" (click)="pageFwd()" [disabled]="false">
+  <b>{{currentPage+1}}</b>
+  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageFwd()" [disabled]="false">
     <mat-icon>arrow_forward</mat-icon>
   </button>
 </div>

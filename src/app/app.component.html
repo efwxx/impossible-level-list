@@ -39,6 +39,12 @@
         <b class="lg:scale-100 lg:relative absolute scale-0">Discord server</b>
       </span>
     </a>
+    <a routerLink="/faq">
+      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <mat-icon class="align-middle">help</mat-icon>
+      <b class="lg:scale-100 lg:relative absolute scale-0">FAQ</b>
+    </span>   
+    </a>
     <a href="https://docs.google.com/document/d/1TNNkuLVUE4kUv6bCnh-RuXroLky8yyL-HdWJoYNbRlI/edit?usp=sharing">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
       <mat-icon class="align-middle">history</mat-icon>
@@ -51,6 +57,7 @@
       <b class="lg:scale-100 lg:relative absolute scale-0">Donate to Mateuss</b>
     </span>   
     </a>
+    
     <a routerLink="/admin" *ngIf="afAuth.authState |async as user" [hidden]="!_adminAccess">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
       <mat-icon class="align-middle">border_color</mat-icon>

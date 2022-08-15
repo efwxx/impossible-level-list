@@ -32,7 +32,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
-import { CreatorLeaderboardComponent } from './creator-leaderboard/creator-leaderboard.component'
+import { CreatorLeaderboardComponent } from './creator-leaderboard/creator-leaderboard.component';
+import { FaqComponent } from './faq/faq.component'
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { CreatorLeaderboardComponent } from './creator-leaderboard/creator-leade
     CreateAccountComponent,
     ProfilePageComponent,
     CreatorLeaderboardComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,

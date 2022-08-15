@@ -7,6 +7,7 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { CreatorLeaderboardComponent } from './creator-leaderboard/creator-leaderboard.component';
+import { FaqComponent } from './faq/faq.component';
 
 const routes: Routes = [
   {path: 'admin', component: AdminMenuComponent, canActivate: [AuthGuard]},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path: 'signup', component: CreateAccountComponent},
   {path: 'profile', component: ProfilePageComponent},
   {path: 'leaderboard', component: CreatorLeaderboardComponent},
+  {path: 'faq', component: FaqComponent},
 ];
 
 @NgModule({

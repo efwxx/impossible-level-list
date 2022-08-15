@@ -78,6 +78,11 @@ export class AdminDataEditorComponent implements OnInit {
 
   ngOnInit(): void {
     //load the list once
+    this.setupList();
+    //handle admin
+  }
+
+  setupList() {
     this.ill_service.getOrderedLevelList().then(doc => {
       this.levelList = doc.docs.map((e:any) => {
         const data = e.data();
@@ -107,7 +112,6 @@ export class AdminDataEditorComponent implements OnInit {
         }
       })
     })
-    //handle admin
   }
 
   clearForm() {
@@ -168,24 +172,26 @@ export class AdminDataEditorComponent implements OnInit {
   
   
   remapLevels() {
-    let _changes = 0;
-    this.lb_editStatus = 'Re-mapping level positions...'
-    for(let i=0; i<this.levelList.length; i++) {
-      console.log(this.levelList[i].position, '=>', i+1) //compare
-      if(this.levelList[i].position != i+1) {
-        console.log('error in '+this.levelList[i].name+"'s position... fixing...")
-        this.levelList[i].position = i+1;
-        console.log(this.levelList[i].position, '->', i+1);
+    if(confirm('Are you sure you want to Remap all level positions?')) {
+      let _changes = 0;
+      this.lb_editStatus = 'Re-mapping level positions...'
+      for(let i=0; i<this.levelList.length; i++) {
+        console.log(this.levelList[i].position, '=>', i+1) //compare
         if(this.levelList[i].position != i+1) {
-          console.log('Failed to fix '+this.levelList[i].name+"'s level position")
-        } else {
-          console.log('Fixing of '+this.levelList[i].name+" complete... Updating level...")
-          this.ill_service.updateLevel(this.levelList[i]);
-          _changes++;
+          console.log('error in '+this.levelList[i].name+"'s position... fixing...")
+          this.levelList[i].position = i+1;
+          console.log(this.levelList[i].position, '->', i+1);
+          if(this.levelList[i].position != i+1) {
+            console.log('Failed to fix '+this.levelList[i].name+"'s level position")
+          } else {
+            console.log('Fixing of '+this.levelList[i].name+" complete... Updating level...")
+            this.ill_service.updateLevel(this.levelList[i]);
+            _changes++;
+          }
         }
       }
+      this.lb_editStatus = 'Re-mapping complete: '+_changes+' changes'
     }
-    this.lb_editStatus = 'Re-mapping complete: '+_changes+' changes'
   }
   
   reSortLevels() {
