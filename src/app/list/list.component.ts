@@ -49,6 +49,7 @@ export class ListComponent implements OnInit {
     this.levelListToDisplay = [];
     this.srch_showingSearchResults = false;
     this.listSorted = false;
+    console.log("Showing page starting from", start, "->", end)
     await this.ill_service.getOrderedLevelPage(start, end).then(snapshot => {
       this.levelListToDisplay = snapshot.docs.map((e:any) => {
         const data = e.data();

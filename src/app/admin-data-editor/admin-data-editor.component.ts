@@ -77,12 +77,34 @@ export class AdminDataEditorComponent implements OnInit {
   constructor(public ill_service:LevelServiceService, private auth_service: AuthService, private afAuth: AngularFireAuth) { }
 
   ngOnInit(): void {
-    //setup basic stuff
+    //load the list once
+    this.ill_service.getOrderedLevelList().then(doc => {
+      this.levelList = doc.docs.map((e:any) => {
+        const data = e.data();
+        return data;
+      })
+    })
+    //setup real-time updates
     this.ill_service.firestore.collection('ill').ref.orderBy('position').onSnapshot(snapshot => {
-      let changes = snapshot.docChanges().map(change => change)
+      let changes: ImpossibleLevel[] = snapshot.docChanges().map((e:any) => {
+        const data = e.doc.data();
+        return data;
+      })
       //replace all of the changes
-      this.levelList.forEach((level, i) => {
-        
+      changes.forEach((level, i) => {
+        let _matchingLevelIndex = this.levelList.findIndex((arr_level) => {
+          return arr_level.name == level.name && arr_level.creators_short == level.creators_short;
+        });
+        if(_matchingLevelIndex != undefined) {
+          console.log('Updating level...');
+          this.levelList[_matchingLevelIndex] = level;
+        } else {
+          console.log('Adding level...');
+          this.levelList.push(level);
+          this.levelList.sort((a, b) => {
+            return a.position-b.position;
+          })
+        }
       })
     })
     //handle admin
@@ -109,7 +131,6 @@ export class AdminDataEditorComponent implements OnInit {
   
   submitLevel() {
     this.packageLevel(); //package data to object
-    this.refreshLevelListArray();
     this.lb_editStatus = 'Sending level to database...'
 
     let matchingLevel = this.levelList.find((arr_level) => {
@@ -137,7 +158,12 @@ export class AdminDataEditorComponent implements OnInit {
   
   
   refreshLevelListArray() {
-    
+    this.ill_service.getOrderedLevelList().then(doc => {
+      this.levelList = doc.docs.map((e:any) => {
+        const data = e.data();
+        return data;
+      })
+    })
   }
   
   
@@ -245,6 +271,7 @@ export class AdminDataEditorComponent implements OnInit {
     if(matchingLevel == undefined) {
       this.lb_editStatus = 'No Matching level found'
     } else {
+      this.auditLog.push(matchingLevel.name+' removed')
       this.ill_service.deleteLevel(matchingLevel);
       this.lb_editStatus = 'Removed Level successfully!'
     }
@@ -253,45 +280,44 @@ export class AdminDataEditorComponent implements OnInit {
   adminLogChangedData(old_data:ImpossibleLevel, new_data:ImpossibleLevel) {
     //compare
     this.auditLog.push('Updated '+new_data.name+'. Here are the changes: ')
-    let resultLog = 'Changed data for: '+new_data.name+'\n';
     if(old_data.fps != new_data.fps) {
-      this.auditLog.push('Updated FPS from '+old_data.fps+' to '+new_data.fps+"\n")
+      this.auditLog.push(new_data.name+' FPS updated: '+old_data.fps+' -> '+new_data.fps)
     }
     if(old_data.level_id != new_data.level_id) {
-      this.auditLog.push('Changed level id from '+old_data.level_id+' to '+new_data.level_id+"\n")
+      this.auditLog.push(new_data.name+' level ID updated: '+old_data.level_id+' -> '+new_data.level_id)
     }
     if(old_data.position != new_data.position) {
-      this.auditLog.push('Moved the level '+old_data.position+' -> '+new_data.position+"\n")
+      this.auditLog.push(new_data.name+' moved from '+old_data.position+' to '+new_data.position)
     }
     if(old_data.uploader != new_data.uploader) {
-      this.auditLog.push('Changed level uploader: '+old_data.uploader+' -> '+new_data.uploader+"\n")
+      this.auditLog.push(new_data.name+' uploader updated: '+new_data.uploader)
     }
     if(old_data.creators_full.toString() != new_data.creators_full.toString()) {
-      this.auditLog.push('Changed level creators: '+old_data.creators_full.toString()+' -> '+new_data.creators_full.toString()+"\n")
+      this.auditLog.push(new_data.name+' creators updated')
     }
     if(old_data.tags.toString() != new_data.tags.toString()) {
-      this.auditLog.push('Changed tags: '+old_data.tags.toString()+' -> '+new_data.tags.toString()+"\n")
+      this.auditLog.push('Changed tags: '+old_data.tags.toString()+' -> '+new_data.tags.toString())
     }
     if(old_data.wr != new_data.wr) {
-      this.auditLog.push('New World record achieved on'+new_data.name+': '+new_data.wr+' -> '+'(Link: '+new_data.wr_yt+')'+"\n")
+      this.auditLog.push('New World record achieved on'+new_data.name+': '+new_data.wr+' -> '+'(Link: '+new_data.wr_yt+')')
     }
     if(old_data.wr_min_percent != new_data.wr_min_percent) {
-      this.auditLog.push('World Record minimal percentage changed from >'+old_data.wr_min_percent+'% to >'+new_data.wr_min_percent+"% \n")
+      this.auditLog.push('World Record minimal percentage changed from >'+old_data.wr_min_percent+'% to >'+new_data.wr_min_percent+"%")
     }
     if(!old_data.annotated && new_data.annotated) {
-      this.auditLog.push('Annotated '+new_data.name+'\n')
+      this.auditLog.push('Annotation added to '+new_data.name+' - Subject to gameplay and decoration quality exemptions')
     }
     if(!old_data.marked_for_removal && new_data.marked_for_removal) {
-      this.auditLog.push('Marked '+new_data.name+' for removal: '+new_data.marking_reason+"\n")
+      this.auditLog.push(new_data.name+' marked for removal: '+new_data.marking_reason)
     }
     if(old_data.annotated && !new_data.annotated) {
-      this.auditLog.push('Un-Annotated '+new_data.name+'\n')
+      this.auditLog.push('Annotation removed from '+new_data.name)
     }
     if(old_data.marked_for_removal && !new_data.marked_for_removal) {
-      this.auditLog.push('Unmarked '+new_data.name+' for removal')
+      this.auditLog.push(new_data.name+' mark resolved')
     }
     if(old_data.yt_videoID != new_data.yt_videoID) {
-      this.auditLog.push('Changed showcase video for '+new_data.name+': htpps://www.youtube.com/watch?v='+new_data.yt_videoID+'\n')
+      this.auditLog.push(new_data.name+' showcase video changed: '+'htpps://www.youtube.com/watch?v='+new_data.yt_videoID)
     }
   }
 }

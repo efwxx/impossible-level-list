@@ -6,8 +6,6 @@ import { AuthService } from './shared/auth.service';
 import { UserData } from './shared/user-data';
 import { Router, RouterOutlet } from '@angular/router';
 
-const perf = firebase.performance()
-const analytics = firebase.analytics();
 
 @Component({
   selector: 'app-root',

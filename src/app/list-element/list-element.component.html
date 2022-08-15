@@ -4,7 +4,7 @@ border-slate-400 dark:border-slate-900 hover:bg-slate-500 dark:hover:bg-slate-90
     <div class="flex flex-col">
         <!-- Base list item -->
         <div class="flex flex-row items-center justify-evenly">
-            <img [src]="card_yt_thumbnailURL" class="p-3 lg:w-[230px] w-0 lg:relative absolute ILL_Thumbnail">
+            <img [src]="card_yt_thumbnailURL" class="m-2 lg:w-[230px] w-0 lg:relative absolute aspect-video rounded-lg">
             <div *ngIf="level_marked_for_removal" 
             class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly lg:w-[116px] w-0">
                 <img src="../../assets/marked_for_removal.png" width="116" height="116"/>
@@ -71,7 +71,7 @@ border-slate-400 dark:border-slate-900 hover:bg-slate-500 dark:hover:bg-slate-90
                     <div class="bg-slate-300 dark:bg-slate-600 p-2 m-1 rounded-md shadow-md h-fit lg:w-fit w-full 
                     text-sm hover:shadow-xl transition-all duration-300">
                         <mat-icon class="align-middle">build</mat-icon> <b> Creators:</b>
-                        <div class="flex flex-wrap max-w-[256px] justify-center">
+                        <div class="flex flex-wrap max-w-[196px] justify-center">
                             <i *ngFor="let creator of level_creators_full" class="m-1 p-1 lg:bg-slate-200 lg:dark:bg-slate-800 lg:rounded-lg lg:font-bold lg:shadow-lg transition-all duration-300 hover:scale-105">{{ creator }}</i>
                         </div>
                     </div>
@@ -79,7 +79,8 @@ border-slate-400 dark:border-slate-900 hover:bg-slate-500 dark:hover:bg-slate-90
                         <mat-icon class="align-middle">stars</mat-icon> <b>World Record:</b>
                         <p class="font-light italic text-sm">{{"Minimum percent for WR: ≥"+level_minimal_wr_percent+"%"}}</p>
                         <p>{{level_wr}}</p>
-                        <a [href]="level_wr_yt" *ngIf="level_wr != 'N/A'" class="text-purple-600 underline font-bold">link</a>
+                        <a [href]="level_wr_yt" *ngIf="level_wr != ''" class="text-purple-600 underline font-bold">link</a>
+                        <p *ngIf="level_wr == ''">No world records yet. Be the first to achieve one!</p>
                     </div>
                 </div>
             </div>

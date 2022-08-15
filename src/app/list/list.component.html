@@ -90,6 +90,8 @@ dark:text-white text-xs scale-0 lg:scale-100">
   </button>
 
 </div>
+
+<!-- Search -->
 <div class="flex flex-row items-center bg-slate-300 dark:bg-slate-600 mx-auto my-2 p-4 rounded-lg shadow-lg w-fit">
   <div class="flex flex-col">
     <b class="font-bold text-lg dark:text-white mr-2">Search:</b>
@@ -113,13 +115,14 @@ dark:text-white text-xs scale-0 lg:scale-100">
     </div>
   </div>
 </div>
+
+<!-- List -->
 <div class="w-full lg:w-fit dark:text-white mx-auto">
   <div class="h-fit mx-2  lg:p-2 p-0 bg-slate-200 dark:bg-slate-600 text-gray-600 dark:text-white
   lg:shadow-lg flex flex-col mt-2 mb-2 items-stretch lg:rounded-md lg:min-w-[800px] min-w-0"
   id="ILL_ListParent" *ngIf="listSorted">
   <h3 *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for {{srch_criteria+": "+srch_input}}:</h3>
   <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>
-  <!-- <app-list-element></app-list-element> -->
   <div *ngIf="levelListToDisplay.length == 0" class="text-center flex flex-col bg-slate-100 dark:bg-slate-800 w-fit mx-auto p-5 m-1 rounded-lg shadow-lg">
     <b>Oops! We didn't find what you searched for!</b>
     <img src="../../assets/No_Results_Light.png" width="196" height="196" class="mx-auto origin-center" *ngIf="_currentTheme == 'light'"/>

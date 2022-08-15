@@ -90,23 +90,21 @@ export class ListElementComponent implements OnInit {
   card_yt_thumbnailURL: SafeResourceUrl | undefined;
 
   //all data in 1 object
-  
-
   @Input('ill_level') ill_level:ImpossibleLevel = {
     id: '',
     position: 0,
-    name: '',
-    fps: 0,
+    name: 'The Cyclonic',
+    fps: -1820385,
     level_id: '',
     gd_version: '',
-    yt_videoID: '',
+    yt_videoID: 'DqB2uTY9-Ss',
     creators_short: '',
-    creators_full: [],
+    creators_full: ['Eightos1', 'Eightos2', 'Eightos3', 'Eightos4', 'Eightos5', 'Ewe23', 'Locked101', 'MateussDev', 'NotRealAcc', 'LennardHater228', 'skubb', 'adaf', 'AuraXalaiv'],
     tags: [],
-    uploader: '',
-    wr_min_percent: '',
-    wr: '',
-    wr_yt: '',
+    uploader: 'Xane88',
+    wr_min_percent: '0.01',
+    wr: '0.092% (eli22507)',
+    wr_yt: 'https://youtu.be/xD9BWvMZGm4',
     marked_for_removal: false,
     annotated: false,
     marking_reason: ''
@@ -135,7 +133,7 @@ export class ListElementComponent implements OnInit {
     this.level_gd_version = this.ill_level.gd_version;
     this.level_markdown_reason = this.ill_level.marking_reason;
     this.card_yt_vidEmbedURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.card_yt_videoID)
-    this.card_yt_thumbnailURL = this.sanitizer.bypassSecurityTrustResourceUrl('http://img.youtube.com/vi/'+this.card_yt_videoID+'/default.jpg')
+    this.card_yt_thumbnailURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://i.ytimg.com/vi/'+this.card_yt_videoID+'/mqdefault.jpg')
   }
 
   expandCard() {
