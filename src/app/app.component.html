@@ -24,55 +24,56 @@
     <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
     hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
     dark:bg-slate-600">
-    <mat-icon class="align-middle">refresh</mat-icon>
+    <fa-icon [icon]="i_refresh" class="m-1"></fa-icon>
   </span>   
   </a>
   <a (click)="toggleTheme()">
     <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-    <mat-icon class="align-middle">wb_sunny</mat-icon>
+      <fa-icon [icon]="i_darkmode" *ngIf="_themeRef === 'dark'" class="m-1"></fa-icon>
+      <fa-icon [icon]="i_lightmode" *ngIf="_themeRef === 'light'" class="m-1"></fa-icon>
   </span>   
   </a>
   <div class="justify-self-center mx-auto">
     <a href="https://discord.gg/MHx4Nbp">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-        <mat-icon class="align-middle">videogame_asset</mat-icon> 
+        <fa-icon [icon]="i_discord" class="m-1"></fa-icon>
         <b class="lg:scale-100 lg:relative absolute scale-0">Discord server</b>
       </span>
     </a>
     <a routerLink="/faq">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <mat-icon class="align-middle">help</mat-icon>
+      <fa-icon [icon]="i_faq" class="m-1"></fa-icon>
       <b class="lg:scale-100 lg:relative absolute scale-0">FAQ</b>
     </span>   
     </a>
     <a href="https://docs.google.com/document/d/1TNNkuLVUE4kUv6bCnh-RuXroLky8yyL-HdWJoYNbRlI/edit?usp=sharing">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <mat-icon class="align-middle">history</mat-icon>
+      <fa-icon [icon]="i_oldList" class="m-1"></fa-icon>
       <b class="lg:scale-100 lg:relative absolute scale-0">Old list</b>
     </span>
     </a>
     <a href="https://www.patreon.com/mateussdev">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <mat-icon class="align-middle">attach_money</mat-icon> 
+      <fa-icon [icon]="i_patreon" class="m-1"></fa-icon>
       <b class="lg:scale-100 lg:relative absolute scale-0">Donate to Mateuss</b>
     </span>   
     </a>
     
     <a routerLink="/admin" *ngIf="afAuth.authState |async as user" [hidden]="!_adminAccess">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <mat-icon class="align-middle">border_color</mat-icon>
+      <fa-icon [icon]="i_admin" class="m-1"></fa-icon>
       <b class="lg:scale-100 lg:relative absolute scale-0">Admin panel</b>
     </span>
     </a>
     <a *ngIf="(afAuth.authState |async) === null" routerLink="/login">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <mat-icon class="align-middle">account_circle</mat-icon>
+      <fa-icon [icon]="i_login" class="m-1"></fa-icon>
       <b class="lg:scale-100 lg:relative absolute scale-0">Sign In</b>
     </span>   
     </a>
     <a *ngIf="(afAuth.authState |async)" (click)="afAuth.signOut()">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <mat-icon class="align-middle">exit_to_app</mat-icon> 
+      <fa-icon [icon]="i_logout" class="m-1"></fa-icon>
       <b class="lg:scale-100 lg:relative absolute scale-0">Sign Out</b>
     </span>   
     </a>

@@ -10,6 +10,11 @@ import {
   animate, state, style, transition, trigger 
 } from '@angular/animations';
 
+import {
+
+} from '@fortawesome/fontawesome-svg-core'
+import { faBarsStaggered, faBook, faCheckCircle, faDeleteLeft, faInfo, faInfoCircle, faScrewdriverWrench, faStopwatch, faTrophy } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-list-element',
@@ -88,6 +93,16 @@ export class ListElementComponent implements OnInit {
   card_yt_videoID = 'DqB2uTY9-Ss'
   card_yt_vidEmbedURL: SafeResourceUrl | undefined;
   card_yt_thumbnailURL: SafeResourceUrl | undefined;
+
+  //icons
+  i_annotation = faBook;
+  i_removal = faDeleteLeft;
+  i_info = faInfoCircle;
+  i_creators = faScrewdriverWrench;
+  i_wr = faTrophy;
+  i_verified = faCheckCircle;
+  i_fps = faStopwatch;
+  i_levelID = faBarsStaggered;
 
   //all data in 1 object
   @Input('ill_level') ill_level:ImpossibleLevel = {

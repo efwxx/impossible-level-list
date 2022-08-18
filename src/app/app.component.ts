@@ -5,6 +5,8 @@ import firebase from 'firebase/compat/app'
 import { AuthService } from './shared/auth.service';
 import { UserData } from './shared/user-data';
 import { Router, RouterOutlet } from '@angular/router';
+import { faFileLines, faHistory, faMoon, faQuestionCircle, faRefresh, faRightFromBracket, faRightToBracket, faRotateRight, faSun, faToolbox } from '@fortawesome/free-solid-svg-icons'
+import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons';
 
 
 @Component({
@@ -22,6 +24,18 @@ export class AppComponent implements OnInit {
   _adminAccess:boolean = false;
 
   _themeRef:string = 'light';
+
+  //icons
+  i_discord = faDiscord;
+  i_patreon = faPatreon;
+  i_oldList = faFileLines;
+  i_faq = faQuestionCircle;
+  i_logout = faRightFromBracket;
+  i_login = faRightToBracket;
+  i_darkmode = faMoon;
+  i_lightmode = faSun;
+  i_refresh = faRotateRight;
+  i_admin = faToolbox;
   
   async refreshAdminAccess() {
     const isAdmin = await this.authService.isCurrentUserAdmin()

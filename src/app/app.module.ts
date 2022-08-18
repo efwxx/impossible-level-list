@@ -33,7 +33,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { CreatorLeaderboardComponent } from './creator-leaderboard/creator-leaderboard.component';
-import { FaqComponent } from './faq/faq.component'
+import { FaqComponent } from './faq/faq.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { FaqComponent } from './faq/faq.component'
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    FontAwesomeModule
   ],
   providers: [LevelServiceService],
   bootstrap: [AppComponent]

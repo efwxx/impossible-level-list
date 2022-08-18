@@ -3,6 +3,34 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { ImpossibleLevel } from 'src/app/shared/impossible-level'
 import { LevelServiceService } from '../shared/level-service.service';
+import {
+  faArrowLeft,
+  faArrowRight,
+  faBarsStaggered,
+  faBiohazard,
+  faBone,
+  faBong,
+  faChair,
+  faCode,
+  faCodeBranch,
+  faDatabase,
+  faDragon,
+  faLock,
+  faMound,
+  faP,
+  faPoo,
+  faScrewdriverWrench,
+  faShieldCat,
+  faSkull,
+  faSortDown,
+  faSpa,
+  faTag,
+  faTractor,
+  faUser,
+  faWaveSquare
+} from '@fortawesome/free-solid-svg-icons'
+import { formatNumber } from '@angular/common';
+import { faYandex } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-list',
@@ -14,7 +42,7 @@ export class ListComponent implements OnInit {
   levelList: ImpossibleLevel[] = [];
 
   levelListToDisplay: ImpossibleLevel[] = [];
-  currentPage:number = 0;
+  currentPage:number = 1;
   pageSize:number = 100;
   showErrorLabel:boolean = false;
   errorLabelText:string = '';
@@ -35,6 +63,33 @@ export class ListComponent implements OnInit {
   srch_showingSearchResults: boolean = false;
 
   _currentTheme = localStorage['theme'];
+
+  //icons
+  i_name = faDatabase;
+  i_tag = faTag;
+  i_creator = faScrewdriverWrench;
+  i_version = faCodeBranch;
+  i_id = faBarsStaggered;
+  i_arrLeft = faArrowLeft;
+  i_arrRight = faArrowRight;
+  i_expand = faSortDown;
+
+  //user icons
+  i_MateussDev = faCode;
+  i_Locked101 = faLock;
+  i_sequoia = faSkull;
+  i_Numb = faSpa;
+  i_Trin = faBong;
+  i_maus999 = faTractor;
+  i_Pamka = faP
+  i_Wuro = faShieldCat;
+  i_Tomejito = faMound;
+  i_skele = faBone;
+  i_Relayne = faYandex;
+  i_AuraXalaiv = faDragon;
+  i_Eightos = faPoo;
+  i_skub = faChair;
+  i_krx = faWaveSquare;
 
   constructor(private ill_service: LevelServiceService) {
   }
@@ -64,8 +119,8 @@ export class ListComponent implements OnInit {
   pageFwd() {
     console.log('Moving forward')
     this.currentPage+=1;
-    console.log("loading elements from", this.currentPage*this.pageSize,"to", (this.currentPage*this.pageSize)+this.pageSize)
-    this.cutoutPage(this.currentPage*this.pageSize, (this.currentPage*this.pageSize)+this.pageSize);
+    console.log("loading elements from", (this.currentPage-1)*this.pageSize,"to", ((this.currentPage-1)*this.pageSize)+this.pageSize)
+    this.cutoutPage((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize);
     window.scroll({
       top: 0,
       left: 0,
@@ -75,10 +130,10 @@ export class ListComponent implements OnInit {
   
   pageBck() {
     console.log('Moving back')
-    if(this.currentPage>0) {
+    if(this.currentPage>1) {
       this.currentPage-=1;
-      console.log("loading elements from", this.currentPage*this.pageSize,"to", (this.currentPage*this.pageSize)+this.pageSize)
-      this.cutoutPage(this.currentPage*this.pageSize, (this.currentPage*this.pageSize)+this.pageSize);
+      console.log("loading elements from", (this.currentPage-1)*this.pageSize,"to", ((this.currentPage-1)*this.pageSize)+this.pageSize)
+      this.cutoutPage((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize);
       window.scroll({
         top: 0,
         left: 0,
