@@ -1,10 +1,16 @@
 <div class="ILL_ListElem -z-10 group bg-slate-100 dark:bg-slate-800 dark:text-white 
-border-slate-400 dark:border-slate-900 hover:bg-slate-500 dark:hover:bg-slate-900 text-slate-700 transition-all duration-300 lg:w-[1152px]" 
+border-slate-400 dark:border-slate-900 hover:bg-slate-500 dark:hover:bg-slate-900 text-slate-700 transition-all duration-300" 
 (click)="expandCard()" [@openClose]="card_expanded ? 'open' : 'closed'" [@mobileOpenClose]="card_mobile_expanded ? 'm_open':'m_closed'">
     <div class="flex flex-col">
-        <!-- Base list item -->
+
+        <!-- List Item Top -->
+
         <div class="flex flex-row items-center justify-evenly">
+
+            <!-- Thumbnail -->
             <img [src]="card_yt_thumbnailURL" class="m-2 lg:w-[230px] w-0 lg:relative absolute aspect-video rounded-lg">
+
+            <!-- Marked for removal -->
             <div *ngIf="level_marked_for_removal" 
             class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly lg:w-[116px] w-0">
                 <img src="../../assets/marked_for_removal.png" width="116" height="116"/>
@@ -12,6 +18,8 @@ border-slate-400 dark:border-slate-900 hover:bg-slate-500 dark:hover:bg-slate-90
                     {{ "Marked for removal: " + level_markdown_reason }}
                 </p>
             </div>
+            
+            <!-- Annotated -->
             <div *ngIf="level_annotated" 
             class="m-0 p-0 rounded-xl flex flex-col items-center justify-evenly lg:w-[116px] w-0">
                 <img src="../../assets/annotation.png" width="116" height="116"/>
@@ -19,76 +27,114 @@ border-slate-400 dark:border-slate-900 hover:bg-slate-500 dark:hover:bg-slate-90
                     Annotation: Subject to gameplay and decoration quality exemptions
                 </p>
             </div>
-            <div class="flex flex-row items-start justify-between w-80">
-                <b class="font-bold p-2 left-0 h-full lg:text-4xl text-2xl align-middle m-3 select-none">
-                    {{ '#' + level_position }}
-                </b>
-                <div class="flex flex-col items-start justify-start w-48">
-                    <h3 class="font-semibold text-2xl ">
-                        <mat-icon class="lg:scale-0 lg:absolute relative scale-100 align-middle" *ngIf="level_annotated">assignment</mat-icon>
-                        <mat-icon class="lg:scale-0 lg:absolute relative scale-100 align-middle" *ngIf="level_marked_for_removal">clear</mat-icon>
-                        {{ level_name }}
-                    </h3>
-                    <p class="text-sm align-bottom p-1 font-light ">{{"by " + level_creators_short }}</p>
-                    
+
+            <!-- Level position -->
+            <b class="font-bold p-2 left-0 h-full lg:text-4xl text-2xl align-middle m-3 select-none">
+                {{ '#' + level_position }}
+            </b>
+
+
+            <div class="flex flex-col w-full justify-center">
+                
+                <!-- Data column -->
+                <div class="flex flex-row items-center justify-between w-full">
+                    <!-- Name and creator -->
+                    <div class="flex flex-col items-start justify-start w-fit">
+                        <b class="font-semibold text-xl w-fit">
+                            <fa-icon class="lg:absolute lg:scale-0 relative scale-100 align-middle" *ngIf="level_marked_for_removal" [icon]="i_removal"></fa-icon>
+                            <fa-icon class="lg:absolute lg:scale-0 relative scale-100 align-middle" *ngIf="level_annotated" [icon]="i_annotation"></fa-icon>
+                            <fa-icon class="lg:absolute lg:scale-0 relative scale-100 align-middle" *ngIf="level_minimal_wr_percent == '100'" [icon]="i_verified"></fa-icon>
+                            
+                            {{ level_name }}
+                        </b>
+                        <i class="text-lg align-bottom p-1 font-light ">{{"by " + level_creators_short }}</i>
+                    </div>
+
+                    <!-- FPS and ID -->
+                    <div class="flex flex-col items-end justify-evenly">
+                        <p class="font-light align-text-top"><fa-icon class="m-1" [icon]="i_fps"></fa-icon>{{'FPS: '+level_fps}}</p>
+                        <br/>
+                        <p class="font-medium align-text-bottom lg:text-base text-xs text-right"><fa-icon class="m-1" [icon]="i_levelID"></fa-icon>{{'Level ID: '+level_id}}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="flex ml-auto mr-1 flex-col items-end justify-evenly">
-                <p class="font-light align-text-top"><fa-icon class="m-1" [icon]="i_fps"></fa-icon>{{'FPS: '+level_fps}}</p>
-                <br/>
-                <p class="font-medium align-text-bottom lg:text-base text-xs text-right"><fa-icon class="m-1" [icon]="i_levelID"></fa-icon>{{'Level ID: '+level_id}}</p>
-                <!-- Tags for the level -->
-                <div class="flex flex-row flex-wrap flex-shrink" *ngIf="level_tags.length >= 1">
-                    <b *ngFor="let tag of level_tags" class="bg-blue-600 dark:bg-blue-900 text-white rounded-xl relative 
-                    w-fit h-fit font-medium lg:p-2 lg:text-base text-xs p-[6px] shadow-md hover:shadow-xl m-1 hover:scale-105 transition-all duration-300 select-none" >{{tag}}</b>
+                 <!-- Tags for the level -->
+                <div class="flex flex-row flex-wrap flex-shrink justify-end" *ngIf="level_tags.length > 0">
+                    <b *ngFor="let tag of level_tags" class="ILL_Tag"><fa-icon class="m-1" [icon]="i_tag"></fa-icon>{{tag}}</b>
                 </div>
             </div>
         </div>
-        
+       
+            
         <!-- Expanded list items -->
         <div class="bg-slate-200 dark:bg-slate-700 border-spacing-2 border-t-4
-         border-slate-400 dark:border-slate-500 rounded-lg shadow-lg text-slate-700 dark:text-white transition-all duration-300" 
+        border-slate-400 dark:border-slate-500 rounded-lg shadow-lg text-slate-700 dark:text-white transition-all duration-300" 
         *ngIf="card_expanded || card_mobile_expanded">
+
             <div class="flex flex-row">
                 <!-- Main video embed -->
-                <iframe class="lg:p-3 p-0 lg:w-[512px] w-0 lg:aspect-video" 
+                <iframe class="lg:p-3 p-0 lg:w-full h-full w-0 aspect-video" 
                 [src]="card_yt_vidEmbedURL" title="YouTube video player" frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                 <!-- Extra info -->
-                <div class="flex flex-wrap lg:items-start justify-start items-center lg:p-3 p-1 lg:border-l-4 lg:border-slate-400 lg:dark:border-slate-500 
-                lg:text-lg text-xs overflow-y-scroll lg:h-80 h-[640px] w-[680px] ILL_ListElemScroll">
+                <div class="flex flex-col lg:items-start justify-start items-center lg:p-3 p-1 lg:border-l-4 lg:border-slate-400 lg:dark:border-slate-500 
+                lg:text-lg text-xs overflow-y-scroll w-full ILL_ListElemScroll">
+
                     <!-- Mobile embed -->
                     <iframe class="p-3 lg:p-0 lg:w-0 w-full aspect-video mx-auto lg:mx-0" 
                     [src]="card_yt_vidEmbedURL" title="YouTube video player" frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                     <!-- Info boxes -->
-                    <div class="bg-slate-300 dark:bg-slate-600 p-2 m-1 rounded-md shadow-md h-fit lg:w-fit w-full text-sm hover:shadow-xl transition-all duration-300">
-                        <b><fa-icon class="m-1" [icon]="i_info"></fa-icon>  Basic level data:</b>
-                        <p>{{'Level name: ' + level_name}}</p>
-                        <p>{{'Required FPS: ' + level_fps}}</p>
-                        <p>{{'Level ID: ' + level_id }}</p>
-                        <p>Uploaded by: <i class="m-1 p-1 lg:bg-slate-200 lg:dark:bg-slate-800 lg:rounded-lg lg:font-bold lg:shadow-lg transition-all duration-300 hover:scale-105">{{ level_uploader }}</i></p>
-                        <p>{{'GD version: ' + level_gd_version}}</p>
-                    </div>
-                    <div class="bg-slate-300 dark:bg-slate-600 p-2 m-1 rounded-md shadow-md h-fit lg:w-fit w-full 
-                    text-sm hover:shadow-xl transition-all duration-300">
-                    <b><fa-icon class="m-1" [icon]="i_creators"></fa-icon> Creators:</b>
-                        <div class="flex flex-wrap max-w-[196px] justify-center">
-                            <i *ngFor="let creator of level_creators_full" class="m-1 p-1 lg:bg-slate-200 lg:dark:bg-slate-800 lg:rounded-lg lg:font-bold lg:shadow-lg transition-all duration-300 hover:scale-105">{{ creator }}</i>
+                    <div class="flex lg:flex-row flex-col justify-between items-stretch w-full">
+
+                        <!-- Basic info -->
+                        <div class="bg-slate-300 dark:bg-slate-600 p-2 m-1 rounded-md shadow-md w-full 
+                        text-sm hover:shadow-xl transition-all duration-300">
+                            <b><fa-icon class="m-1" [icon]="i_info"></fa-icon> Basic level data:</b>
+                            <div class="flex flex-row justify-around">
+                                <div class="flex flex-col">
+                                    <p>{{'Level name: ' + level_name}}</p>
+                                    <p>{{'Required FPS: ' + level_fps}}</p>
+                                    <p>{{'Level ID: ' + level_id }}</p>
+                                </div>
+                                <div class="flex flex-col">
+                                    <p>Uploaded by: 
+                                        <i class="m-1 p-1 lg:bg-slate-200 lg:dark:bg-slate-800 
+                                        lg:rounded-lg lg:font-bold lg:shadow-lg transition-all duration-300 hover:scale-105">
+                                            {{ level_uploader }}
+                                        </i>
+                                    </p>
+                                    <p>{{'GD version: ' + level_gd_version}}</p>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Level creators -->
+                        <div class="bg-slate-300 dark:bg-slate-600 p-2 m-1 rounded-md shadow-md w-full 
+                        text-sm hover:shadow-xl transition-all duration-300">
+                        <b><fa-icon class="m-1" [icon]="i_creators"></fa-icon> Creators:</b>
+                            <div class="flex flex-wrap justify-center">
+                                <i *ngFor="let creator of level_creators_full" class="m-1 p-1 lg:bg-slate-200 lg:dark:bg-slate-800 lg:rounded-lg lg:font-bold lg:shadow-lg transition-all duration-300 hover:scale-105">{{ creator }}</i>
+                            </div>
                         </div>
                     </div>
-                    <div class="bg-slate-300 dark:bg-slate-600 p-2 m-1 rounded-md shadow-md h-fit lg:w-[150px] w-full text-sm hover:shadow-xl transition-all duration-300">
-                        <b><fa-icon class="m-1" [icon]="i_wr"></fa-icon> World Record:</b>
-                        <p class="font-light italic text-sm">{{"Minimum percent for WR: ≥"+level_minimal_wr_percent+"%"}}</p>
-                        <p>{{level_wr}}</p>
-                        <a [href]="level_wr_yt" *ngIf="level_wr != ''" class="text-purple-600 underline font-bold">link</a>
-                        <p *ngIf="level_wr == ''">No world records yet. Be the first to achieve one!</p>
+
+                    <!-- World record data -->
+                    <div class="bg-slate-300 dark:bg-slate-600 p-2 m-1 rounded-md shadow-md h-fit w-full 
+                    text-sm hover:shadow-xl transition-all duration-300">
+                        <b><fa-icon class="m-1" [icon]="i_wr"></fa-icon> World Record: 
+                            <i class="font-light italic text-sm">( {{"Minimum percent for WR: ≥"+level_minimal_wr_percent+"%"}} )</i>
+                        </b>
+                        <div class="flex flex-col items-center">
+                            <b class="font-semibold text-lg"><fa-icon class="m-1" [icon]="i_wr"></fa-icon> {{level_wr}} <fa-icon class="m-1" [icon]="i_wr"></fa-icon></b>
+                            <a [href]="level_wr_yt" *ngIf="level_wr != '' && level_wr != 'N/A'" class="bg-purple-500 text-white p-2 m-1 rounded-lg shadow-lg
+                            hover:shadow-lg hover:scale-105 transition-all duration-200 w-fit">> Link <</a>
+                            <p *ngIf="level_wr == '' || level_wr == 'N/A'">No world records yet. Be the first to achieve one!</p>
+                        </div>
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>

@@ -40,7 +40,7 @@
                 <input [(ngModel)]="bil_tags" id="ILLA_Tags" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Tags" />
                 <hr/>
                 <p class="font-semibold">WR information</p>
-                <input [(ngModel)]="bil_wr_min" id="ILLA_WR_Min" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="WR Minimum percentage" />
+                <input [(ngModel)]="bil_wr_min" id="ILLA_WR_Min" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="WR Minimum percentage (WITHOUT % and >)" />
                 <input [(ngModel)]="bil_wr" id="ILLA_WR" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Current World Record" />
                 <input [(ngModel)]="bil_wr_yt" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="url" placeholder="Current World Record Video" />
                 <hr/>
@@ -53,7 +53,7 @@
                     <input [(ngModel)]="bil_annotation" id="ILLA_Annotation" class="m-1 p-2 w-6 h-6 shadow-md" type="checkbox"/>
                     <p class="p-1 m-1 text-white  bg-gray-500 rounded-lg shadow-md">Annotate Level</p>
                 </div>
-                <input [(ngModel)]="bil_reason" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Reason for Removal/Annotation" />
+                <input [(ngModel)]="bil_reason" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Reason for Removal" />
                 <p class="italic text-center text-green-800">{{lb_editStatus}}</p>
             </div>
             <button class="m-2 p-2 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200 disabled:bg-neutral-500" 

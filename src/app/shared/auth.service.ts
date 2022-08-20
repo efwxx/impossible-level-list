@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   signIn(email:string, password:string) {
-    this.afAuth.signInWithEmailAndPassword(email, password)
+    return this.afAuth.signInWithEmailAndPassword(email, password)
   }
 
   loginAsAdmin(email:string, password:string) {

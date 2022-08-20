@@ -6,11 +6,14 @@ import { LevelServiceService } from '../shared/level-service.service';
 import {
   faArrowLeft,
   faArrowRight,
+  faBacon,
   faBarsStaggered,
   faBiohazard,
+  faBolt,
   faBone,
   faBong,
   faChair,
+  faCloudMoon,
   faCode,
   faCodeBranch,
   faDatabase,
@@ -18,6 +21,7 @@ import {
   faLock,
   faMound,
   faP,
+  faPeopleGroup,
   faPoo,
   faScrewdriverWrench,
   faShieldCat,
@@ -25,6 +29,7 @@ import {
   faSortDown,
   faSpa,
   faTag,
+  faTerminal,
   faTractor,
   faUser,
   faWaveSquare
@@ -88,8 +93,10 @@ export class ListComponent implements OnInit {
   i_Relayne = faYandex;
   i_AuraXalaiv = faDragon;
   i_Eightos = faPoo;
-  i_skub = faChair;
-  i_krx = faWaveSquare;
+  i_skub = faBacon;
+  i_krx = faTerminal;
+  i_Akyse = faCloudMoon;
+  i_Remy = faPeopleGroup;
 
   constructor(private ill_service: LevelServiceService) {
   }

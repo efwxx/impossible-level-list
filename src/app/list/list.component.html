@@ -1,157 +1,179 @@
-<!-- Title -->
-<article>
-  <div class="lg:mt-20 lg:mb-32 origin-center lg:relative lg:scale-100
-  relative w-fit h-fit mx-auto mt-16 mb-16 scale-90
-  dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg">
-    <img src="../assets/logo.png" width="128" height="128"
-    class="relative mx-auto p-5 rounded-lg hover:scale-125 transition-all duration-200 active:scale-95 active:rounded-2xl" (click)="increaseEasterEgg()"/>
-    <h1 class="text-3xl text-center relative font-medium">Impossible Levels List</h1>
-    <h3 class="text-center font-normal text-lg">Owned by Doki, Wuro & Tomejto</h3>
-    <h4 class="text-center font-light italic text-sm">Website built by MateussDev</h4>
+<div class="flex flex-row justify-between">
+
+  <!-- Sidebar -->
+
+  <div class="flex flex-col flex-shrink lg:w-[480px] top-0 left-0 min-h-screen lg:visible lg:p-4 absolute lg:relative invisible">
+      <div class="lg:mt-20 mb-4 origin-center lg:relative lg:scale-100
+      relative w-fit h-fit mx-auto mt-16 scale-90
+      dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg flex flex-col">
+        <b class="text-5xl text-center relative font-medium">Impossible Levels List</b>
+        <b class="text-center font-normal text-lg">Owned by Doki, Wuro & Tomejto</b>
+        <b class="text-center font-normal italic text-sm">Website built by MateussDev</b>
+        <i class="text-center font-light italic text-xs">(without pointercrate API)</i>
+      </div>
+    <!-- Title -->
+
+  <!-- Rules -->
+  <div class="w-full p-4 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black 
+  dark:text-white text-sm">
+    <b class="text-lg">Basic Rules:</b>
+    <li>Levels must be considered impossible or harder than any rated level at the time of their creation.</li>
+    <li>Levels must be physically possible.</li>
+    <li>Levels must be finished and of decent quality.</li>
+    <li>Levels must not have spam faster than 15 inputs per player in a second.</li>
+    <li>World records have a minimum progress percentage that is stated next to a level’s WR field.</li>
+    <a class="m-1 p-2 text-sm rounded-lg bg-purple-700 text-white shadow-lg hover:scale-105 transition-all duration-300 w-fit"
+    href="https://docs.google.com/document/d/1y7MwlMyiXxFiw0MRE2BYKHdThT-Q9DI6uN-9F3bOc5c">Link to more detailed rules</a>
   </div>
-</article>
-
-<!-- Rules -->
-<div class=" absolute mx-5 top-20 max-w-lg w-full p-4 mb-3 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black 
-dark:text-white text-xs scale-0 lg:scale-100">
-  <b class="text-lg">Basic Rules:</b>
-  <li>Levels must be considered impossible or harder than any rated level at the time of their creation.</li>
-  <li>Levels must be physically possible.</li>
-  <li>Levels must be finished and of decent quality.</li>
-  <li>Levels must not have spam faster than 15 inputs per player in a second.</li>
-  <li>World records have a minimum progress percentage that is stated next to a level’s WR field.</li>
-  <a class="m-1 p-2 text-sm rounded-lg bg-purple-700 text-white shadow-lg hover:scale-105 transition-all duration-300 w-fit"
-  href="https://docs.google.com/document/d/1y7MwlMyiXxFiw0MRE2BYKHdThT-Q9DI6uN-9F3bOc5c">Link to more detailed rules</a>
-</div>
-
-<!-- Staff and search -->
-<div class="flex flex-col absolute right-0 top-0">
+<!-- Staff -->
+<div class="flex flex-col">
   <div class="flex flex-row justify-end">
-    <div class="flex flex-col mt-20 items-end">
-      <div class="mx-5 max-w-2xl w-fit justify-self-center p-4 mb-3 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black dark:text-white text-xs items-center text-left scale-0 lg:relative absolute lg:scale-100">
-        <b class="text-lg">Staff Members:</b>
-        <div class="flex flex-row items-center justify-center">
-          <p class="italic font-semibold text-xs p-1">Owners: </p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Doki</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Wuro"></fa-icon>Wuro</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Tomejito"></fa-icon>Tomejito</p>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <p class="italic font-semibold text-xs p-1">Head staff: </p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_maus999"></fa-icon>maus999</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Knali</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-0" [icon]="i_Relayne"></fa-icon>elayne</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_skele"></fa-icon>skeletonlol</p>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <p class="italic font-semibold text-xs p-1">Staff: </p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Eightos"></fa-icon>Eightos</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Akyse</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-0" [icon]="i_Pamka"></fa-icon>amka</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_krx"></fa-icon>KrX</p>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Trin"></fa-icon>Trin</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Xane88</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none">PhiPhan</p>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <p class="italic font-semibold text-xs p-1">Helpers: </p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_sequoia"></fa-icon>sequoia</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Remy</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Numb"></fa-icon>Numb</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Locked101"></fa-icon>Locked101</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_skub"></fa-icon>skub</p>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <p class="italic font-semibold text-xs p-1">Coders: </p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_MateussDev"></fa-icon>MateussDev</p>
-        </div>
-        <div class="flex flex-row items-center justify-center">
-          <p class="italic font-semibold text-xs p-1">Artists: </p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_AuraXalaiv"></fa-icon>AuraXalaiv</p>
-          <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Eightos"></fa-icon>Eightos</p>
+    <div class="flex flex-col items-center">
+      <div class="w-full p-4 mt-4 flex-wrap bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black 
+      dark:text-white text-xs items-center">
+      <b class="text-lg">Staff Members:</b>
+      <div class="flex flex-row flex-wrap justify-center items-center">
+        <p class="italic font-semibold text-xs p-1">Owners: </p>
+        <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Doki</p>
+        <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Wuro"></fa-icon>Wuro</p>
+        <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Tomejito"></fa-icon>Tomejito</p>
+      </div>
+          <div class="flex flex-row flex-wrap justify-center items-center">
+            <p class="italic font-semibold text-xs p-1">Head staff: </p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_maus999"></fa-icon>maus999</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Knali</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-0" [icon]="i_Relayne"></fa-icon>elayne</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_skele"></fa-icon>skeletonlol</p>
+          </div>
+          <div class="flex flex-row flex-wrap justify-center items-center">
+            <p class="italic font-semibold text-xs p-1">Staff: </p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Eightos"></fa-icon>Eightos</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Akyse"></fa-icon>Akyse</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-0" [icon]="i_Pamka"></fa-icon>amka</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_krx"></fa-icon>KrX</p>
+          </div>
+          <div class="flex flex-row flex-wrap justify-center items-center">
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Trin"></fa-icon>Trin</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none">Xane88</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none">PhiPhan</p>
+          </div>
+          <div class="flex flex-row flex-wrap justify-center items-center">
+            <p class="italic font-semibold text-xs p-1">Helpers: </p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_sequoia"></fa-icon>sequoia</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Remy"></fa-icon>Remy</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Numb"></fa-icon>Numb</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Locked101"></fa-icon>Locked101</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_skub"></fa-icon>skub</p>
+          </div>
+          <div class="flex flex-row flex-wrap justify-center items-center">
+            <p class="italic font-semibold text-xs p-1">Coders: </p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_MateussDev"></fa-icon>MateussDev</p>
+          </div>
+          <div class="flex flex-row flex-wrap justify-center items-center">
+            <p class="italic font-semibold text-xs p-1">Artists: </p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_AuraXalaiv"></fa-icon>AuraXalaiv</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Eightos"></fa-icon>Eightos</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="flex flex-row justify-end">
-    
-  </div>
   
-</div>
+  </div>
 
-<!-- page navigation Top -->
-<div class="flex flex-row bg-slate-200 dark:bg-slate-600 p-2 lg:w-fit w-64 mx-auto text-xl text-black dark:text-white rounded-lg shadow-lg items-center justify-around">
-  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageBck()" [disabled]="currentPage<=1">
-    <fa-icon [icon]="i_arrLeft"></fa-icon>
-  </button>
-  <input type="number" [(ngModel)]="currentPage" (change)="    this.cutoutPage((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize)" min="1" class="text-black lg:w-10 w-16 p-1 rounded-lg"/>
-  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageFwd()" [disabled]="false">
-    <fa-icon [icon]="i_arrRight"></fa-icon>
-  </button>
 
-</div>
 
-<!-- Search -->
-<div class="flex flex-row items-center bg-slate-300 dark:bg-slate-600 mx-auto my-2 p-4 rounded-lg shadow-lg w-fit">
-  <div class="flex flex-col">
-    <b class="font-bold text-lg dark:text-white mr-2">Search:</b>
-    <div class="flex flex-row items-center">
-      <form>
-        <div class="flex flex-row justify-center items-center">
-          <input type="text" [placeholder]="'Type in the '+srch_criteria+' to search for'" class="rounded-lg border-l-8 border-blue-600 p-2 h-fit align-middle w-fit lg:w-[512px]"
-          [(ngModel)]="srch_input"/>
-          <input type="submit" class="text-white bg-blue-600 rounded-lg p-2 m-2 shadow-lg 
-          hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-500"
-          [disabled]="!srch_input" (click)="search(srch_criteria, srch_input)" value="Search">
-        </div>
-        <div class="group justify-end">
-          <button (click)="toggleSearchDropdown()" class="flex flex-row text-white bg-blue-600 
-          rounded-lg p-2 m-2 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 h-fit text-xs align-middle items-center">Pick a criteria: {{srch_criteria}} <fa-icon [icon]="i_expand" class="m-1 text-lg"></fa-icon></button>
-          <div class="origin-top absolute bg-slate-100 p-1 w-32 select-none lg:text-sm text-lg z-30 shadow-xl" *ngIf="srch_dropdown">
-            <p class="hover:bg-slate-300 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('name')"><fa-icon [icon]="i_name"></fa-icon>Name</p>
-            <p class="hover:bg-slate-300 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('creator')"><fa-icon [icon]="i_creator"></fa-icon>Creator</p>
-            <p class="hover:bg-slate-300 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('tag')"><fa-icon [icon]="i_tag"></fa-icon>Tag</p>
-            <p class="hover:bg-slate-300 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('id')"><fa-icon [icon]="i_id"></fa-icon>ID</p>
-            <p class="hover:bg-slate-300 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('update')"><fa-icon [icon]="i_version"></fa-icon>GD Version</p>
+
+  <!-- List -->
+
+  <div class="dark:text-white mt-24 mx-aut w-full">
+
+    <div class="flex lg:flex-row flex-col lg:items-end lg:justify-between items-center">
+
+      <!-- Search -->
+      <div class="flex lg:flex-row items-center justify-center bg-slate-300 dark:bg-slate-600 p-4 rounded-lg shadow-lg w-fit">
+        <div class="flex flex-col">
+          <b class="font-bold text-lg dark:text-white mr-2">Search:</b>
+          <div class="flex flex-row items-center flex-wrap">
+            <form>
+              <div class="flex flex-row justify-center items-center text-black">
+                <div class="group justify-end">
+                  <button (click)="toggleSearchDropdown()" class="text-white bg-blue-600 
+                  rounded-lg p-1 m-2 shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 h-fit text-xs align-middle items-center">
+                    {{srch_criteria}} 
+                    <fa-icon [icon]="i_expand" class="m-1 text-lg"></fa-icon>
+                  </button>
+                  <div class="origin-top absolute bg-slate-100 dark:bg-slate-700 p-1 w-32 select-none lg:text-sm text-lg z-30 shadow-xl" *ngIf="srch_dropdown">
+                    <p class="hover:bg-slate-300 dark:hover:bg-slate-800 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('name')"><fa-icon [icon]="i_name" class="m-1"></fa-icon>Name</p>
+                    <p class="hover:bg-slate-300 dark:hover:bg-slate-800 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('creator')"><fa-icon [icon]="i_creator" class="m-1"></fa-icon>Creator</p>
+                    <p class="hover:bg-slate-300 dark:hover:bg-slate-800 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('tag')"><fa-icon [icon]="i_tag" class="m-1"></fa-icon>Tag</p>
+                    <p class="hover:bg-slate-300 dark:hover:bg-slate-800 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('id')"><fa-icon [icon]="i_id" class="m-1"></fa-icon>ID</p>
+                    <p class="hover:bg-slate-300 dark:hover:bg-slate-800 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('update')"><fa-icon [icon]="i_version" class="m-1"></fa-icon>GD Version</p>
+                  </div>
+                </div>
+                <input type="text" [placeholder]="'Type in the '+srch_criteria+' to search for'" class="rounded-lg border-l-8 border-blue-600 p-2 
+                h-fit align-middle w-fit lg:w-[512px] text-black"
+                [(ngModel)]="srch_input"/>
+                <input type="submit" class="text-white bg-blue-600 rounded-lg p-2 m-2 shadow-lg 
+                hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-500"
+                [disabled]="!srch_input" (click)="search(srch_criteria, srch_input)" value="Search">
+              </div>
+            </form>
           </div>
         </div>
-      </form>
+      </div>
+  
+      <!-- page navigation Top -->
+      <div class="flex flex-row bg-slate-200 dark:bg-slate-600 m-2 p-2 lg:w-fit w-64 h-fit text-xl text-black 
+      dark:text-white rounded-lg shadow-lg items-center justify-around" *ngIf="!srch_showingSearchResults">
+        <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageBck()" [disabled]="currentPage<=1">
+          <fa-icon [icon]="i_arrLeft"></fa-icon>
+        </button>
+        <input type="number" [(ngModel)]="currentPage" (change)="    this.cutoutPage((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize)" min="1" class="text-black lg:w-10 w-16 p-1 rounded-lg"/>
+        <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageFwd()" [disabled]="false">
+          <fa-icon [icon]="i_arrRight"></fa-icon>
+        </button>
+      </div>
+      
+    </div>
+
+    <!-- Levels -->
+    
+    <div class="h-fit lg:p-2 p-0 bg-slate-200 dark:bg-slate-600 text-gray-600 dark:text-white lg:shadow-lg flex flex-col mt-2 mb-2 lg:rounded-md w-full"
+    id="ILL_ListParent" *ngIf="listSorted">
+      <b *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for {{srch_criteria+": "+srch_input}}:</b>
+      
+      <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>
+      <!-- Error messages -->
+      <div *ngIf="levelListToDisplay.length == 0 && !(srch_criteria == 'tag' && srch_input == 'No Victors')" 
+      class="text-center flex flex-col bg-slate-100 dark:bg-slate-800 w-fit mx-auto p-5 m-1 rounded-lg shadow-lg">
+        <b>Oops! We didn't find what you searched for!</b>
+        <img src="../../assets/No_Results_Light.png" width="196" height="196" class="mx-auto origin-center" *ngIf="_currentTheme == 'light'"/>
+        <img src="../../assets/No_Results_Dark.png" width="196" height="196" class="mx-auto origin-center" *ngIf="_currentTheme == 'dark'"/>
+        <i>Check your search keywords and try again!</i>
+      </div>
+      <div *ngIf="srch_criteria == 'tag' && srch_input == 'No Victors'" class="text-center flex flex-col bg-slate-100 dark:bg-slate-800 w-fit mx-auto p-5 m-1 rounded-lg shadow-lg">
+        <b>Why are you searching for this tag?</b>
+        <img src="../../assets/lennard.png" width="196" height="196" class="mx-auto origin-center"/>
+        <i>The list is literally all about this</i>
+      </div>
+    </div>
+
+    <!-- Loading spinner -->
+    <div class="bg-slate-200 dark:bg-slate-600 p-2 rounded-lg shadow-lg m-2 mx-auto" *ngIf="!listSorted">
+      <mat-progress-spinner  mode="indeterminate" class="m-5 mx-auto" color="accent"></mat-progress-spinner>
+    </div>
+    
+    <!-- page navigation Bottom -->
+    <div class="flex flex-row bg-slate-200 dark:bg-slate-600 p-2 lg:w-fit w-64 ml-auto text-xl text-black 
+    dark:text-white rounded-lg shadow-lg items-center justify-around" *ngIf="!srch_showingSearchResults">
+      <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageBck()" [disabled]="currentPage<=1">
+        <fa-icon [icon]="i_arrLeft"></fa-icon>
+      </button>
+      <input type="number" [(ngModel)]="currentPage" (change)="    this.cutoutPage((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize)" min="1" class="text-black lg:w-10 w-16 p-1 rounded-lg"/>
+      <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageFwd()" [disabled]="false">
+        <fa-icon [icon]="i_arrRight"></fa-icon>
+      </button>
     </div>
   </div>
-</div>
-
-<!-- List -->
-<div class="w-full lg:w-fit dark:text-white mx-auto">
-  <div class="h-fit mx-2  lg:p-2 p-0 bg-slate-200 dark:bg-slate-600 text-gray-600 dark:text-white
-  lg:shadow-lg flex flex-col mt-2 mb-2 items-stretch lg:rounded-md lg:min-w-[800px] min-w-0"
-  id="ILL_ListParent" *ngIf="listSorted">
-  <h3 *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for {{srch_criteria+": "+srch_input}}:</h3>
-  <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>
-  <div *ngIf="levelListToDisplay.length == 0 && !(srch_criteria == 'tag' && srch_input == 'No Victors')" class="text-center flex flex-col bg-slate-100 dark:bg-slate-800 w-fit mx-auto p-5 m-1 rounded-lg shadow-lg">
-    <b>Oops! We didn't find what you searched for!</b>
-    <img src="../../assets/No_Results_Light.png" width="196" height="196" class="mx-auto origin-center" *ngIf="_currentTheme == 'light'"/>
-    <img src="../../assets/No_Results_Dark.png" width="196" height="196" class="mx-auto origin-center" *ngIf="_currentTheme == 'dark'"/>
-    <i>Check your search keywords and try again!</i>
-  </div>
-  <div *ngIf="srch_criteria == 'tag' && srch_input == 'No Victors'" class="text-center flex flex-col bg-slate-100 dark:bg-slate-800 w-fit mx-auto p-5 m-1 rounded-lg shadow-lg">
-    <b>Why are you searching for this tag?</b>
-    <img src="../../assets/lennard.png" width="196" height="196" class="mx-auto origin-center"/>
-    <i>The list is literally all about this</i>
-  </div>
-</div>
-<div class="bg-slate-200 dark:bg-slate-600 p-2 rounded-lg shadow-lg m-2 mx-auto" *ngIf="!listSorted">
-  <mat-progress-spinner  mode="indeterminate" class="m-5 mx-auto" color="accent"></mat-progress-spinner>
-</div>
-</div>
-<!-- page navigation Bottom -->
-<div class="flex flex-row bg-slate-200 dark:bg-slate-600 p-2 lg:w-fit w-64 mx-auto text-xl text-black dark:text-white rounded-lg shadow-lg items-center justify-around">
-  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageBck()" [disabled]="currentPage<=1">
-    <fa-icon [icon]="i_arrLeft"></fa-icon>
-  </button>
-  <input type="number" [(ngModel)]="currentPage" (change)="    this.cutoutPage((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize)" min="1" class="text-black lg:w-10 w-16 p-1 rounded-lg"/>
-  <button class="bg-blue-600 p-2 m-3 rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-700 text-white align-middle" (click)="pageFwd()" [disabled]="false">
-    <fa-icon [icon]="i_arrRight"></fa-icon>
-  </button>
 </div>

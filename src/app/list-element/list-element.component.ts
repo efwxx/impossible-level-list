@@ -13,7 +13,7 @@ import {
 import {
 
 } from '@fortawesome/fontawesome-svg-core'
-import { faBarsStaggered, faBook, faCheckCircle, faDeleteLeft, faInfo, faInfoCircle, faScrewdriverWrench, faStopwatch, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faBarsStaggered, faBook, faCheckCircle, faDeleteLeft, faHourglass, faInfo, faInfoCircle, faScrewdriverWrench, faStopwatch, faTag, faTrophy } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -24,7 +24,7 @@ import { faBarsStaggered, faBook, faCheckCircle, faDeleteLeft, faInfo, faInfoCir
     trigger('openClose', [
       // ...
       state('open', style({
-        height: '485px',
+        height: '555px',
       })),
       state('closed', style({
         height: '160px',
@@ -101,8 +101,9 @@ export class ListElementComponent implements OnInit {
   i_creators = faScrewdriverWrench;
   i_wr = faTrophy;
   i_verified = faCheckCircle;
-  i_fps = faStopwatch;
+  i_fps = faHourglass;
   i_levelID = faBarsStaggered;
+  i_tag = faTag;
 
   //all data in 1 object
   @Input('ill_level') ill_level:ImpossibleLevel = {

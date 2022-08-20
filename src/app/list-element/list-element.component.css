@@ -31,3 +31,9 @@
   object-fit:inherit;
   background-repeat: no-repeat;
 }
+
+.ILL_Tag {
+  @apply bg-blue-600 dark:bg-blue-900 text-white rounded-xl relative 
+  w-fit h-fit lg:p-[4px] lg:text-sm text-xs p-[6px] font-light
+  shadow-md hover:shadow-xl m-1 hover:scale-105 transition-all duration-300 select-none
+}

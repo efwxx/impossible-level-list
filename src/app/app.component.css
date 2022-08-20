@@ -11,7 +11,7 @@
 
 .ILL_NavbarBtn {
     @apply font-light lg:m-2 lg:p-2 m-1 p-1 shadow-md rounded-lg hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-    lg:text-base text-lg
+    lg:text-base text-lg w-screen
 }
 
 .ILL_BG {
