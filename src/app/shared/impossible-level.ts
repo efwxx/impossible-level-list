@@ -15,5 +15,6 @@ export interface ImpossibleLevel {
     wr_yt: string,
     marked_for_removal: boolean,
     annotated: boolean,
-    marking_reason: string
+    marking_reason: string,
+    nameLowercase?: string
 }

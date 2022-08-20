@@ -12,12 +12,17 @@ import {
   faBolt,
   faBone,
   faBong,
+  faBugSlash,
   faChair,
+  faClipboardCheck,
   faCloudMoon,
   faCode,
   faCodeBranch,
+  faCrown,
   faDatabase,
   faDragon,
+  faEye,
+  faHurricane,
   faLock,
   faMound,
   faP,
@@ -35,7 +40,7 @@ import {
   faWaveSquare
 } from '@fortawesome/free-solid-svg-icons'
 import { formatNumber } from '@angular/common';
-import { faYandex } from '@fortawesome/free-brands-svg-icons';
+import { faXing, faYandex } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-list',
@@ -78,6 +83,8 @@ export class ListComponent implements OnInit {
   i_arrLeft = faArrowLeft;
   i_arrRight = faArrowRight;
   i_expand = faSortDown;
+  i_addition = faClipboardCheck;
+  i_bugfix = faBugSlash;
 
   //user icons
   i_MateussDev = faCode;
@@ -97,6 +104,10 @@ export class ListComponent implements OnInit {
   i_krx = faTerminal;
   i_Akyse = faCloudMoon;
   i_Remy = faPeopleGroup;
+  i_PhiPan = faHurricane;
+  i_doki = faCrown;
+  i_Xane = faXing;
+  i_knali = faEye;
 
   constructor(private ill_service: LevelServiceService) {
   }
@@ -224,6 +235,8 @@ export class ListComponent implements OnInit {
     this.levelList = [];
     this.srch_showingSearchResults = true;
     console.log('begin search')
+    //make sure that nameLowercase exists
+
     switch (crit) {
       case 'name':
         console.log('searching through names')

@@ -165,6 +165,9 @@ export class AdminDataEditorComponent implements OnInit {
     this.ill_service.getOrderedLevelList().then(doc => {
       this.levelList = doc.docs.map((e:any) => {
         const data = e.data();
+        if (data.nameLowercase == undefined) {
+          data.nameLowercase = data.name.toLowercase()
+        }
         return data;
       })
     })
