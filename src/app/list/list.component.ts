@@ -22,7 +22,9 @@ import {
   faDatabase,
   faDragon,
   faEye,
+  faHourglass,
   faHurricane,
+  faLightbulb,
   faLock,
   faMound,
   faP,
@@ -33,6 +35,7 @@ import {
   faSkull,
   faSortDown,
   faSpa,
+  faStar,
   faTag,
   faTerminal,
   faTractor,
@@ -63,6 +66,9 @@ export class ListComponent implements OnInit {
 
   listSorted:boolean = false;
 
+  ill_allFacts:any[] = [];
+  ill_randomFact:string = '';
+
   //easter eggs
   _timesClickedOnLogo:number = 0;
 
@@ -85,6 +91,8 @@ export class ListComponent implements OnInit {
   i_expand = faSortDown;
   i_addition = faClipboardCheck;
   i_bugfix = faBugSlash;
+  i_fps = faHourglass;
+  i_illrf = faStar;
 
   //user icons
   i_MateussDev = faCode;
@@ -108,6 +116,7 @@ export class ListComponent implements OnInit {
   i_doki = faCrown;
   i_Xane = faXing;
   i_knali = faEye;
+  i_buk = faLightbulb;
 
   constructor(private ill_service: LevelServiceService) {
   }
@@ -116,6 +125,7 @@ export class ListComponent implements OnInit {
 
   async ngOnInit() {
     this.cutoutPage(0, this.pageSize);
+    this.getRandomILLFact();
   }
 
   async cutoutPage(start:number, end:number) {
@@ -277,6 +287,19 @@ export class ListComponent implements OnInit {
         })
         this.listSorted = true;
         break;
+      case 'fps':
+        console.log('searching through normal fields')
+        await this.ill_service.firestore.collection('ill').ref.where('fps', '==', input).orderBy('position').get().then(res => {
+          this.levelListToDisplay = res.docs.map((e:any) => {
+            const data = e.data();
+            return data;
+          })
+        }).catch(err => {
+          this.listSorted = true;
+          console.log(err);
+        })
+        this.listSorted = true;
+        break;
       case 'creator':
         console.log('earching through array fields')
         await this.ill_service.firestore.collection('ill').ref.where('creators_full', 'array-contains', input).orderBy('position').get().then(res => {
@@ -317,5 +340,19 @@ export class ListComponent implements OnInit {
       left: 0,
       behavior: 'smooth'
     })
+  }
+
+  async getRandomILLFact() {
+    //get all facts
+    await this.ill_service.firestore.collection('facts').ref.get().then(snapshot => {
+      this.ill_allFacts = snapshot.docs.map((e:any) => {
+        const data = e.data();
+        return data;
+      })
+    })
+
+    console.log(this.ill_allFacts);
+    //select random fact
+    this.ill_randomFact = this.ill_allFacts[Math.floor(Math.random()*this.ill_allFacts.length)].fact;
   }
 }

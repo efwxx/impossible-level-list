@@ -3,15 +3,21 @@
   <!-- Sidebar -->
 
   <div class="flex flex-col flex-shrink lg:w-[480px] top-0 left-0 min-h-screen lg:visible lg:p-4 absolute lg:relative invisible">
-      <div class="lg:mt-20 mb-4 origin-center lg:relative lg:scale-100
-      relative w-fit h-fit mx-auto mt-16 scale-90
-      dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg flex flex-col">
-        <b class="text-5xl text-center relative font-medium">Impossible Levels List</b>
-        <b class="text-center font-normal text-lg">Owned by Doki, Wuro & Tomejto</b>
-        <b class="text-center font-normal italic text-sm">Website built by MateussDev</b>
-        <i class="text-center font-light italic text-xs">(without pointercrate API)</i>
-      </div>
+    <div class="lg:mt-20 mb-4 origin-center lg:relative lg:scale-100
+    relative w-fit h-fit mx-auto mt-16 scale-90
+    dark:text-white bg-slate-200 dark:bg-slate-600 p-5 rounded-lg shadow-lg flex flex-col">
+      <b class="text-5xl text-center relative font-medium">Impossible Levels List</b>
+      <b class="text-center font-normal text-lg">Owned by Doki, Wuro & Tomejto</b>
+      <b class="text-center font-normal italic text-sm">Website built by MateussDev</b>
+      <i class="text-center font-light italic text-xs">(without pointercrate API)</i>
+    </div>
     <!-- Title -->
+    <div class="w-full p-4 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black 
+    dark:text-white text-sm mb-4">
+      <b class="text-lg"><fa-icon class="m-1" [icon]="i_illrf"></fa-icon>ILL random fact:</b>
+      <p>{{ill_randomFact}}</p>
+
+    </div>
 
   <!-- Rules -->
   <div class="w-full p-4 flex-shrink bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl flex flex-col text-black 
@@ -65,6 +71,7 @@
             <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Numb"></fa-icon>Numb</p>
             <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_Locked101"></fa-icon>Locked101</p>
             <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_skub"></fa-icon>skub</p>
+            <p class="p-1 hover:scale-110 transition-all duration-200 select-none"><fa-icon class="m-1" [icon]="i_buk"></fa-icon>Bukk</p>
           </div>
           <div class="flex flex-row flex-wrap justify-center items-center">
             <p class="italic font-semibold text-xs p-1">Coders: </p>
@@ -84,15 +91,10 @@
   <div class="flex">
     <div class="w-full p-4 mt-4 bg-slate-300 dark:bg-slate-600 rounded-lg shadow-xl text-black 
     dark:text-white">
-      <b>Website Changelog (ver v1.1) [Maintained by MateussDev]</b>
+      <b>Website Changelog (ver v1.2) [Maintained by MateussDev]</b>
       <ul>
-        <li class="border-b-2 border-slate-400 dark:border-slate-900"><fa-icon class="m-1" [icon]="i_addition"></fa-icon>Added a changelog section</li>
-        <li class="border-b-2 border-slate-400 dark:border-slate-900"><fa-icon class="m-1" [icon]="i_addition"></fa-icon>Added unique icons to Xane, doki, knali and PhiPan</li>
-        <li class="border-b-2 border-slate-400 dark:border-slate-900"><fa-icon class="m-1" [icon]="i_bugfix"></fa-icon>Fixed bug where trying to copy data from the expanded menu of a level closed the expanded menu</li>
-        <li class="border-b-2 border-slate-400 dark:border-slate-900"><fa-icon class="m-1" [icon]="i_bugfix"></fa-icon>Fixed visual bug where the FAQ would be cut-out on smaller PC/Laptop screens</li>
-        <li class="border-b-2 border-slate-400 dark:border-slate-900"><fa-icon class="m-1" [icon]="i_bugfix"></fa-icon>Fixed visual bug where search criteria in the search dropdown were always displayed black no matter the theme</li>
-        <li class="border-b-2 border-slate-400 dark:border-slate-900"><fa-icon class="m-1" [icon]="i_bugfix"></fa-icon>Fixed visual bug where the entire link to the WR video displays, stretching off-screen</li>
-        <li class="border-b-2 border-slate-400 dark:border-slate-900"><fa-icon class="m-1" [icon]="i_bugfix"></fa-icon>Fixed PhiPan and Tomejto names in the staff section</li>
+        <li class="border-b-2 border-slate-400 dark:border-slate-900"><fa-icon class="m-1" [icon]="i_addition"></fa-icon>Added search by FPS criteria</li>
+        <li class="border-b-2 border-slate-400 dark:border-slate-900"><fa-icon class="m-1" [icon]="i_bugfix"></fa-icon>Fixed bug where levels with many creators were overflowing under other level cards when expanded (eg: Ghseb1sticeb1s by AuraXalaiv & more)</li>
       </ul>
     </div>
   </div>
@@ -126,10 +128,11 @@
                     <p class="hover:bg-slate-300 dark:hover:bg-slate-800 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('tag')"><fa-icon [icon]="i_tag" class="m-1"></fa-icon>Tag</p>
                     <p class="hover:bg-slate-300 dark:hover:bg-slate-800 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('id')"><fa-icon [icon]="i_id" class="m-1"></fa-icon>ID</p>
                     <p class="hover:bg-slate-300 dark:hover:bg-slate-800 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('update')"><fa-icon [icon]="i_version" class="m-1"></fa-icon>GD Version</p>
+                    <p class="hover:bg-slate-300 dark:hover:bg-slate-800 transition-all duration-300 w-full h-full p-1" (click)="selectCriteria('fps')"><fa-icon [icon]="i_fps" class="m-1"></fa-icon>FPS</p>
                   </div>
                 </div>
                 <input type="text" [placeholder]="'Type in the '+srch_criteria+' to search for (Case sensitive idk how to fix)'" class="rounded-lg border-l-8 border-blue-600 p-2 
-                h-fit align-middle w-fit lg:w-[512px] text-black dark:text-white"
+                h-fit align-middle w-fit lg:w-[512px] text-black"
                 [(ngModel)]="srch_input"/>
                 <input type="submit" class="text-white bg-blue-600 rounded-lg p-2 m-2 shadow-lg 
                 hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-500"
