@@ -31,8 +31,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CreateAccountComponent } from './create-account/create-account.component';
-import { ProfilePageComponent } from './profile-page/profile-page.component';
-import { CreatorLeaderboardComponent } from './creator-leaderboard/creator-leaderboard.component';
 import { FaqComponent } from './faq/faq.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 
@@ -45,8 +43,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
     AdminMenuComponent,
     LoginPageComponent,
     CreateAccountComponent,
-    ProfilePageComponent,
-    CreatorLeaderboardComponent,
     FaqComponent,
   ],
   imports: [

@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ImpossibleLevel } from '../shared/impossible-level';
 
 import { LevelServiceService } from '../shared/level-service.service';
+import { NoPreloading } from '@angular/router';
 
 @Component({
   selector: 'app-admin-data-editor',
@@ -27,6 +28,8 @@ export class AdminDataEditorComponent implements OnInit {
   bil_removal:boolean = false
   bil_annotation:boolean = false
   bil_reason:string = ''; //reason for markdown
+  bil_wideshotURL:string | undefined = ''; //URL to wide level shot
+  bil_darktext:boolean | undefined = false;
 
   bil_index:number = 1;
 
@@ -49,7 +52,9 @@ export class AdminDataEditorComponent implements OnInit {
     marked_for_removal: false,
     annotated: false,
     marking_reason: '',
-    position: 0
+    position: 0,
+    wide_level_shot_url: '',
+    textIsDark: false
   }
   bli_buffer:ImpossibleLevel = {
     id: '',
@@ -68,7 +73,9 @@ export class AdminDataEditorComponent implements OnInit {
     wr_yt: '',
     marked_for_removal: false,
     annotated: false,
-    marking_reason: ''
+    marking_reason: '',
+    wide_level_shot_url: '',
+    textIsDark: false
   }
 
   lb_editStatus:string = 'Empty form'
@@ -130,6 +137,8 @@ export class AdminDataEditorComponent implements OnInit {
     this.bil_removal = false;
     this.bil_annotation = false;
     this.bil_reason = '';
+    this.bil_wideshotURL = '';
+    this.bil_darktext = false;
     console.log(this.bil_name)
   }
   
@@ -196,6 +205,11 @@ export class AdminDataEditorComponent implements OnInit {
       this.lb_editStatus = 'Re-mapping complete: '+_changes+' changes'
     }
   }
+
+  async refreshButton() {
+    await this.refreshLevelListArray()
+    this.reSortLevels();
+  }
   
   reSortLevels() {
     this.lb_editStatus = 'Re-sorting level list based on positions...'
@@ -220,6 +234,8 @@ export class AdminDataEditorComponent implements OnInit {
     this.bil_packaged.annotated = this.bil_annotation;
     this.bil_packaged.position = this.bil_index;
     this.bil_packaged.marking_reason = this.bil_reason;
+    this.bil_packaged.wide_level_shot_url = this.bil_wideshotURL;
+    this.bil_packaged.textIsDark = this.bil_darktext;
     
     //packing arrays
     this.bil_packaged.creators_full = this.bil_c_f.split(",");
@@ -262,6 +278,8 @@ export class AdminDataEditorComponent implements OnInit {
       this.bil_removal = this.bli_buffer.marked_for_removal;
       this.bil_annotation = this.bli_buffer.annotated;
       this.bil_reason = this.bli_buffer.marking_reason;
+      this.bil_wideshotURL = this.bli_buffer.wide_level_shot_url;
+      this.bil_darktext = this.bli_buffer.textIsDark;
 
       this.bil_c_f = this.bli_buffer.creators_full.toString()
       this.bil_tags = this.bli_buffer.tags.toString()
@@ -328,5 +346,44 @@ export class AdminDataEditorComponent implements OnInit {
     if(old_data.yt_videoID != new_data.yt_videoID) {
       this.auditLog.push(new_data.name+' showcase video changed: '+'htpps://www.youtube.com/watch?v='+new_data.yt_videoID)
     }
+  }
+
+  async readd_database_entries() {
+    let _real_ill_array:ImpossibleLevel[] = [];
+    let _real_ill_keys:string[] = [];
+
+    //load the list
+    await this.ill_service.getWholeLevelList().then((snapshot:any) => {
+      _real_ill_array = snapshot.docs.map((e:any) => {
+        const data = e.data();
+        return data;
+      })
+    })
+
+    //get level database id
+    await this.ill_service.getWholeLevelList().then((snapshot:any) => {
+      _real_ill_keys = snapshot.docs.map((e:any) => {
+        const data = e.id;
+        return data;
+      })
+    })
+
+    console.log(_real_ill_keys);
+
+    await _real_ill_array.forEach((lvl, i) => {
+      lvl.nameLowercase = lvl.name.toLowerCase()
+      lvl.creators_full_lowercase = [];
+      lvl.tagsLowercase = [];
+      lvl.textIsDark = false;
+      for(let j=0; j<lvl.creators_full.length; j++) {
+        lvl.creators_full_lowercase[j] = lvl.creators_full[j].toLowerCase();
+      }
+      for(let j=0; j<lvl.tags.length; j++) {
+        lvl.tagsLowercase[j] = lvl.tags[j].toLowerCase();
+      }
+      this.ill_service.firestore.collection('ill').doc(_real_ill_keys[i]).update(lvl);
+    });
+
+    console.log('finished')
   }
 }

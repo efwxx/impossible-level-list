@@ -16,24 +16,22 @@
 </div>
 
 <!-- NavBar -->
-<div class="ILL_Navbar bg-gray-300 dark:bg-gray-800 text-black dark:text-white">
-  <a href="">
-      <img class="p-2 rounded-lg" src="../../assets/logo.png" width="64" height="64" />
-  </a>
-  <a *ngIf="(afAuth.authState |async)" (click)="refreshAdminAccess()">
-    <span class="bg-slate-200 font-light m-2 p-2 shadow-md rounded-lg 
-    hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-    dark:bg-slate-600">
-    <fa-icon [icon]="i_refresh" class="m-1"></fa-icon>
-  </span>   
-  </a>
-  <a (click)="toggleTheme()">
-    <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <fa-icon [icon]="i_darkmode" *ngIf="_themeRef === 'dark'" class="m-1"></fa-icon>
-      <fa-icon [icon]="i_lightmode" *ngIf="_themeRef === 'light'" class="m-1"></fa-icon>
-  </span>   
-  </a>
-  <div class="justify-self-center mx-auto">
+<div class="ILL_Navbar bg-gray-300 dark:bg-gray-800 text-[#071013] dark:text-white select-none">
+  <div class="flex flex-row items-center">
+    <a href="">
+        <img class="p-2 rounded-lg" src="../../assets/logo.png" width="64" height="64" />
+    </a>
+    <b (click)="refreshAdminAccess()" class="my-auto text-lg select-none lg:relative lg:scale-100 scale-0 absolute">Impossible Levels List</b>
+    <b (click)="refreshAdminAccess()" class="my-auto text-lg select-none relative scale-100 lg:scale-0 lg:absolute">ILL</b>
+    <a (click)="toggleTheme()">
+      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+        <fa-icon [icon]="i_darkmode" *ngIf="_themeRef === 'dark'" class="m-1"></fa-icon>
+        <fa-icon [icon]="i_lightmode" *ngIf="_themeRef === 'light'" class="m-1"></fa-icon>
+      </span>   
+    </a>
+  </div>
+
+  <div class="ml-auto mr-3">
     <a href="https://discord.gg/MHx4Nbp">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
         <fa-icon [icon]="i_discord" class="m-1"></fa-icon>
@@ -42,21 +40,15 @@
     </a>
     <a routerLink="/faq">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <fa-icon [icon]="i_faq" class="m-1"></fa-icon>
-      <b class="lg:scale-100 lg:relative absolute scale-0">FAQ</b>
-    </span>   
-    </a>
-    <a href="https://docs.google.com/document/d/1TNNkuLVUE4kUv6bCnh-RuXroLky8yyL-HdWJoYNbRlI/edit?usp=sharing">
-      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <fa-icon [icon]="i_oldList" class="m-1"></fa-icon>
-      <b class="lg:scale-100 lg:relative absolute scale-0">Old list</b>
-    </span>
+        <fa-icon [icon]="i_faq" class="m-1"></fa-icon>
+        <b class="lg:scale-100 lg:relative absolute scale-0">FAQ</b>
+      </span>   
     </a>
     <a href="https://www.patreon.com/mateussdev">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <fa-icon [icon]="i_patreon" class="m-1"></fa-icon>
-      <b class="lg:scale-100 lg:relative absolute scale-0">Donate to Mateuss</b>
-    </span>   
+        <fa-icon [icon]="i_patreon" class="m-1"></fa-icon>
+        <b class="lg:scale-100 lg:relative absolute scale-0">Donate to Mateuss</b>
+      </span>   
     </a>
     
     <a routerLink="/admin" *ngIf="afAuth.authState |async as user" [hidden]="!_adminAccess">
@@ -67,15 +59,15 @@
     </a>
     <a *ngIf="(afAuth.authState |async) === null" routerLink="/login">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <fa-icon [icon]="i_login" class="m-1"></fa-icon>
-      <b class="lg:scale-100 lg:relative absolute scale-0">Sign In</b>
-    </span>   
+        <fa-icon [icon]="i_login" class="m-1"></fa-icon>
+        <b class="lg:scale-100 lg:relative absolute scale-0">Sign In</b>
+      </span>   
     </a>
     <a *ngIf="(afAuth.authState |async)" (click)="afAuth.signOut()">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-      <fa-icon [icon]="i_logout" class="m-1"></fa-icon>
-      <b class="lg:scale-100 lg:relative absolute scale-0">Sign Out</b>
-    </span>   
+        <fa-icon [icon]="i_logout" class="m-1"></fa-icon>
+        <b class="lg:scale-100 lg:relative absolute scale-0">Sign Out</b>
+      </span>   
     </a>
   </div>
 </div>

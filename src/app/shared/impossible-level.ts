@@ -16,5 +16,9 @@ export interface ImpossibleLevel {
     marked_for_removal: boolean,
     annotated: boolean,
     marking_reason: string,
-    nameLowercase?: string
+    nameLowercase?: string,
+    creators_full_lowercase?: string[],
+    wide_level_shot_url?: string,
+    tagsLowercase?: string[],
+    textIsDark?: boolean
 }

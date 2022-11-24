@@ -6,12 +6,12 @@
 
 .ILL_Navbar {
     font-family: 'Montserrat', sans-serif;
-    @apply w-screen fixed top-0 left-0  shadow-md flex flex-row flex-wrap flex-shrink items-center
+    @apply w-screen fixed top-0 left-0 shadow-md flex flex-row flex-wrap flex-shrink items-center justify-between
 }
 
 .ILL_NavbarBtn {
     @apply font-light lg:m-2 lg:p-2 m-1 p-1 shadow-md rounded-lg hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-    lg:text-base text-lg w-screen
+    lg:text-base text-lg
 }
 
 .ILL_BG {

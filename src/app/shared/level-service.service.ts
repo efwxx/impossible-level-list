@@ -15,6 +15,10 @@ export class LevelServiceService {
     return this.firestore.collection('ill').snapshotChanges();
   }
 
+  getWholeLevelList() {
+    return this.firestore.collection('ill').ref.get()
+  }
+
   getOrderedLevelList() {
     const coll = this.firestore.collection('ill').ref;
     return coll.orderBy('position', 'asc').get();

@@ -13,6 +13,7 @@ import {
   faBone,
   faBong,
   faBugSlash,
+  faCat,
   faChair,
   faClipboardCheck,
   faCloudMoon,
@@ -31,6 +32,7 @@ import {
   faPeopleGroup,
   faPoo,
   faScrewdriverWrench,
+  faSearch,
   faShieldCat,
   faSkull,
   faSortDown,
@@ -38,12 +40,15 @@ import {
   faStar,
   faTag,
   faTerminal,
+  faTooth,
   faTractor,
+  faUmbrella,
   faUser,
-  faWaveSquare
+  faWaveSquare,
+  faYinYang
 } from '@fortawesome/free-solid-svg-icons'
 import { formatNumber } from '@angular/common';
-import { faXing, faYandex } from '@fortawesome/free-brands-svg-icons';
+import { faUmbraco, faXing, faYandex } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-list',
@@ -74,7 +79,7 @@ export class ListComponent implements OnInit {
 
   //search
   srch_input: string = '';
-  srch_criteria: string = 'name';
+  srch_criteria: string = 'level name';
   srch_dropdown: boolean = false;
   srch_showingSearchResults: boolean = false;
 
@@ -93,6 +98,7 @@ export class ListComponent implements OnInit {
   i_bugfix = faBugSlash;
   i_fps = faHourglass;
   i_illrf = faStar;
+  i_search = faSearch;
 
   //user icons
   i_MateussDev = faCode;
@@ -108,7 +114,7 @@ export class ListComponent implements OnInit {
   i_Relayne = faYandex;
   i_AuraXalaiv = faDragon;
   i_Eightos = faPoo;
-  i_skub = faBacon;
+  i_skub = faCat;
   i_krx = faTerminal;
   i_Akyse = faCloudMoon;
   i_Remy = faPeopleGroup;
@@ -117,6 +123,9 @@ export class ListComponent implements OnInit {
   i_Xane = faXing;
   i_knali = faEye;
   i_buk = faLightbulb;
+  i_blanket = faTooth;
+  i_ewe = faYinYang;
+  i_zodiac = faUmbrella;
 
   constructor(private ill_service: LevelServiceService) {
   }
@@ -125,6 +134,7 @@ export class ListComponent implements OnInit {
 
   async ngOnInit() {
     this.cutoutPage(0, this.pageSize);
+    // this.listSorted = true;
     this.getRandomILLFact();
   }
 
@@ -247,9 +257,15 @@ export class ListComponent implements OnInit {
     console.log('begin search')
     //make sure that nameLowercase exists
 
+    if(input == "") {
+      this.cutoutPage(0, this.pageSize);
+      return;
+    }
+
     switch (crit) {
-      case 'name':
-        console.log('searching through names')
+      case 'level name':
+        console.log('searching through normal case names')
+
         await this.ill_service.firestore.collection('ill').ref.where('name', '==', input).orderBy('position').get().then(res => {
           this.levelListToDisplay = res.docs.map((e:any) => {
             const data = e.data();
@@ -258,9 +274,27 @@ export class ListComponent implements OnInit {
         }).catch(err => {
           this.listSorted = true;
           console.log(err);
-        })
-        this.listSorted = true;
-        break;
+        });
+
+        if(this.levelListToDisplay.length == 0) {
+          console.log('searching through lowercase names')
+          await this.ill_service.firestore.collection('ill').ref.where('nameLowercase', '==', input).orderBy('position').get().then(res => {
+            this.levelListToDisplay = res.docs.map((e:any) => {
+              const data = e.data();
+              return data;
+            })
+          }).catch(err => {
+            this.listSorted = true;
+            console.log(err);
+          })
+          this.listSorted = true;
+          break;
+        } else {
+          console.log('success')
+
+          this.listSorted = true;
+          break;
+        }
       case 'id':
         console.log('searching through normal fields')
         await this.ill_service.firestore.collection('ill').ref.where('level_id', '==', input).orderBy('position').get().then(res => {
@@ -301,7 +335,8 @@ export class ListComponent implements OnInit {
         this.listSorted = true;
         break;
       case 'creator':
-        console.log('earching through array fields')
+        console.log('searching through normal case array fields')
+
         await this.ill_service.firestore.collection('ill').ref.where('creators_full', 'array-contains', input).orderBy('position').get().then(res => {
           this.levelListToDisplay = res.docs.map((e:any) => {
             const data = e.data();
@@ -311,12 +346,10 @@ export class ListComponent implements OnInit {
           this.listSorted = true;
           console.log(err);
         })
-        this.listSorted = true;
-        break;
-      case 'tag':
-        console.log('earching through array fields')
-        if(this.srch_input != 'No Victors') {
-          await this.ill_service.firestore.collection('ill').ref.where('tags', 'array-contains', input).orderBy('position').get().then(res => {
+
+        if(this.levelListToDisplay.length == 0) {
+          console.log('searching through lowercase array fields')
+          await this.ill_service.firestore.collection('ill').ref.where('creators_full_lowercase', 'array-contains', input).orderBy('position').get().then(res => {
             this.levelListToDisplay = res.docs.map((e:any) => {
               const data = e.data();
               return data;
@@ -327,6 +360,42 @@ export class ListComponent implements OnInit {
           })
           this.listSorted = true;
           break;
+        } else {
+          console.log('success');
+          this.listSorted = true;
+          break;
+        }
+
+      case 'tag':
+        console.log('earching through array fields')
+
+        if(this.srch_input != 'No Victors') {
+          await this.ill_service.firestore.collection('ill').ref.where('tags', 'array-contains', input).orderBy('position').get().then(res => {
+            this.levelListToDisplay = res.docs.map((e:any) => {
+              const data = e.data();
+              return data;
+            })
+          }).catch(err => {
+            this.listSorted = true;
+            console.log(err);
+          })
+          
+          if(this.levelListToDisplay.length == 0) {
+            await this.ill_service.firestore.collection('ill').ref.where('tagsLowercase', 'array-contains', input).orderBy('position').get().then(res => {
+              this.levelListToDisplay = res.docs.map((e:any) => {
+                const data = e.data();
+                return data;
+              })
+            }).catch(err => {
+              this.listSorted = true;
+              console.log(err);
+            })
+            this.listSorted = true;
+            break;
+          } else {
+            this.listSorted = true;
+            break;
+          }
         } else {
           this.levelListToDisplay = [];
           console.log('LMFAO')

@@ -1,0 +1,3 @@
+.ILL_dropdown {
+    @apply hover:bg-slate-300 dark:hover:bg-slate-800 transition-all duration-300 p-2 text-base m-0
+}

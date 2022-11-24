@@ -2,9 +2,6 @@
 
 .ILL_ListElem {
     font-family: 'Montserrat', sans-serif;
-    @apply border-b-2 border-spacing-10 m-2 p-2 shadow-md rounded-md 
-    hover:shadow-xl hover:rounded-xl transition-all duration-300 ease-in-out hover:text-white
-    disabled:border-red-900 disabled:bg-red-800;
 }
 
 .ILL_ListElemScroll::-webkit-scrollbar {
@@ -33,7 +30,24 @@
 }
 
 .ILL_Tag {
-  @apply bg-blue-600 dark:bg-blue-900 text-white rounded-xl relative 
-  w-fit h-fit lg:p-[4px] lg:text-sm text-xs p-[6px] font-light
+  @apply bg-[#4338ca] text-white rounded-xl relative 
+  w-fit h-fit xl:p-[4px] xl:text-sm text-xs p-[6px] font-light
   shadow-md hover:shadow-xl m-1 hover:scale-105 transition-all duration-300 select-none
+}
+
+.ILL_textFX {
+  text-shadow: black 5px 5px 10px;
+}
+
+.ILL_whiteOutline {
+  text-shadow: -1px 1px 0 #FFFFFF,
+				  1px 1px 0 #FFFFFF,
+				  1px -1px 0 #FFFFFF,
+				  -1px -1px 0 #FFFFFF;
+}
+.ILL_blackOutline {
+  text-shadow: -1.5px 1.5px 0 #071013,
+				  1.5px 1px 0 #071013,
+				  1.5px -1.5px 0 #071013,
+				  -1.5px -1.5px 0 #071013;
 }

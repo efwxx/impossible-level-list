@@ -13,7 +13,7 @@ import {
 import {
 
 } from '@fortawesome/fontawesome-svg-core'
-import { faBarsStaggered, faBook, faCheckCircle, faDeleteLeft, faHourglass, faInfo, faInfoCircle, faScrewdriverWrench, faStopwatch, faTag, faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faBarsStaggered, faBook, faBookmark, faCheckCircle, faDeleteLeft, faHourglass, faInfo, faInfoCircle, faScrewdriverWrench, faStar, faStarHalf, faStopwatch, faTag, faTrophy, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -86,17 +86,21 @@ export class ListElementComponent implements OnInit {
   level_uploader = 'Xane88'
   level_marked_for_removal = false;
   level_annotated = true;
-  level_markdown_reason = ''
-
+  level_markdown_reason = '';
+  level_isRated = false;
+  level_isUnRated = false;
+  
   card_expanded = false;
   card_mobile_expanded = false;
   card_yt_videoID = 'DqB2uTY9-Ss'
   card_yt_vidEmbedURL: SafeResourceUrl | undefined;
   card_yt_thumbnailURL: SafeResourceUrl | undefined;
+  card_wideshot_link: SafeResourceUrl | undefined;
+  card_haswideshot: boolean = false;
 
   //icons
-  i_annotation = faBook;
-  i_removal = faDeleteLeft;
+  i_annotation = faBookmark;
+  i_removal = faXmark;
   i_info = faInfoCircle;
   i_creators = faScrewdriverWrench;
   i_wr = faTrophy;
@@ -104,6 +108,10 @@ export class ListElementComponent implements OnInit {
   i_fps = faHourglass;
   i_levelID = faBarsStaggered;
   i_tag = faTag;
+  i_expand = faAngleDown;
+  i_collapse = faAngleUp;
+  i_rated = faStar;
+  i_unrated = faStarHalf
 
   //all data in 1 object
   @Input('ill_level') ill_level:ImpossibleLevel = {
@@ -111,19 +119,20 @@ export class ListElementComponent implements OnInit {
     position: 0,
     name: 'The Cyclonic',
     fps: -1820385,
-    level_id: '',
-    gd_version: '',
+    level_id: '77018514',
+    gd_version: '2.2',
     yt_videoID: 'DqB2uTY9-Ss',
-    creators_short: '',
+    creators_short: 'everyone & skub',
     creators_full: ['Eightos1', 'Eightos2', 'Eightos3', 'Eightos4', 'Eightos5', 'Ewe23', 'Locked101', 'MateussDev', 'NotRealAcc', 'LennardHater228', 'skubb', 'adaf', 'AuraXalaiv'],
-    tags: [],
+    tags: ['sex', 'girl', 'furry', 'Previously Rated', 'Rated'],
     uploader: 'Xane88',
     wr_min_percent: '0.01',
     wr: '0.092% (eli22507)',
     wr_yt: 'https://youtu.be/xD9BWvMZGm4',
-    marked_for_removal: false,
-    annotated: false,
-    marking_reason: ''
+    marked_for_removal: true,
+    annotated: true,
+    marking_reason: 'Simply unfunny, horrendus, impossible to playtest and generally bad',
+    wide_level_shot_url: 'https://media.discordapp.net/attachments/598756348829892647/1043253620772196362/unknown.png'
   };
   @Input('ill_position') ill_position?:number;
   constructor(private sanitizer: DomSanitizer) { 
@@ -150,6 +159,26 @@ export class ListElementComponent implements OnInit {
     this.level_markdown_reason = this.ill_level.marking_reason;
     this.card_yt_vidEmbedURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/'+this.card_yt_videoID)
     this.card_yt_thumbnailURL = this.sanitizer.bypassSecurityTrustResourceUrl('https://i.ytimg.com/vi/'+this.card_yt_videoID+'/mqdefault.jpg')
+    this.level_isRated = this.level_tags.find((v) => {
+      return v == "Rated"
+    }) != null;
+    this.level_isUnRated = this.level_tags.find((v) => {
+      return v == "Previously Rated"
+    }) != null;
+    this.setupwideshot()
+
+  }
+
+  async setupwideshot() {
+    this.card_wideshot_link = await this.sanitizer.bypassSecurityTrustResourceUrl(''+this.ill_level.wide_level_shot_url);
+
+    //disallow white text on light theme
+    if(this.ill_level.wide_level_shot_url != '') {
+      this.card_haswideshot = true;
+    } else {
+      this.card_haswideshot = false;
+    }
+
   }
 
   expandCard() {
