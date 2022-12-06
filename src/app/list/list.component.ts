@@ -15,6 +15,8 @@ import {
   faBugSlash,
   faCat,
   faChair,
+  faChild,
+  faChildRifle,
   faClipboardCheck,
   faCloudMoon,
   faCode,
@@ -126,6 +128,7 @@ export class ListComponent implements OnInit {
   i_blanket = faTooth;
   i_ewe = faYinYang;
   i_zodiac = faUmbrella;
+  i_sobot = faChildRifle;
 
   constructor(private ill_service: LevelServiceService) {
   }

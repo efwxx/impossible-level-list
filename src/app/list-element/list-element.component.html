@@ -1,9 +1,9 @@
 <div class="group rounded-t-3xl rounded-b-lg transition-all duration-200 z-20 
-dark:bg-[#1e293b] bg-[#cbd5e1] my-2 mx-0">
-    <div class="flex flex-col">
+dark:bg-[#1e293b] bg-[#cbd5e1] my-2 mx-0 lg:h-fit h-[172px]">
+    <div class="flex flex-col h-full items-stretch justify-between">
 
         <!-- =====List Item Top===== -->
-        <div class="flex flex-row items-stretch justify-evenly bg-local bg-left-top w-full lg:overflow-x-visible overflow-x-hidden rounded-t-3xl bg-cover"
+        <div class="flex flex-row items-stretch justify-evenly bg-local bg-left-top w-full h-full lg:overflow-x-visible overflow-x-hidden rounded-t-3xl bg-cover"
         style="background-image: url({{ill_level.wide_level_shot_url}});" (click)="expandCard()">
             <!-- Thumbnail -->
             <img [src]="card_yt_thumbnailURL" class="xl:w-[360px] lg:w-[172px] w-0 lg:relative absolute aspect-video 
@@ -12,17 +12,17 @@ dark:bg-[#1e293b] bg-[#cbd5e1] my-2 mx-0">
             <!-- Level position -->
             
             <!-- Light -->
-            <b class="font-semibold p-2 left-0 h-full xl:text-5xl lg:text-4xl text-3xl align-middle 
+            <b class="font-semibold p-2 left-0 xl:text-5xl lg:text-4xl text-3xl align-middle 
             my-auto m-3 select-none text-white ILL_textFX ILL_placementFont ILL_blackOutline" *ngIf="card_haswideshot && !ill_level.textIsDark">
                 {{ '#' + level_position }}
             </b>
             <!-- Dark -->
-            <b class="font-semibold p-2 left-0 h-full xl:text-5xl lg:text-4xl text-3xl align-middle 
+            <b class="font-semibold p-2 left-0 xl:text-5xl lg:text-4xl text-3xl align-middle 
             my-auto m-3 select-none text-[#071013] ILL_textFX ILL_placementFont ILL_whiteOutline" *ngIf="card_haswideshot && ill_level.textIsDark">
                 {{ '#' + level_position }}
             </b>
 
-            <b class="font-semibold p-2 left-0 h-full xl:text-5xl lg:text-4xl text-3xl align-middle 
+            <b class="font-semibold p-2 left-0 xl:text-5xl lg:text-4xl text-3xl align-middle 
             my-auto m-3 select-none dark:text-white text-[#071013] ILL_placementFont" *ngIf="!card_haswideshot">
                 {{ '#' + level_position }}
             </b>

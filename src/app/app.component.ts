@@ -7,6 +7,7 @@ import { UserData } from './shared/user-data';
 import { Router, RouterOutlet } from '@angular/router';
 import { faFileLines, faHistory, faMoon, faQuestionCircle, faRefresh, faRightFromBracket, faRightToBracket, faRotateRight, faSun, faToolbox } from '@fortawesome/free-solid-svg-icons'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons';
+import { getAnalytics } from 'firebase/analytics'
 
 
 @Component({
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
   _adminAccess:boolean = false;
 
   _themeRef:string = 'light';
+  analytics = getAnalytics();
 
   //icons
   i_discord = faDiscord;

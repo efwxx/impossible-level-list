@@ -8,5 +8,6 @@ export interface UserData {
     email: string;
     roles: Roles;
     username?: string;
+    description?: string;
     creatorPoints?: number;
 }
