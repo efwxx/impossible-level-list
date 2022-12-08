@@ -253,160 +253,205 @@ export class ListComponent implements OnInit {
     this.srch_dropdown = false;
   }
 
-  async search(crit:string, input:string) {
+  async search(input:string) {
     this.listSorted = false;
     this.levelList = [];
     this.srch_showingSearchResults = true;
+
+    let finalList:ImpossibleLevel[] = [];
+    let _tempArr:ImpossibleLevel[] = [];
     console.log('begin search')
     //make sure that nameLowercase exists
 
     if(input == "") {
       this.cutoutPage(0, this.pageSize);
       return;
+    } else if(input == "lennard") {
+      _tempArr = [];
+      console.log('LENNAR')
+      this.listSorted = true;
+      return;
     }
+    // ! Search through all level names:
 
-    switch (crit) {
-      case 'level name':
-        console.log('searching through normal case names')
+    //reset the temp array holding the data
+    _tempArr = [];
 
-        await this.ill_service.firestore.collection('ill').ref.where('name', '==', input).orderBy('position').get().then(res => {
-          this.levelListToDisplay = res.docs.map((e:any) => {
-            const data = e.data();
-            return data;
-          })
-        }).catch(err => {
-          this.listSorted = true;
-          console.log(err);
-        });
-
-        if(this.levelListToDisplay.length == 0) {
-          console.log('searching through lowercase names')
-          await this.ill_service.firestore.collection('ill').ref.where('nameLowercase', '==', input).orderBy('position').get().then(res => {
-            this.levelListToDisplay = res.docs.map((e:any) => {
-              const data = e.data();
-              return data;
-            })
-          }).catch(err => {
-            this.listSorted = true;
-            console.log(err);
-          })
-          this.listSorted = true;
-          break;
-        } else {
-          console.log('success')
-
-          this.listSorted = true;
-          break;
-        }
-      case 'id':
-        console.log('searching through normal fields')
-        await this.ill_service.firestore.collection('ill').ref.where('level_id', '==', input).orderBy('position').get().then(res => {
-          this.levelListToDisplay = res.docs.map((e:any) => {
-            const data = e.data();
-            return data;
-          })
-        }).catch(err => {
-          this.listSorted = true;
-          console.log(err);
+    // * query normal names
+      console.log('searching through normal case level names')
+      await this.ill_service.firestore.collection('ill').ref.where('name', '==', input).orderBy('position').get().then(res => {
+        _tempArr = res.docs.map((e:any) => {
+          const data = e.data();
+          return data;
         })
+      }).catch(err => {
         this.listSorted = true;
-        break;
-      case 'update':
-        console.log('searching through normal fields')
-        await this.ill_service.firestore.collection('ill').ref.where('gd_version', '==', input).orderBy('position').get().then(res => {
-          this.levelListToDisplay = res.docs.map((e:any) => {
-            const data = e.data();
-            return data;
-          })
-        }).catch(err => {
-          this.listSorted = true;
-          console.log(err);
+        console.log(err);
+      });
+      finalList.concat(_tempArr);
+
+    // * query lowercase names
+      console.log('searching through lowercase level names')
+      await this.ill_service.firestore.collection('ill').ref.where('nameLowercase', '==', input).orderBy('position').get().then(res => {
+        _tempArr = res.docs.map((e:any) => {
+          const data = e.data();
+          return data;
         })
+      }).catch(err => {
         this.listSorted = true;
-        break;
-      case 'fps':
-        console.log('searching through normal fields')
-        await this.ill_service.firestore.collection('ill').ref.where('fps', '==', input).orderBy('position').get().then(res => {
-          this.levelListToDisplay = res.docs.map((e:any) => {
-            const data = e.data();
-            return data;
-          })
-        }).catch(err => {
-          this.listSorted = true;
-          console.log(err);
+        console.log(err);
+      });
+
+    // * add to the final list
+      finalList = finalList.concat(_tempArr);
+
+    // ! Search through all level IDs
+
+    //reset the temp array
+      _tempArr = [];
+
+      console.log('searching through level IDs')
+      await this.ill_service.firestore.collection('ill').ref.where('level_id', '==', input).orderBy('position').get().then(res => {
+        _tempArr = res.docs.map((e:any) => {
+          const data = e.data();
+          return data;
         })
+      }).catch(err => {
         this.listSorted = true;
-        break;
-      case 'creator':
-        console.log('searching through normal case array fields')
+        console.log(err);
+      })
 
-        await this.ill_service.firestore.collection('ill').ref.where('creators_full', 'array-contains', input).orderBy('position').get().then(res => {
-          this.levelListToDisplay = res.docs.map((e:any) => {
-            const data = e.data();
-            return data;
-          })
-        }).catch(err => {
-          this.listSorted = true;
-          console.log(err);
+    // * add to the final list
+      finalList = finalList.concat(_tempArr);
+
+    // ! Search through all GD versions
+
+    //reset temp array
+      _tempArr = [];
+
+      console.log('searching through GD versions')
+      await this.ill_service.firestore.collection('ill').ref.where('gd_version', '==', input).orderBy('position').get().then(res => {
+        _tempArr = res.docs.map((e:any) => {
+          const data = e.data();
+          return data;
         })
+      }).catch(err => {
+        this.listSorted = true;
+        console.log(err);
+      })
 
-        if(this.levelListToDisplay.length == 0) {
-          console.log('searching through lowercase array fields')
-          await this.ill_service.firestore.collection('ill').ref.where('creators_full_lowercase', 'array-contains', input).orderBy('position').get().then(res => {
-            this.levelListToDisplay = res.docs.map((e:any) => {
-              const data = e.data();
-              return data;
-            })
-          }).catch(err => {
-            this.listSorted = true;
-            console.log(err);
-          })
-          this.listSorted = true;
-          break;
-        } else {
-          console.log('success');
-          this.listSorted = true;
-          break;
-        }
+    // * add to the final list
+      finalList = finalList.concat(_tempArr);
 
-      case 'tag':
-        console.log('earching through array fields')
+    // ! Search through all FPS values
 
-        if(this.srch_input != 'No Victors') {
-          await this.ill_service.firestore.collection('ill').ref.where('tags', 'array-contains', input).orderBy('position').get().then(res => {
-            this.levelListToDisplay = res.docs.map((e:any) => {
-              const data = e.data();
-              return data;
-            })
-          }).catch(err => {
-            this.listSorted = true;
-            console.log(err);
-          })
-          
-          if(this.levelListToDisplay.length == 0) {
-            await this.ill_service.firestore.collection('ill').ref.where('tagsLowercase', 'array-contains', input).orderBy('position').get().then(res => {
-              this.levelListToDisplay = res.docs.map((e:any) => {
-                const data = e.data();
-                return data;
-              })
-            }).catch(err => {
-              this.listSorted = true;
-              console.log(err);
-            })
-            this.listSorted = true;
-            break;
-          } else {
-            this.listSorted = true;
-            break;
-          }
-        } else {
-          this.levelListToDisplay = [];
-          console.log('LMFAO')
-          this.listSorted = true;
-          break;
-        }
+    //reset temp array
+      _tempArr = [];
+
+      console.log('searching through all fps values')
+      await this.ill_service.firestore.collection('ill').ref.where('fps', '==', input).orderBy('position').get().then(res => {
+        _tempArr = res.docs.map((e:any) => {
+          const data = e.data();
+          return data;
+        })
+      }).catch(err => {
+        this.listSorted = true;
+        console.log(err);
+      })
+
+    // * add to the final list
+      finalList = finalList.concat(_tempArr);
+    
+    // ! Search through all creators
+
+    //reset temp array
+      _tempArr = [];
+
+    // * query normal name of creator
+      console.log('searching through normal case creator array fields')
+      await this.ill_service.firestore.collection('ill').ref.where('creators_full', 'array-contains', input).orderBy('position').get().then(res => {
+        _tempArr = res.docs.map((e:any) => {
+          const data = e.data();
+          return data;
+        })
+      }).catch(err => {
+        this.listSorted = true;
+        console.log(err);
+      })
+    
+    // * add to the final list
+      finalList = finalList.concat(_tempArr);
+    
+    // * query lowercase name of creator
+      console.log('searching through lowercase creator array fields')
+      await this.ill_service.firestore.collection('ill').ref.where('creators_full_lowercase', 'array-contains', input).orderBy('position').get().then(res => {
+        _tempArr = res.docs.map((e:any) => {
+          const data = e.data();
+          return data;
+        })
+      }).catch(err => {
+        this.listSorted = true;
+        console.log(err);
+      })
+
+    // * add to the final list
+      finalList = finalList.concat(_tempArr);
+
+    // ! Search through all tags
+
+    //reset temp array
+      _tempArr = [];
+
+      console.log('searching through normal tag array fields')
+      await this.ill_service.firestore.collection('ill').ref.where('tags', 'array-contains', input).orderBy('position').get().then(res => {
+        _tempArr = res.docs.map((e:any) => {
+          const data = e.data();
+          return data;
+        })
+      }).catch(err => {
+        this.listSorted = true;
+        console.log(err);
+      })
+
+    // * add to the final list
+      finalList = finalList.concat(_tempArr);
+    
+      console.log('searching through lowercase tag array fields')
+      await this.ill_service.firestore.collection('ill').ref.where('tagsLowercase', 'array-contains', input).orderBy('position').get().then(res => {
+        _tempArr = res.docs.map((e:any) => {
+          const data = e.data();
+          return data;
+        })
+      }).catch(err => {
+        this.listSorted = true;
+        console.log(err);
+      })
+    // * add to the final list
+      finalList = finalList.concat(_tempArr);
       
+    // ! Remove duplicates
+    
+
+    //seek
+    for(let i=finalList.length; i>0; i--) {
+      for(let j=0; j<finalList.length; j++) {
+        if(i!=j) {
+          if(finalList[i] != undefined && finalList[j] != undefined) {
+            if(finalList[i].name == finalList[j].name && finalList[i].creators_short == finalList[j].creators_short) {
+              console.log("duplicate found: ", finalList[i].name,"by",finalList[i].creators_short);
+              finalList.splice(i, 1);
+            }
+          }
+        }
+      }
     }
+
+    
+
+    // ! Finalize full Query
+      this.levelListToDisplay = finalList;
+      this.listSorted = true;
+    
     window.scroll({
       top: 0,
       left: 0,

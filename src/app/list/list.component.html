@@ -86,30 +86,14 @@
               </div>
               <input type="submit" class="text-white bg-blue-600 rounded-full p-3 mx-2 shadow-lg 
               hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-500"
-              (click)="search(srch_criteria, srch_input)" value="Search">
+              (click)="search(srch_input)" value="Search">
             </div>
           </form>
-          <div class="flex flex-col">
-            <button (click)="toggleSearchDropdown()" class="text-white bg-blue-600 
-            rounded-full p-3 mx-2 w-[96px] shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 text-xs flex flex-row items-center justify-between">
-              {{srch_criteria}} 
-              <fa-icon [icon]="i_expand" class="mx-1 text-lg"></fa-icon>
-            </button>
-            <div class="origin-top absolute bg-slate-100 dark:bg-slate-700 translate-y-16 w-32 select-none lg:text-sm 
-            text-lg z-10 shadow-xl text-black dark:text-white rounded-t-2xl overflow-hidden" *ngIf="srch_dropdown">
-              <p class="ILL_dropdown" (click)="selectCriteria('level name')"><fa-icon [icon]="i_name" class="m-1"></fa-icon>Name</p>
-              <p class="ILL_dropdown" (click)="selectCriteria('creator')"><fa-icon [icon]="i_creator" class="m-1"></fa-icon>Creator</p>
-              <p class="ILL_dropdown" (click)="selectCriteria('tag')"><fa-icon [icon]="i_tag" class="m-1"></fa-icon>Tag</p>
-              <p class="ILL_dropdown" (click)="selectCriteria('id')"><fa-icon [icon]="i_id" class="m-1"></fa-icon>ID</p>
-              <p class="ILL_dropdown" (click)="selectCriteria('update')"><fa-icon [icon]="i_version" class="m-1"></fa-icon>GD Version</p>
-              <p class="ILL_dropdown" (click)="selectCriteria('fps')"><fa-icon [icon]="i_fps" class="m-1"></fa-icon>FPS</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
 
-    <img src="../../assets/BNR_Base.png" class="w-full mt-4 aspect-auto shadow-2xl border-4 border-dashed border-spacing-2 dark:border-slate-800 border-slate-300" />
+    <img src="../../assets/BNR_Base3.png" class="w-full mt-4 aspect-auto shadow-2xl rounded-2xl border-4 border-dashed border-spacing-2 dark:border-slate-800 border-slate-300" />
 
 
     <!-- page navigation Top -->
@@ -129,7 +113,7 @@
     
     <div class="h-fit lg:p-2 p-0 flex flex-col mt-2 mb-2 lg:rounded-md w-full"
     id="ILL_ListParent" *ngIf="listSorted">
-      <b *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for {{srch_criteria+": "+srch_input}}:</b>
+      <b *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for "{{srch_input}}":</b>
       
       
       <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>

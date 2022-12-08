@@ -31,7 +31,7 @@
 
 .ILL_Tag {
   @apply bg-[#4338ca] text-white rounded-xl relative 
-  w-fit h-fit xl:p-[4px] xl:text-sm text-xs p-[6px] font-light
+  w-fit h-fit xl:p-[4px] xl:text-sm text-xs p-[6px] font-light xl:scale-100 scale-90
   shadow-md hover:shadow-xl m-1 hover:scale-105 transition-all duration-300 select-none
 }
 

@@ -387,7 +387,18 @@ export class AdminDataEditorComponent implements OnInit {
     console.log('finished')
   }
 
-  fillProfileData() {
+  resetProfileData() {
     
+  }
+
+  findAverageFPS() {
+    let _avg:number = 0;
+    this.levelList.forEach((level, i) => {
+      let _fps:number|string = level.fps;
+      _avg += Number(_fps)
+    })
+
+
+    console.log(_avg/this.levelList.length);
   }
 }
