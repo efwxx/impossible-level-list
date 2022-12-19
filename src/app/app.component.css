@@ -14,6 +14,10 @@
     lg:text-base text-lg
 }
 
+.ILL_ProfileBtn {
+    @apply text-lg font-semibold flex flex-row transition-all duration-200 p-2 m-1 rounded-xl
+}
+
 .ILL_BG {
     background-image: url('../assets/BG_Light1.png');
     background-size: cover;

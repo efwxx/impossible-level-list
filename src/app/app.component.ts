@@ -5,9 +5,10 @@ import firebase from 'firebase/compat/app'
 import { AuthService } from './shared/auth.service';
 import { UserData } from './shared/user-data';
 import { Router, RouterOutlet } from '@angular/router';
-import { faFileLines, faHistory, faMoon, faQuestionCircle, faRefresh, faRightFromBracket, faRightToBracket, faRotateRight, faSun, faToolbox } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCube, faFileLines, faHistory, faMoon, faPerson, faQuestionCircle, faRankingStar, faRefresh, faRightFromBracket, faRightToBracket, faRotateRight, faSun, faToolbox, faUser, faWrench } from '@fortawesome/free-solid-svg-icons'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons';
 import { getAnalytics } from 'firebase/analytics'
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 
 @Component({
@@ -22,10 +23,12 @@ export class AppComponent implements OnInit {
     public router: Router
   ) {}
   title = 'Impossible Level List';
-  _adminAccess:boolean = false;
 
   _themeRef:string = 'light';
   analytics = getAnalytics();
+
+  _showAccInfo:boolean = false;
+  
 
   //icons
   i_discord = faDiscord;
@@ -37,16 +40,15 @@ export class AppComponent implements OnInit {
   i_darkmode = faMoon;
   i_lightmode = faSun;
   i_refresh = faRotateRight;
-  i_admin = faToolbox;
+  i_admin = faWrench;
+
+  i_profile = faUser;
+  i_gdusername = faCube;
+  i_settings = faCog;
+  i_stats = faRankingStar;
   
   async refreshAdminAccess() {
-    const isAdmin = await this.authService.isCurrentUserAdmin()
-    if(isAdmin) {
-      this._adminAccess = true;
-    } else {
-      this._adminAccess = false;
-      this.router.navigate(['../home']);
-    }
+    this.authService.isCurrentUserAdmin();
   }
   
   ngOnInit(): void {
@@ -63,6 +65,7 @@ export class AppComponent implements OnInit {
       localStorage['theme'] = 'light'
     }
   }
+
   
   toggleTheme() {
     console.log('here')
@@ -81,6 +84,10 @@ export class AppComponent implements OnInit {
 
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+  }
+
+  toggleAccountDropdown() {
+    this._showAccInfo = !this._showAccInfo;
   }
 
 }

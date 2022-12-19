@@ -6,11 +6,11 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 
 //Components
-import { ListElementComponent } from './list-element/list-element.component';
-import { ListComponent } from './list/list.component';
-import { AdminDataEditorComponent } from './admin-data-editor/admin-data-editor.component';
-import { AdminMenuComponent } from './admin-menu/admin-menu.component';
-import { LoginPageComponent } from './login-page/login-page.component';
+import { ListElementComponent } from './main-list-page/list-element/list-element.component';
+import { ListComponent } from './main-list-page/list/list.component';
+import { AdminDataEditorComponent } from './admin-panel/admin-data-editor/admin-data-editor.component';
+import { AdminMenuComponent } from './admin-panel/admin-menu/admin-menu.component';
+import { LoginPageComponent } from './profiles-and-login/login-page/login-page.component';
 
 //Firebase setup
 import { environment } from 'src/environments/environment';
@@ -30,9 +30,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { CreateAccountComponent } from './create-account/create-account.component';
-import { FaqComponent } from './faq/faq.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { CreateAccountComponent } from './profiles-and-login/create-account/create-account.component';
+import { FaqComponent } from './main-list-page/faq/faq.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RoleElemComponent } from './misc/role-elem/role-elem.component';
+import { AccountSettingsComponent } from './profiles-and-login/account-settings/account-settings.component';
+import { LeaderboardListComponent } from './ILLP/leaderboard-list/leaderboard-list.component';
+import { LeaderboardElementComponent } from './ILLP/leaderboard-element/leaderboard-element.component';
+import { LeaderboardCreatorComponent } from './ILLP/leaderboard-creator/leaderboard-creator.component';
+import { HallOfFameElementComponent } from './ILLP/hall-of-fame-element/hall-of-fame-element.component';
+import { ProfilePageComponent } from './profiles-and-login/profile-page/profile-page.component'
 
 @NgModule({
   declarations: [
@@ -44,6 +51,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
     LoginPageComponent,
     CreateAccountComponent,
     FaqComponent,
+    RoleElemComponent,
+    AccountSettingsComponent,
+    LeaderboardListComponent,
+    LeaderboardElementComponent,
+    LeaderboardCreatorComponent,
+    HallOfFameElementComponent,
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,

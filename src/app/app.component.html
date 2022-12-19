@@ -21,8 +21,7 @@
     <a href="">
         <img class="p-2 rounded-lg" src="../../assets/logo.png" width="64" height="64" />
     </a>
-    <b (click)="refreshAdminAccess()" class="my-auto text-lg select-none lg:relative lg:scale-100 scale-0 absolute">Impossible Levels List</b>
-    <b (click)="refreshAdminAccess()" class="my-auto text-lg select-none relative scale-100 lg:scale-0 lg:absolute">ILL</b>
+    <b class="my-auto text-lg select-none lg:relative lg:scale-100 scale-0 absolute">Impossible Levels List</b>
     <a (click)="toggleTheme()">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
         <fa-icon [icon]="i_darkmode" *ngIf="_themeRef === 'dark'" class="m-1"></fa-icon>
@@ -44,31 +43,89 @@
         <b class="lg:scale-100 lg:relative absolute scale-0">FAQ</b>
       </span>   
     </a>
-    <a href="https://www.patreon.com/mateussdev">
+    <a class="cursor-not-allowed">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-        <fa-icon [icon]="i_patreon" class="m-1"></fa-icon>
-        <b class="lg:scale-100 lg:relative absolute scale-0">Donate to Mateuss</b>
+        <fa-icon [icon]="i_stats" class="m-1"></fa-icon>
+        <b class="lg:scale-100 lg:relative absolute scale-0">ILLP</b>
       </span>   
     </a>
     
-    <a routerLink="/admin" *ngIf="afAuth.authState |async as user" [hidden]="!_adminAccess">
+
+    <a routerLink="/admin" *ngIf="authService.user$ | async as user" [hidden]="!user.roles.admin == true">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
       <fa-icon [icon]="i_admin" class="m-1"></fa-icon>
       <b class="lg:scale-100 lg:relative absolute scale-0">Admin panel</b>
     </span>
     </a>
-    <a *ngIf="(afAuth.authState |async) === null" routerLink="/login">
+    <a *ngIf="(authService.user$ | async) === null" routerLink="/login">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
         <fa-icon [icon]="i_login" class="m-1"></fa-icon>
         <b class="lg:scale-100 lg:relative absolute scale-0">Sign In</b>
       </span>   
     </a>
-    <a *ngIf="(afAuth.authState |async)" (click)="afAuth.signOut()">
-      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
-        <fa-icon [icon]="i_logout" class="m-1"></fa-icon>
-        <b class="lg:scale-100 lg:relative absolute scale-0">Sign Out</b>
-      </span>   
+    
+  </div>
+
+  <div class="ml-auto mr-3">
+    <a *ngIf="authService.user$ | async as user" (click)="toggleAccountDropdown()">
+      <span class="w-full h-full peer">
+        <img src="{{user.profilePicture}}" 
+        class="rounded-full aspect-square lg:w-[52px] w-[48px] hover:scale-105 transition-all duration-200">
+      </span>
+
     </a>
   </div>
+  <!-- profile data thing -->
+  <div *ngIf="authService.user$ | async as user"
+  class="absolute flex flex-col items-center justify-start dark:bg-[#141b27] bg-slate-300 rounded-tl-2xl right-2 top-16 w-fit m-2 shadow-lg overflow-hidden">
+    <div *ngIf="_showAccInfo" class="w-80 h-full">
+      <!-- Name -->
+      <span class="flex flex-row justify-center text-lg dark:bg-[#1d2738] bg-[#c8d8ee] p-1">
+          <img src="{{user.profilePicture}}" 
+          class="rounded-full aspect-square m-2 w-[48px] h-[48px] hover:scale-105 transition-all duration-200">
+          <div class="flex flex-col">
+            <!-- Name and GD name -->
+            <div class="flex flex-row">
+              <b class="font-semibold">{{user.username}}</b>
+              <b class="font-normal dark:text-slate-400 text-slate-800 scale-90 my-0">({{user.gd_username}})</b>
+            </div>
+            <!-- Roles -->
+            <div class="flex flex-row">
+              <app-role-elem *ngFor="let _role of user.badges" [roleName]="_role"></app-role-elem>
+            </div>
+          </div>
+      </span>
+    
+      <!-- Buttons-->
+      <div class="flex flex-col flex-wrap w-full justify-center">
+        <a routerLink="/profile/{{user.uid}}" (click)="toggleAccountDropdown()">
+          <span class="ILL_ProfileBtn dark:bg-slate-800 bg-slate-200 dark:hover:bg-slate-600 hover:bg-slate-100">
+            <div class="mx-auto">
+              <fa-icon [icon]="i_profile" class="mx-1"></fa-icon>
+              <b class="font-semibold">View Page</b>
+            </div>
+          </span>   
+        </a>
+        <a routerLink="/account-settings" (click)="toggleAccountDropdown()">
+          <span class="ILL_ProfileBtn dark:bg-slate-800 bg-slate-200 dark:hover:bg-slate-600 hover:bg-slate-100">
+            <div class="mx-auto">
+              <fa-icon [icon]="i_settings" class="mx-1"></fa-icon>
+              <b class="font-semibold">Settings</b>
+            </div>
+          </span>   
+        </a>
+        
+        <a (click)="authService.signOut()" class="mb-2">
+          <span class="ILL_ProfileBtn dark:bg-slate-800 bg-slate-200 dark:hover:bg-slate-600 hover:bg-slate-100">
+            <div class="mx-auto">
+              <fa-icon [icon]="i_logout" class="mx-1"></fa-icon>
+              <b class="font-semibold">Sign Out</b>
+            </div>
+          </span>   
+        </a>
+      </div>
+    </div>
+  </div>
+  
 </div>
 
