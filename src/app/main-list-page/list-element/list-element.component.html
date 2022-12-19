@@ -1,0 +1,234 @@
+<div class="group rounded-t-3xl rounded-b-lg transition-all duration-200 z-20 
+dark:bg-[#1e293b] bg-[#cbd5e1] my-2 mx-0 lg:h-fit ">
+    <div class="flex flex-col h-full items-stretch justify-between">
+
+        <!-- =====List Item Top===== -->
+        <div class="flex flex-row items-stretch justify-evenly bg-local bg-left-top w-full lg:h-full h-[172px] lg:overflow-x-visible overflow-x-hidden rounded-t-3xl bg-cover"
+        style="background-image: url({{ill_level.wide_level_shot_url}});" (click)="expandCard()">
+            <!-- Thumbnail -->
+            <img [src]="card_yt_thumbnailURL" class="xl:w-[360px] lg:w-[172px] w-0 lg:relative absolute aspect-video 
+            rounded-tl-3xl shadow-xl lg:border-r-8 border-0 border-slate-200 dark:border-slate-700">
+
+            <!-- Level position -->
+            
+            <!-- Light -->
+            <b class="font-semibold p-2 left-0 xl:text-5xl lg:text-4xl text-3xl align-middle 
+            my-auto m-3 select-none text-white ILL_textFX ILL_placementFont ILL_blackOutline" *ngIf="card_haswideshot && !ill_level.textIsDark">
+                {{ '#' + level_position }}
+            </b>
+            <!-- Dark -->
+            <b class="font-semibold p-2 left-0 xl:text-5xl lg:text-4xl text-3xl align-middle 
+            my-auto m-3 select-none text-[#071013] ILL_textFX ILL_placementFont ILL_whiteOutline" *ngIf="card_haswideshot && ill_level.textIsDark">
+                {{ '#' + level_position }}
+            </b>
+
+            <b class="font-semibold p-2 left-0 xl:text-5xl lg:text-4xl text-3xl align-middle 
+            my-auto m-3 select-none dark:text-white text-[#071013] ILL_placementFont" *ngIf="!card_haswideshot">
+                {{ '#' + level_position }}
+            </b>
+
+            <!-- Name, creator and etc -->
+            <div class="flex flex-col w-full justify-center my-0">
+                <!-- Data column -->
+                <div class="flex flex-row items-center justify-between w-full h-full">
+                    <!-- Name and creator -->
+
+                    <!-- Light -->
+                    <div class="flex flex-col items-start justify-start w-fit text-white xl:group-hover:scale-125 transition-all duration-300 origin-left" *ngIf="card_haswideshot && !ill_level.textIsDark">
+                        <b class="font-extrabold xl:text-2xl lg:text-lg text-2xl w-fit ILL_blackOutline">
+                            {{ level_name }}
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-red-500" *ngIf="level_marked_for_removal" [icon]="i_removal"></fa-icon>
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-gray-500" *ngIf="level_annotated" [icon]="i_annotation"></fa-icon>
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-amber-400" *ngIf="level_isRated" [icon]="i_rated"></fa-icon>
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-orange-600" *ngIf="level_isUnRated" [icon]="i_unrated"></fa-icon>
+                            
+                        </b>
+                        <i class="xl:text-xl lg:text-sm text-xl align-bottom p-1 font-semibold ILL_blackOutline">{{"by " + level_creators_short }}</i>
+                    </div>
+                    <!-- Dark -->
+                    <div class="flex flex-col items-start justify-start w-fit text-[#071013] xl:group-hover:scale-125 transition-all duration-300 origin-left" *ngIf="card_haswideshot && ill_level.textIsDark">
+                        <b class="font-extrabold xl:text-2xl lg:text-lg text-2xl w-fit ILL_whiteOutline">
+                            {{ level_name }}
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-red-500" *ngIf="level_marked_for_removal" [icon]="i_removal"></fa-icon>
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-gray-500" *ngIf="level_annotated" [icon]="i_annotation"></fa-icon>
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-amber-400" *ngIf="level_isRated" [icon]="i_rated"></fa-icon>
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-orange-600" *ngIf="level_isUnRated" [icon]="i_unrated"></fa-icon>
+                            
+                        </b>
+                        <i class="xl:text-xl lg:text-sm text-xl align-bottom p-1 font-semibold ILL_whiteOutline">{{"by " + level_creators_short }}</i>
+                    </div>
+                    <!-- No wideshot name + data -->
+                    <div class="flex flex-col items-start justify-start w-fit dark:text-white text-[#071013] xl:group-hover:scale-125 transition-all duration-300 origin-left" *ngIf="!card_haswideshot">
+                        <b class="font-extrabold xl:text-2xl lg:text-lg text-2xl w-fit">
+                            {{ level_name }}
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-red-500" *ngIf="level_marked_for_removal" [icon]="i_removal"></fa-icon>
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-gray-500" *ngIf="level_annotated" [icon]="i_annotation"></fa-icon>
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-amber-400" *ngIf="level_isRated" [icon]="i_rated"></fa-icon>
+                            <fa-icon class="xl:absolute xl:scale-0 relative scale-100 align-middle m-1 text-orange-600" *ngIf="level_isUnRated" [icon]="i_unrated"></fa-icon>
+                            
+                        </b>
+                        <i class="xl:text-xl lg:text-sm text-xl align-bottom p-1 font-semibold">{{"by " + level_creators_short }}</i>
+                    </div>
+
+                    <div class="flex flex-col h-full items-end justify-between">
+                        <!-- Bookmarks -->
+                        <div class="flex flex-row m-0 xl:relative xl:scale-100 absolute scale-0 text-[#071013] dark:text-white">
+                            <!-- Marked for removal -->
+                            <div *ngIf="level_marked_for_removal" class="flex flex-col-reverse">
+                                <img src="../../assets/marked_for_removal.png" width="32" class="peer mx-2 p-0 -translate-y-2 origin-top hover:scale-110 transition-all duration-200 rounded-t-md" />
+                                <p class="peer-hover:scale-100 scale-0 absolute dark:bg-slate-800 bg-slate-200 p-3 z-20 -translate-y-28 translate-x-4 shadow-xl rounded-t-2xl rounded-br-2xl transition-all duration-300 origin-bottom-left">
+                                    Marked for removal: {{level_markdown_reason}}
+                                </p>
+                            </div>
+                            
+                            <!-- Annotated -->
+                            <div *ngIf="level_annotated" class="flex flex-col-reverse">
+                                <img src="../../assets/annotation.png" width="32" class="peer mx-2 p-0 -translate-y-2 origin-top hover:scale-110 transition-all duration-200 rounded-t-md" />
+                                <p class="peer-hover:scale-100 scale-0 absolute dark:bg-slate-800 bg-slate-200 p-3 z-20 -translate-y-28 translate-x-4 shadow-xl rounded-t-2xl rounded-br-2xl transition-all duration-300 origin-bottom-left">
+                                    Annotation: Subject to decoration and quality exemptions
+                                </p>
+                            </div>
+                            
+                            <!-- Rated -->
+                            <div *ngIf="level_isRated" class="flex flex-col-reverse">
+                                <img src="../../assets/rated.png" width="32" class="peer mx-2 p-0 -translate-y-2 origin-top hover:scale-110 transition-all duration-200 rounded-t-md" />
+                                <p class="peer-hover:scale-100 scale-0 absolute dark:bg-slate-800 bg-slate-200 p-3 z-20 -translate-y-28 translate-x-4 shadow-xl rounded-t-2xl rounded-br-2xl transition-all duration-300 origin-bottom-left">
+                                    Rated level
+                                </p>
+                            </div>
+    
+                            <!-- Previously Rated -->
+                            <div *ngIf="level_isUnRated" class="flex flex-col-reverse">
+                                <img src="../../assets/unrated.png" width="32" class="peer mx-2 p-0 -translate-y-2 origin-top hover:scale-110 transition-all duration-200 rounded-t-md" />
+                                <p class="peer-hover:scale-100 scale-0 absolute dark:bg-slate-800 bg-slate-200 p-3 z-20 -translate-y-28 translate-x-4 shadow-xl rounded-t-2xl rounded-br-2xl transition-all duration-300 origin-bottom-left">
+                                    Previously rated level
+                                </p>
+                            </div>
+    
+                            <!-- FPS and ID -->
+    
+                            <!-- Light -->
+                            <div class="flex flex-col items-end justify-start mr-2 mt-2 text-white " *ngIf="card_haswideshot && !ill_level.textIsDark">
+                                <p class="font-semibold align-text-top text-right ILL_blackOutline">{{'FPS: '+level_fps}}</p>
+                                <p class="font-semibold align-text-bottom xl:text-base text-xs text-right ILL_blackOutline">{{'ID: '+level_id}}</p>
+                            </div>
+                            <!-- Dark -->
+                            <div class="flex flex-col items-end justify-start mr-2 mt-2 text-[#071013] " *ngIf="card_haswideshot && ill_level.textIsDark">
+                                <p class="font-semibold align-text-top text-right ILL_whiteOutline">{{'FPS: '+level_fps}}</p>
+                                <p class="font-semibold align-text-bottom xl:text-base text-xs text-right ILL_whiteOutline">{{'ID: '+level_id}}</p>
+                            </div>
+                            <!-- FPS and ID no wideshot -->
+                            <div class="flex flex-col items-end justify-start mr-2 mt-2 dark:text-white text-[#071013] " *ngIf="!card_haswideshot">
+                                <p class="font-semibold align-text-top text-right">{{'FPS: '+level_fps}}</p>
+                                <p class="font-semibold align-text-bottom xl:text-base text-xs text-right">{{'ID: '+level_id}}</p>
+                            </div>
+                        </div>
+                        <!-- Tags for the level -->
+                        <div class="flex flex-row justify-end flex-wrap mr-2 mb-2" *ngIf="level_tags.length > 0">
+                            <b *ngFor="let tag of level_tags" class="ILL_Tag"><fa-icon class="m-1" [icon]="i_tag"></fa-icon>{{tag}}</b>
+                        </div>
+
+                        <!-- pfps -->
+                        <div class="flex flex-row justify-start mb-1">
+                            <img *ngFor="let pfp of level_creatorPFPs" src="{{pfp}}" class="w-[24px] aspect-square rounded-full mx-1" />
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        
+       
+            
+        <!-- Expanded list items -->
+        <div class="bg-[#cbd5e1] dark:bg-[#212d41] text-slate-700 dark:text-white transition-all duration-300" 
+        *ngIf="card_expanded || card_mobile_expanded">
+
+            <div class="flex flex-row">
+                <!-- Main video embed -->
+                <iframe class="xl:p-3 p-0 lg:w-full w-0 h-fit aspect-video" 
+                [src]="card_yt_vidEmbedURL" title="YouTube video player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                <!-- Extra info -->
+                <div class="flex flex-col xl:items-start justify-start items-center xl:p-3 p-1 
+                xl:text-lg text-xs overflow-y-scroll xl:w-[512px] lg:w-full w-full xl:h-[480px] h-fit ILL_ListElemScroll dark:bg-[#192231] bg-[#bac4cf]">
+
+                    <!-- Mobile embed -->
+                    <iframe class="p-3 xl:p-0 lg:w-0 w-full aspect-video mx-auto xl:mx-0" 
+                    [src]="card_yt_vidEmbedURL" title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                    <!-- Info boxes -->
+                    <div class="flex flex-col justify-between items-stretch w-full">
+                        <div *ngIf="level_marked_for_removal" class="p-2 bg-red-700 text-white rounded-xl mb-2">
+                            <p> <fa-icon [icon]="i_removal" class="m-1"></fa-icon>Marked for removal: {{level_markdown_reason}}</p>
+                        </div>
+                        <div *ngIf="level_annotated" class="p-2 bg-gray-700 text-white rounded-xl mb-2">
+                            <p><fa-icon [icon]="i_annotation" class="m-1"></fa-icon>Annotation: Subject to decoration and quality exemptions</p>
+                        </div>
+                        <div *ngIf="level_isRated" class="p-2 bg-amber-400 text-white rounded-xl mb-2">
+                            <p><fa-icon [icon]="i_rated" class="m-1"></fa-icon>This level is rated</p>
+                        </div>
+                        <div *ngIf="level_isUnRated" class="p-2 bg-orange-600 text-white rounded-xl mb-2">
+                            <p><fa-icon [icon]="i_unrated" class="m-1"></fa-icon>This level was formerly rated</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_info" ></fa-icon> Level information:</p>
+                            <p class="font-medium text-base dark:text-slate-400 text-slate-600">Name: {{level_name}}</p>
+                            <p class="font-medium text-base dark:text-slate-400 text-slate-600">FPS: {{level_fps}}</p>
+                            <p class="font-medium text-base dark:text-slate-400 text-slate-600">Uploader: {{level_uploader}}</p>
+                            <p class="font-medium text-base dark:text-slate-400 text-slate-600">Level ID: {{level_id}}</p>
+                            <p class="font-medium text-base dark:text-slate-400 text-slate-600">GD update: {{level_gd_version}}</p>
+                        </div>
+                        
+    
+                        <!-- Level creators -->
+                        <div class="w-full 
+                        text-sm">
+                        <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_creators" ></fa-icon> Creators:</p>
+                            <div class="flex flex-wrap justify-center ">
+                                <div *ngFor="let creator of level_creators_full" class="flex flex-row items-center w-fit xl:bg-slate-200 xl:dark:bg-slate-800 xl:rounded-lg 
+                                xl:font-bold xl:shadow-lg transition-all duration-300 hover:scale-105 m-1 p-1">
+                                    <div *ngFor="let acc of level_creatorAccounts" class="flex flex-row" routerLink="/profile/{{acc.uid}}">
+                                        <fa-icon [icon]="i_link" *ngIf="acc.gd_username == creator"
+                                         (click)="scrollUp()"
+                                        class="text-xl hover:scale-110 transition-all duration-200"></fa-icon>
+                                        <img *ngIf="acc.gd_username == creator" src="{{acc.profilePicture}}" class="w-[24px] aspect-square rounded-full m-1"/>
+                                    </div>
+                                    <i>
+                                        {{ creator }}
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- World record data -->
+                    <div class="w-full 
+                    text-sm">
+                    <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_wr" ></fa-icon> World Record:
+                        <i class="font-light italic text-sm">( {{"Minimum for WR: ≥"+level_minimal_wr_percent+"%"}} )</i>
+                    </p>
+                        <div class="flex flex-col items-center">
+                            <b class="font-semibold text-lg"><fa-icon class="m-1" [icon]="i_wr"></fa-icon> {{level_wr}} <fa-icon class="m-1" [icon]="i_wr"></fa-icon></b>
+                            <a [href]="level_wr_yt" *ngIf="level_wr != '' && level_wr != 'N/A'" class="bg-purple-500 text-white p-2 m-1 rounded-lg shadow-lg
+                            hover:shadow-lg hover:scale-105 transition-all duration-200 w-fit">> Link <</a>
+                            <p *ngIf="level_wr == '' || level_wr == 'N/A'">No world records yet. Be the first to achieve one!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Expand visual -->
+        <div class="w-full h-fit dark:bg-[#2c3b55] bg-[#becad6] text-center dark:text-white text-[#071013] dark:group-hover:bg-[#314461] group-hover:bg-[#929aa3] rounded-b-lg
+        transition-all duration-200" (click)="expandCard()">
+            <fa-icon class="text-xl" *ngIf="!card_expanded && !card_mobile_expanded" [icon]="i_expand"></fa-icon>
+            <fa-icon class="text-xl" *ngIf="card_expanded || card_mobile_expanded" [icon]="i_collapse"></fa-icon>
+        </div>
+    </div>
+    
+</div>

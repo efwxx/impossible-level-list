@@ -1,0 +1,20 @@
+<div class="flex flex-row p-3 m-2 rounded-xl dark:bg-slate-800 items-center overflow-hidden">
+    <img src="{{user.profilePicture}}" class="aspect-square rounded-full scale-[175%] -translate-x-3 shadow-lg w-[72px]" />
+    <div class="flex flex-row justify-between w-full ml-6 mr-16">
+        <div class="flex flex-row dark:text-white mx-3 w-32">
+            <fa-icon class="mx-1" [icon]="i_user"></fa-icon>
+            <div class="flex flex-col">
+                <b class="mx-1">{{user.username}}</b>
+                <b class="mx-1 font-normal text-slate-400 text-sm">({{user.gd_username}})</b>
+            </div>
+        </div>
+        <div class="flex flex-row dark:text-white mx-3 w-32">
+            <fa-icon class="mx-1" [icon]="i_cup"></fa-icon>
+            <b class="mx-1">{{user.ill_points}}</b>
+        </div>
+        <div class="flex flex-row dark:text-white mx-3 w-32">
+            <fa-icon class="mx-1" [icon]="i_star"></fa-icon>
+            <b class="mx-1">idk</b>
+        </div>
+    </div>
+</div>

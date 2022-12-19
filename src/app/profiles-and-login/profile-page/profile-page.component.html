@@ -1,0 +1,44 @@
+<div class="mt-20 flex lg:flex-row flex-col w-screen" *ngIf="found_user">
+    <div class="flex flex-col">
+        <!-- Profile data -->
+        <div class="dark:bg-slate-700 bg-slate-300 m-2 p-4 rounded-lg flex flex-col xl:w-[640px] lg:w-[360px]">
+            <div class="flex flex-row">
+                <img src="{{user_data.profilePicture}}" class="aspect-square rounded-full xl:w-48 xl:h-48 lg:w-24 lg:h-24 w-16 h-16"/>
+                <div class="flex flex-col ml-4">
+                    <b class="dark:text-white font-semibold text-xl"><fa-icon [icon]="i_user" class="m-1"></fa-icon> {{user_data.username}}</b>
+                    <b class="dark:text-slate-400 text-slate-500 font-normal text-sm">({{user_data.gd_username}})</b>
+                    <div class="flex flex-row flex-wrap xl:scale-100">
+                        <app-role-elem *ngFor="let role of user_data.badges" [roleName]="role"></app-role-elem>
+                    </div>
+                    <b class="dark:text-slate-200 text-slate-700 font-normal"><fa-icon [icon]="i_cup" class="m-1"></fa-icon>ILL points: {{user_data.ill_points}}</b>
+                    <b class="dark:text-slate-200 text-slate-700 font-normal"><fa-icon [icon]="i_count" class="m-1"></fa-icon>Created levels: {{user_data.created_levels}}</b>
+                    <b class="dark:text-slate-200 text-slate-700 font-normal"><fa-icon [icon]="i_star" class="m-1"></fa-icon>Completed bundles: N/A</b>
+                </div>
+            </div>
+        </div>
+        <!-- Bio -->
+        <div class="dark:bg-slate-600 bg-slate-300 m-2 p-4 rounded-lg flex flex-col xl:w-[640px] lg:w-[360px]">
+            <b class="dark:text-white font-semibold text-lg"><fa-icon [icon]="i_bio" class="m-1"></fa-icon>Biography:</b>
+            <textarea readonly rows="8" disabled class="dark:text-slate-200 resize-none text-slate-800 font-normal bg-transparent ">{{user_data.description}}</textarea>
+            
+        </div>
+
+        <!-- Completed bundles -->
+        <div class="dark:bg-slate-600 bg-slate-300 m-2 p-4 rounded-lg flex flex-col xl:w-[640px] lg:w-[360px] h-[480px]">
+            <div class="m-auto flex flex-col">
+                <b class="dark:text-white text-2xl text-center">Completed Bundles/Levels go here</b>
+                <b class="dark:text-slate-200 text-lg text-center font-normal">Coming soon ;)</b>
+            </div>
+        </div>
+    </div>
+
+    <!-- Levels -->
+    <div class="xl:mx-8 mx-0 flex-col items-center w-full">
+        <app-list-element *ngFor="let lvl of user_levels" [ill_level]="lvl"></app-list-element>
+    </div>
+</div>
+<div *ngIf="!found_user" class="mt-20 text-3xl dark:text-white p-5 mx-auto bg-slate-300 dark:bg-slate-800 flex flex-col items-center w-fit rounded-xl">
+    <b>Oops, this profile page/account does not exist!</b>
+    <b>Here is {{selected_mascott_name}} instead!</b>
+    <img [src]="selected_mascott_path" class="animate-bounce aspect-auto w-48 mt-32 hover:scale-110 active:scale-90 transition-all duration-300">
+</div>

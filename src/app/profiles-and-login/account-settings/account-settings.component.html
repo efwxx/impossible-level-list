@@ -1,0 +1,28 @@
+<div *ngIf="authService.user$ | async as user" class="mt-20">
+    <div class="flex flex-col mx-auto lg:w-[720px] w-screen p-5 dark:bg-slate-800 bg-slate-300 rounded-xl shadow-xl">
+        <b class="text-xl mx-auto font-semibold dark:text-white text-black">Change Your ILL profile data!</b>
+        <div class="flex lg:flex-row flex-col items-center justify-between">
+            <div class="flex flex-col">
+                <b class="text-lg font-normal dark:text-white text-black">Profile picture:</b>
+                <input id="ILLA_ProfilePicUpload" class="dark:text-white text-black p-2 m-2 rounded-xl" type="file" accept="image/png" (change)="pfpFileChange($event)">
+                <button class="bg-slate-600 text-white p-2 m-2 rounded-xl hover:scale-105 transition-all duration-200" (click)="updatePFP()">Upload</button>
+                <p class="text-red-500 text-lg">{{bil_errLabel}}</p>
+            </div>
+            <fa-icon [icon]="i_gear" class="lg:text-5xl text-xl dark:text-white animate-spin" *ngIf="bil_showUploadAnim"></fa-icon>
+            <img src={{bil_profilepicture}} class="aspect-square lg:w-[128px] w-[72px] m-2 rounded-xl shadow-xl"/>
+        </div>
+        <input required="" id="ILLA_Acc_username" [(ngModel)]="bil_username" class="p-2 m-2 rounded-xl shadow-lg border-l-4 border-blue-500" type="text" placeholder="Type in a username"/>
+        <input id="ILLA_Acc_gd name" [(ngModel)]="bil_gd_username" class="p-2 m-2 rounded-xl shadow-lg border-l-4 border-blue-500" type="text" placeholder="Type in your GD username (optional)"/>
+        <textarea maxlength="50000" [(ngModel)]="bil_bio" class="p-2 m-2 rounded-xl shadow-lg border-l-4 border-blue-500" cols="80" rows="5" placeholder="Type in your bio/description (optional)">
+        </textarea>
+        <div class="flex flex-row items-center dark:text-white text-black">
+            <input id="ILLA_Acc_showInLeaderboards" [(ngModel)]="bil_shownInLeaderboards" class="w-6 h-6 m-2 rounded-lg" type="checkbox"/>
+            <b class="text-lg font-normal">Do you want to be visible in leaderboards?</b>
+        </div>
+        <div class="flex flex-row w-fit mx-auto">
+            <button class="bg-blue-600 text-white p-2 m-2 rounded-xl hover:scale-105 transition-all duration-200" (click)="updateUserData()">Save changes</button>
+            <button class="bg-slate-500 text-white p-2 m-2 rounded-xl hover:scale-105 transition-all duration-200" (click)="cancelUserUpdate()">Cancel</button>
+        </div>
+    </div>
+
+</div>

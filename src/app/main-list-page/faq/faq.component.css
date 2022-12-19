@@ -1,0 +1,23 @@
+.ILL_Scroll::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.ILL_Scroll::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #475569;
+}
+
+.ILL_Scroll::-webkit-scrollbar-thumb {
+  background: #0f172a;
+  padding: 1px;
+  border-radius: 100vh;
+}
+
+.ILL_Scroll::-webkit-scrollbar-thumb:hover {
+  background: #0f172a;
+}
+
+.ILL_Faq_card {
+  @apply bg-slate-200 m-2 rounded-t-2xl rounded-b-xl shadow-lg dark:text-white dark:bg-slate-600 flex flex-col lg:w-[420px] hover:rotate-2 hover:scale-105 transition-all duration-300
+}

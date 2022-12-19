@@ -1,0 +1,28 @@
+<div class="mt-20 p-3 mx-auto bg-slate-700 w-fit rounded-xl shadow-lg flex flex-col">
+    <b class="text-3xl text-white font-semibold">Leaderboard of botters</b>
+    <b class="text-xl text-slate-400 font-normal italic">(Experimental feature. People cannot submit macros/completions yet)</b>
+</div>
+<div class="mx-auto w-fit">
+    <button class="rounded-xl w-fit p-3 m-3 bg-blue-600 text-white shadow-xl hover:scale-110 transition-all duration-200" routerLink="/hall-of-fame">
+        Go to Creator leaderboard
+    </button>
+</div>
+<div class="flex flex-col xl:w-[920px] mx-auto bg-slate-700 p-5 rounded-xl shadow-xl">
+    <div class="flex flex-row p-3 m-2 rounded-xl dark:bg-slate-800 items-center">
+        <div class="flex flex-row justify-between w-full ml-24">
+            <div class="flex flex-row dark:text-slate-300 mx-3 w-full">
+                <fa-icon class="mx-1" [icon]="i_user"></fa-icon>
+                <b class="mx-1 font-normal">Username</b>
+            </div>
+            <div class="flex flex-row dark:text-slate-300 mx-3 w-full">
+                <fa-icon class="mx-1" [icon]="i_cup"></fa-icon>
+                <b class="mx-1 font-normal">ILL points</b>
+            </div>
+            <div class="flex flex-row dark:text-slate-300 mx-3 w-full">
+                <fa-icon class="mx-1" [icon]="i_star"></fa-icon>
+                <b class="mx-1 font-normal">Levels botted</b>
+            </div>
+        </div>
+    </div>
+    <app-leaderboard-element *ngFor="let usr of userList" [user]="usr"></app-leaderboard-element>
+</div>

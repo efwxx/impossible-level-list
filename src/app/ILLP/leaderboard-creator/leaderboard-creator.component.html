@@ -1,0 +1,11 @@
+<div class="mt-20 p-3 mx-auto bg-slate-700 w-fit rounded-xl shadow-lg my-5">
+    <b class="text-3xl text-white font-semibold">The Hall of Fame of ILL</b>
+</div>
+<div class="mx-auto w-fit">
+    <button class="rounded-xl w-fit p-3 m-3 bg-blue-600 text-white shadow-xl hover:scale-110 transition-all duration-200" routerLink="/botting-leaderboard">
+        Go to Botting leaderboard
+    </button>
+</div>
+<div class="flex flex-col xl:w-[1080px] mx-auto bg-slate-700 p-5 rounded-xl shadow-xl">
+    <app-hall-of-fame-element *ngFor="let usr of userList" [user]="usr"></app-hall-of-fame-element>
+</div>
