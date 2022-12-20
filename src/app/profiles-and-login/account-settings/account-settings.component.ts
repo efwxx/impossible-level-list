@@ -17,6 +17,7 @@ export class AccountSettingsComponent implements OnInit {
 
   //setup vars for the form
   bil_username:string | undefined = '';
+  bil_old_gd_username:string | undefined = '';
   bil_gd_username:string | undefined = '';
   bil_bio:string | undefined = '';
   bil_shownInLeaderboards:boolean | undefined = true;
@@ -54,6 +55,7 @@ export class AccountSettingsComponent implements OnInit {
         this._user_uid = _usr.uid
         this.bil_username = _usr.username;
         this.bil_gd_username = _usr.gd_username;
+        this.bil_old_gd_username = _usr.gd_username;
         this.bil_bio = _usr.description;
         this.bil_shownInLeaderboards = _usr.show_in_leaderboards;
         this.bil_profilepicture = _usr.profilePicture
@@ -72,10 +74,23 @@ export class AccountSettingsComponent implements OnInit {
     }
   }
 
-  updateUserData() {
+  async updateUserData() {
     this.packageUserData();
-    this.authService.firestore.collection('user').doc(this._user_uid).set(this.buffer_user, { merge: true });
-    this.router.navigate(["/"]);
+    //get matching usernames
+    let _temp_mtch_usr:UserData[] = []
+    await this.authService.firestore.collection('user').ref.where('gd_username', '==', this.bil_gd_username).get().then(snapshot => {
+      _temp_mtch_usr = snapshot.docs.map((e:any) => {
+        const data = e.data();
+        return data;
+      })
+    })
+
+    if(_temp_mtch_usr.length == 0 || _temp_mtch_usr[0].username == this.bil_old_gd_username) {
+      this.authService.firestore.collection('user').doc(this._user_uid).set(this.buffer_user, { merge: true });
+      this.router.navigate(["/"]);
+    } else {
+      this.bil_errLabel = 'A user with this gd username is already on the website!'
+    }
   }
 
   pfpFileChange($event:any) {

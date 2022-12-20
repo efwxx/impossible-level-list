@@ -78,7 +78,9 @@
             </div>
 
         </div>
-        <button (click)="readd_database_entries()" >Fix up database entries</button>
-        <button (click)="resetProfileData()" >Reset all user customizeable data</button>
+        <div class="flex flex-row w-full items-center">
+            <button class="m-2 p-2 bg-pink-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="readd_database_entries()" >Fix up database queries</button>
+            <button class="m-2 p-2 bg-orange-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="resetProfileData()" >Recount levels for creators</button>
+        </div>
     </div>
 </div>

@@ -66,7 +66,6 @@ export class AuthService {
       'https://firebasestorage.googleapis.com/v0/b/impossible-level-list.appspot.com/o/ILL_profilepics%2Fpfp_5.png?alt=media&token=e12c9cd5-0be1-4d41-abb0-1ab812d180ac',
       'https://firebasestorage.googleapis.com/v0/b/impossible-level-list.appspot.com/o/ILL_profilepics%2Fpfp_6.png?alt=media&token=cb9c532e-a0ec-4de1-8da3-fe02d81c1382',
       'https://firebasestorage.googleapis.com/v0/b/impossible-level-list.appspot.com/o/ILL_profilepics%2Fpfp_7.png?alt=media&token=ee553070-5010-4013-82b3-98ecb69bc3fc',
-
     ];
 
     return this.afAuth.createUserWithEmailAndPassword(email, password).then(res => {
@@ -78,7 +77,7 @@ export class AuthService {
         roles: { admin: false, reader: true },
         ill_points: 0,
         description: '',
-        profilePicture: _default_pfps[Math.round(Math.random() * _default_pfps.length)],
+        profilePicture: _default_pfps[Math.round(Math.random() * (_default_pfps.length-1))],
         created_levels: 0,
         badges: ['Member'],
         show_in_leaderboards: false,

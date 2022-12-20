@@ -415,16 +415,16 @@ export class AdminDataEditorComponent implements OnInit {
     await _userArray.forEach((usr, i) => {
       // usr.profilePicture = _default_pfps[Math.floor(Math.random() * _default_pfps.length)]
       // usr.description = '';
-      // usr.ill_points = 0;
+      usr.ill_points = 0;
       // if(usr.username != null || usr.username != undefined) {
       //   usr.gd_username = usr.username;
       // }
       usr.badges = ['Member'];
-      // usr.bottedLevels_name = [];
-      // usr.bottedLevels_creator = [];
-      // usr.completed_bundles_name = [];
+      usr.bottedLevels_name = [];
+      usr.bottedLevels_creator = [];
+      usr.completed_bundles_name = [];
       
-      // usr.builder_points = 0;
+      usr.builder_points = 0;
 
       let _lvl_cnt = 0;
       let _temp_points = 0;
@@ -446,10 +446,18 @@ export class AdminDataEditorComponent implements OnInit {
       });
       if(_lvl_cnt > 0) {
         usr.badges?.push("Creator");
-        if(_lvl_cnt > 5) {
+        if(_lvl_cnt > 8) {
           usr.badges?.push("Elite Creator");
         }
+        if(_lvl_cnt > 12) {
+          usr.badges?.push("Cracked Creator");
+        }
       }
+
+      if(usr.roles.admin == true) {
+        usr.badges.push("List Admin")
+      }
+
       usr.builder_points = Math.round(_temp_points);
       usr.created_levels = _lvl_cnt;
 
