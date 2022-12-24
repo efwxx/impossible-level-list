@@ -11,9 +11,9 @@
             <fa-icon [icon]="i_gear" class="lg:text-5xl text-xl dark:text-white animate-spin" *ngIf="bil_showUploadAnim"></fa-icon>
             <img src={{bil_profilepicture}} class="aspect-square lg:w-[128px] w-[72px] m-2 rounded-xl shadow-xl"/>
         </div>
-        <input required="" id="ILLA_Acc_username" [(ngModel)]="bil_username" class="p-2 m-2 rounded-xl shadow-lg border-l-4 border-blue-500" type="text" placeholder="Type in a username"/>
-        <input id="ILLA_Acc_gd name" [(ngModel)]="bil_gd_username" class="p-2 m-2 rounded-xl shadow-lg border-l-4 border-blue-500" type="text" placeholder="Type in your GD username (optional)"/>
-        <textarea maxlength="50000" [(ngModel)]="bil_bio" class="p-2 m-2 rounded-xl shadow-lg border-l-4 border-blue-500" cols="80" rows="5" placeholder="Type in your bio/description (optional)">
+        <input maxlength="50" (change)="usernameChange($event)" id="ILLA_Acc_username" [(ngModel)]="bil_username" class="p-2 m-2 rounded-xl shadow-lg border-l-4 border-blue-500" type="text" placeholder="Type in a username"/>
+        <input maxlength="150" id="ILLA_Acc_gd name" [(ngModel)]="bil_gd_username" class="p-2 m-2 rounded-xl shadow-lg border-l-4 border-blue-500" type="text" placeholder="Type in your GD username (optional)"/>
+        <textarea maxlength="5000" [(ngModel)]="bil_bio" class="p-2 m-2 rounded-xl shadow-lg border-l-4 border-blue-500" cols="80" rows="5" placeholder="Type in your bio/description (optional)">
         </textarea>
         <div class="flex flex-row items-center dark:text-white text-black">
             <input id="ILLA_Acc_showInLeaderboards" [(ngModel)]="bil_shownInLeaderboards" class="w-6 h-6 m-2 rounded-lg" type="checkbox"/>

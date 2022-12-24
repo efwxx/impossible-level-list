@@ -446,12 +446,6 @@ export class AdminDataEditorComponent implements OnInit {
       });
       if(_lvl_cnt > 0) {
         usr.badges?.push("Creator");
-        if(_lvl_cnt > 8) {
-          usr.badges?.push("Elite Creator");
-        }
-        if(_lvl_cnt > 12) {
-          usr.badges?.push("Cracked Creator");
-        }
       }
 
       if(usr.roles.admin == true) {

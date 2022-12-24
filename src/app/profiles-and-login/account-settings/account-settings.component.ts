@@ -26,9 +26,12 @@ export class AccountSettingsComponent implements OnInit {
   bil_roles:Roles | undefined;
   bil_pfp_file:File | undefined;
   bil_errLabel:string = '';
+  bil_uid:string | undefined = '';
 
   bil_hasLoaded:boolean = true;
   bil_showUploadAnim:boolean = false;
+
+  bil_canContinue:boolean = true;
   _user_uid:string | undefined = ''
 
   buffer_user:Object | undefined;
@@ -59,6 +62,7 @@ export class AccountSettingsComponent implements OnInit {
         this.bil_bio = _usr.description;
         this.bil_shownInLeaderboards = _usr.show_in_leaderboards;
         this.bil_profilepicture = _usr.profilePicture
+        this.bil_uid = _usr.uid;
       }
     })
   }
@@ -85,9 +89,25 @@ export class AccountSettingsComponent implements OnInit {
       })
     })
 
-    if(_temp_mtch_usr.length == 0 || _temp_mtch_usr[0].username == this.bil_old_gd_username) {
-      this.authService.firestore.collection('user').doc(this._user_uid).set(this.buffer_user, { merge: true });
-      this.router.navigate(["/"]);
+    if(this.bil_username && this.bil_username?.length > 150) {
+      this.bil_errLabel = 'Your username is too long!'
+      this.bil_canContinue = false
+    }
+    else if(this.bil_username && this.bil_username?.length > 1000) {
+      this.bil_errLabel = 'Tio pls stop trying to crash the website with text >:('
+      this.bil_canContinue = false
+    }
+    else if(this.bil_username && this.bil_username?.length <= 150) {
+      this.bil_errLabel = ''
+      this.bil_canContinue = true;
+
+    }
+
+    if(_temp_mtch_usr.length == 0 || _temp_mtch_usr[0].uid == this.bil_uid) {
+      if(this.bil_canContinue) {
+        this.authService.firestore.collection('user').doc(this._user_uid).set(this.buffer_user, { merge: true });
+        this.router.navigate(["/"]);
+      }
     } else {
       this.bil_errLabel = 'A user with this gd username is already on the website!'
     }
@@ -95,6 +115,11 @@ export class AccountSettingsComponent implements OnInit {
 
   pfpFileChange($event:any) {
     this.bil_pfp_file = $event.target.files[0];
+  }
+
+  
+  usernameChange($event:any) {
+    
   }
 
   async updatePFP() {
