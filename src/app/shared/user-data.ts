@@ -16,6 +16,11 @@ export interface UserData {
     profilePicture?: string; //url to a pfp. Limited to 1mb
     badges?: string[]; //basically roles like list mod, list helper, botter and etc.
 
+    //sloomy
+    sloomish_points?:number;
+    people_find_sloomish?:string[];
+    people_find_not_sloomish?:string[];
+
     //ILLP related things
     ill_points?: number;
     bottedLevels_name?: string[];

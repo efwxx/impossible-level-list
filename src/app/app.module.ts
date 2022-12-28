@@ -39,7 +39,8 @@ import { LeaderboardListComponent } from './ILLP/leaderboard-list/leaderboard-li
 import { LeaderboardElementComponent } from './ILLP/leaderboard-element/leaderboard-element.component';
 import { LeaderboardCreatorComponent } from './ILLP/leaderboard-creator/leaderboard-creator.component';
 import { HallOfFameElementComponent } from './ILLP/hall-of-fame-element/hall-of-fame-element.component';
-import { ProfilePageComponent } from './profiles-and-login/profile-page/profile-page.component'
+import { ProfilePageComponent } from './profiles-and-login/profile-page/profile-page.component';
+import { BundleComponent } from './ILLP/bundle/bundle.component'
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ProfilePageComponent } from './profiles-and-login/profile-page/profile-
     LeaderboardCreatorComponent,
     HallOfFameElementComponent,
     ProfilePageComponent,
+    BundleComponent,
   ],
   imports: [
     BrowserModule,

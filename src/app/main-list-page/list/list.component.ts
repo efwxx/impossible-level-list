@@ -12,12 +12,14 @@ import {
   faBolt,
   faBone,
   faBong,
+  faBorderAll,
   faBugSlash,
   faCat,
   faChair,
   faChild,
   faChildRifle,
   faClipboardCheck,
+  faClock,
   faCloudMoon,
   faCode,
   faCodeBranch,
@@ -25,14 +27,17 @@ import {
   faDatabase,
   faDragon,
   faEye,
+  faFilter,
   faHourglass,
   faHurricane,
   faInfinity,
   faLightbulb,
+  faListOl,
   faLock,
   faMound,
   faP,
   faPeopleGroup,
+  faPlus,
   faPoo,
   faScrewdriverWrench,
   faSearch,
@@ -82,10 +87,19 @@ export class ListComponent implements OnInit {
   _timesClickedOnLogo:number = 0;
 
   //search
+  _ill: ImpossibleLevel[] = [];
   srch_input: string = '';
-  srch_criteria: string = 'level name';
+  srch_criteria: string = 'any';
   srch_dropdown: boolean = false;
   srch_showingSearchResults: boolean = false;
+  srch_sortBy: string = 'position';
+  srch_tags: string[] = [];
+  srch_possibleTags: string[] = [
+    "2p",
+    "Unnerfed",
+    "Old Version",
+    "Fix required"
+  ];
 
   _currentTheme = localStorage['theme'];
 
@@ -104,6 +118,11 @@ export class ListComponent implements OnInit {
   i_illrf = faStar;
   i_search = faSearch;
   i_link = faUpRightFromSquare;
+  i_plus = faPlus;
+  i_position = faListOl
+  i_time = faClock;
+  i_any = faBorderAll;
+  i_sort = faFilter;
 
   //user icons
   i_MateussDev = faCode;
@@ -141,12 +160,22 @@ export class ListComponent implements OnInit {
 
   async ngOnInit() {
     this.cutoutPage(0, this.pageSize);
+    this.getILLForSearch();
 
 
     // this.listSorted = true;
 
     
-    this.getRandomILLFact();
+    this.getRandomILLFact();    
+  }
+
+  async getILLForSearch() {
+    this._ill = [];
+    await this.ill_service.getWholeLevelList().then(snapshot => {
+      this._ill = snapshot.docs.map((doc:any) => {
+        return doc.data();
+      })
+    });
   }
 
   async cutoutPage(start:number, end:number) {
@@ -258,213 +287,148 @@ export class ListComponent implements OnInit {
 
   selectCriteria(crit:string) {
     this.srch_criteria = crit;
-    this.srch_dropdown = false;
   }
 
-  async search(input:string) {
-    this.listSorted = false;
-    this.levelList = [];
-    this.srch_showingSearchResults = true;
+  selectSort(sort:string) {
+    this.srch_sortBy = sort;
+  }
 
-    let finalList:ImpossibleLevel[] = [];
-    let _tempArr:ImpossibleLevel[] = [];
-    console.log('begin search')
-    //make sure that nameLowercase exists
-
-    if(input == "") {
-      this.cutoutPage(0, this.pageSize);
-      return;
-    } else if(input == "lennard") {
-      _tempArr = [];
-      console.log('LENNAR')
-      this.listSorted = true;
-      return;
+  toggleTag(tag:string) {
+    let _idx = this.srch_tags.findIndex(x => x == tag)
+    if(_idx == -1) {
+      this.srch_tags.push(tag);
+    } else {
+      this.srch_tags.splice(_idx, 1)
     }
-    // ! Search through all level names:
+  }
 
-    //reset the temp array holding the data
-    _tempArr = [];
+  hasTag(tag:string):boolean {
+    return this.srch_tags.indexOf(tag)!= -1;
+  }
 
-    // * query normal names
-      console.log('searching through normal case level names')
-      await this.ill_service.firestore.collection('ill').ref.where('name', '==', input).orderBy('position').get().then(res => {
-        _tempArr = res.docs.map((e:any) => {
-          const data = e.data();
-          return data;
-        })
-      }).catch(err => {
-        this.listSorted = true;
-        console.log(err);
-      });
-      finalList.concat(_tempArr);
-
-    // * query lowercase names
-      console.log('searching through lowercase level names')
-      await this.ill_service.firestore.collection('ill').ref.where('nameLowercase', '==', input).orderBy('position').get().then(res => {
-        _tempArr = res.docs.map((e:any) => {
-          const data = e.data();
-          return data;
-        })
-      }).catch(err => {
-        this.listSorted = true;
-        console.log(err);
-      });
-
-    // * add to the final list
-      finalList = finalList.concat(_tempArr);
-
-    // ! Search through all level IDs
-
-    //reset the temp array
-      _tempArr = [];
-
-      console.log('searching through level IDs')
-      await this.ill_service.firestore.collection('ill').ref.where('level_id', '==', input).orderBy('position').get().then(res => {
-        _tempArr = res.docs.map((e:any) => {
-          const data = e.data();
-          return data;
-        })
-      }).catch(err => {
-        this.listSorted = true;
-        console.log(err);
-      })
-
-    // * add to the final list
-      finalList = finalList.concat(_tempArr);
-
-    // ! Search through all GD versions
-
-    //reset temp array
-      _tempArr = [];
-
-      console.log('searching through GD versions')
-      await this.ill_service.firestore.collection('ill').ref.where('gd_version', '==', input).orderBy('position').get().then(res => {
-        _tempArr = res.docs.map((e:any) => {
-          const data = e.data();
-          return data;
-        })
-      }).catch(err => {
-        this.listSorted = true;
-        console.log(err);
-      })
-
-    // * add to the final list
-      finalList = finalList.concat(_tempArr);
-
-    // ! Search through all FPS values
-
-    //reset temp array
-      _tempArr = [];
-
-      console.log('searching through all fps values')
-      await this.ill_service.firestore.collection('ill').ref.where('fps', '==', input).orderBy('position').get().then(res => {
-        _tempArr = res.docs.map((e:any) => {
-          const data = e.data();
-          return data;
-        })
-      }).catch(err => {
-        this.listSorted = true;
-        console.log(err);
-      })
-
-    // * add to the final list
-      finalList = finalList.concat(_tempArr);
+  async search_v2(prompt:string, criteria:string, matchTags:string[], sortBy?:string) {
     
-    // ! Search through all creators
-
-    //reset temp array
-      _tempArr = [];
-
-    // * query normal name of creator
-      console.log('searching through normal case creator array fields')
-      await this.ill_service.firestore.collection('ill').ref.where('creators_full', 'array-contains', input).orderBy('position').get().then(res => {
-        _tempArr = res.docs.map((e:any) => {
-          const data = e.data();
-          return data;
-        })
-      }).catch(err => {
-        this.listSorted = true;
-        console.log(err);
-      })
-    
-    // * add to the final list
-      finalList = finalList.concat(_tempArr);
-    
-    // * query lowercase name of creator
-      console.log('searching through lowercase creator array fields')
-      await this.ill_service.firestore.collection('ill').ref.where('creators_full_lowercase', 'array-contains', input).orderBy('position').get().then(res => {
-        _tempArr = res.docs.map((e:any) => {
-          const data = e.data();
-          return data;
-        })
-      }).catch(err => {
-        this.listSorted = true;
-        console.log(err);
-      })
-
-    // * add to the final list
-      finalList = finalList.concat(_tempArr);
-
-    // ! Search through all tags
-
-    //reset temp array
-      _tempArr = [];
-
-      console.log('searching through normal tag array fields')
-      await this.ill_service.firestore.collection('ill').ref.where('tags', 'array-contains', input).orderBy('position').get().then(res => {
-        _tempArr = res.docs.map((e:any) => {
-          const data = e.data();
-          return data;
-        })
-      }).catch(err => {
-        this.listSorted = true;
-        console.log(err);
-      })
-
-    // * add to the final list
-      finalList = finalList.concat(_tempArr);
-    
-      console.log('searching through lowercase tag array fields')
-      await this.ill_service.firestore.collection('ill').ref.where('tagsLowercase', 'array-contains', input).orderBy('position').get().then(res => {
-        _tempArr = res.docs.map((e:any) => {
-          const data = e.data();
-          return data;
-        })
-      }).catch(err => {
-        this.listSorted = true;
-        console.log(err);
-      })
-    // * add to the final list
-      finalList = finalList.concat(_tempArr);
+    if(prompt == undefined || prompt == "" || prompt.length <= 1) {
+      this.cutoutPage(0, this.pageSize);
+    } else {
+      //Hide to show it's doing smth
+      this.listSorted = false;
+      this.levelListToDisplay = [];
+      this.srch_showingSearchResults = true;
+  
       
-    // ! Remove duplicates
-    
+  
+      // * Do fetching
+      let _tempList:ImpossibleLevel[] = [];
 
-    //seek
-    for(let i=finalList.length; i>0; i--) {
-      for(let j=0; j<finalList.length; j++) {
-        if(i!=j) {
-          if(finalList[i] != undefined && finalList[j] != undefined) {
-            if(finalList[i].name == finalList[j].name && finalList[i].creators_short == finalList[j].creators_short) {
-              console.log("duplicate found: ", finalList[i].name,"by",finalList[i].creators_short);
-              finalList.splice(i, 1);
+      if(criteria == "any") {
+
+        //Names
+        _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
+          return e.name.toLowerCase().includes(prompt.toLowerCase());
+        }));
+    
+        //Fps
+        _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
+          return e.fps == Number(prompt);
+        }));
+    
+        //GD version
+        _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
+          return e.gd_version.toLowerCase().includes(prompt.toLowerCase());
+        }));
+    
+        //Level id
+        _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
+          return e.level_id == prompt;
+        }));
+    
+        //Array search
+    
+        //Creators full
+        _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
+          return e.creators_full_lowercase?.includes(prompt.toLowerCase());
+        }));  
+        
+        
+      } else if(criteria = "name") {
+        //Names
+        _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
+          return e.name.toLowerCase().includes(prompt.toLowerCase());
+        }));
+      } else if(criteria = "creator") {
+        //Creators full
+        _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
+          return e.creators_full_lowercase?.includes(prompt.toLowerCase());
+        }));
+      } else if(criteria = "fps") {
+        //Fps
+        _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
+          return e.fps == Number(prompt);
+        }));
+      } else if(criteria = "gd_version") {
+        //GD version
+        _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
+          return e.gd_version.toLowerCase().includes(prompt.toLowerCase());
+        }));
+      } else if(criteria = "level_id") {
+        //Level id
+        _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
+          return e.level_id == prompt;
+        }));
+      }
+      // * Finalize list
+  
+      //delete duplicates
+      for(let i=_tempList.length; i>0; i--) {
+        for(let j=0; j<_tempList.length; j++) {
+          if(i!=j) {
+            if(_tempList[i] != undefined && _tempList[j] != undefined) {
+              if(_tempList[i].name == _tempList[j].name && _tempList[i].creators_short == _tempList[j].creators_short) {
+                console.log("duplicate found: ", _tempList[i].name,"by",_tempList[i].creators_short);
+                _tempList.splice(i, 1);
+              }
             }
           }
         }
       }
-    }
 
-    
-
-    // ! Finalize full Query
-      this.levelListToDisplay = finalList;
+      //delete unmatching tags
+      if(matchTags.length > 0) {
+        for(let i=0; i<matchTags.length; i++) {
+          _tempList = _tempList.filter((e:ImpossibleLevel) => {
+            return e.tags.indexOf(matchTags[i]) != -1;
+          })
+        }
+      } else {
+        //do nothing
+      }
+      
+      if(sortBy == undefined || sortBy == "position") {
+        //sort by position
+        _tempList = _tempList.sort((a, b) => {
+          return a.position - b.position;
+        })
+      } else if(sortBy == "fps") {
+        //sort by position
+        _tempList = _tempList.sort((a, b) => {
+          return Number(b.fps) - Number(a.fps);
+        })
+      } else if(sortBy == "level_id") {
+        //sort by position
+        _tempList = _tempList.sort((a, b) => {
+          return Number(a.level_id) - Number(b.level_id);
+        })
+      }
+  
+      this.levelListToDisplay = _tempList;
       this.listSorted = true;
-    
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    })
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+    }
   }
 
   async getRandomILLFact() {

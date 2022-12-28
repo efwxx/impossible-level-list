@@ -79,16 +79,162 @@
           <form class="w-full">
             <div class="flex flex-row items-center w-full">
               <fa-icon [icon]="i_search" class="mx-1 text-2xl text-gray-400"></fa-icon>
-              <input type="text" [placeholder]="'Type in the full name of a level, creator, tag, fps or ID to search'" class="p-2 
+              <input type="text" [placeholder]="'Type in anything to search'" class="p-2 
               h-fit align-middle w-full text-black"
               [(ngModel)]="srch_input"/>
               <div class="group">
               </div>
               <input type="submit" class="text-white bg-blue-600 rounded-full p-3 mx-2 shadow-lg 
               hover:scale-105 hover:shadow-xl transition-all duration-300 disabled:bg-neutral-500"
-              (click)="search(srch_input)" value="Search">
+              (click)="search_v2(srch_input, srch_criteria, srch_tags, srch_sortBy)" value="Search">
+
+              <div class="p-1 bg-blue-600 rounded-full text-white text-2xl select-none" (click)="toggleSearchDropdown()">
+                <fa-icon [icon]="i_expand" class="m-2"></fa-icon>
+              </div>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+    <div class="relative lg:absolute w-full xl:right-96 lg:right-48 lg:translate-x-12 origin-top-right lg:w-64 mt-3 p-3 rounded-t-xl bg-slate-200 dark:bg-slate-800 shadow-2xl flex flex-col text-lg z-30 select-none" 
+    *ngIf="srch_dropdown">
+
+      <b><fa-icon [icon]="i_search" class="m-1"></fa-icon>Criteria:</b>
+      <div class="flex flex-col text-base">
+        
+        <div class="flex flex-row items-center p-2 dark:hover:bg-slate-900 hover:bg-slate-500" (click)="selectCriteria('any')">
+          <div class="h-full w-1 bg-blue-500 rounded-full scale-125" *ngIf="srch_criteria == 'any'">
+            <b class="opacity-0">e</b>
+          </div>
+          <fa-icon [icon]="i_any" class="m-1"></fa-icon>
+          <b class="font-normal">Any</b>
+        </div>
+        
+        <div class="flex flex-row items-center p-2 dark:hover:bg-slate-900 hover:bg-slate-500" (click)="selectCriteria('name')">
+          <div class="h-full w-1 bg-blue-500 rounded-full scale-125" *ngIf="srch_criteria == 'name'">
+            <b class="opacity-0">e</b>
+          </div>
+          <fa-icon [icon]="i_name" class="m-1"></fa-icon>
+          <b class="font-normal">Name</b>
+        </div>
+        
+        <div class="flex flex-row items-center p-2 dark:hover:bg-slate-900 hover:bg-slate-500" (click)="selectCriteria('creator')">
+          <div class="h-full w-1 bg-blue-500 rounded-full scale-125" *ngIf="srch_criteria == 'creator'">
+            <b class="opacity-0">e</b>
+          </div>
+          <fa-icon [icon]="i_creator" class="m-1"></fa-icon>
+          <b class="font-normal">Creator</b>
+        </div>
+        
+        <div class="flex flex-row items-center p-2 dark:hover:bg-slate-900 hover:bg-slate-500" (click)="selectCriteria('fps')">
+          <div class="h-full w-1 bg-blue-500 rounded-full scale-125" *ngIf="srch_criteria == 'fps'">
+            <b class="opacity-0">e</b>
+          </div>
+          <fa-icon [icon]="i_fps" class="m-1"></fa-icon>
+          <b class="font-normal">FPS</b>
+        </div>
+        
+        <div class="flex flex-row items-center p-2 dark:hover:bg-slate-900 hover:bg-slate-500" (click)="selectCriteria('level_id')">
+          <div class="h-full w-1 bg-blue-500 rounded-full scale-125" *ngIf="srch_criteria == 'level_id'">
+            <b class="opacity-0">e</b>
+          </div>
+          <fa-icon [icon]="i_id" class="m-1"></fa-icon>
+          <b class="font-normal">Level ID</b>
+        </div>
+      </div>
+
+      <b><fa-icon [icon]="i_tag" class="m-1"></fa-icon>Tags:</b>
+      <div class="flex flex-row flex-wrap">
+        
+        <div class="hover:scale-105 transition-all duration-200 flex flex-row m-1" (click)="toggleTag('2p')">
+          <div class="bg-blue-500 rounded-full text-sm text-white" *ngIf="hasTag('2p')">
+            <b class="text-sm font-normal m-1">2 player</b>
+          </div>
+          <div class="bg-slate-500 rounded-full text-sm text-white" *ngIf="!hasTag('2p')">
+            <b class="text-sm font-normal m-1">2 player</b>
+          </div>
+        </div>
+        
+        <div class="hover:scale-105 transition-all duration-200 flex flex-row m-1" (click)="toggleTag('Unnerfed')">
+          <div class="bg-blue-500 rounded-full text-sm text-white" *ngIf="hasTag('Unnerfed')">
+            <b class="text-sm font-normal m-1">Unnerfed</b>
+          </div>
+          <div class="bg-slate-500 rounded-full text-sm text-white" *ngIf="!hasTag('Unnerfed')">
+            <b class="text-sm font-normal m-1">Unnerfed</b>
+          </div>
+        </div>
+
+        <div class="hover:scale-105 transition-all duration-200 flex flex-row m-1" (click)="toggleTag('Old version')">
+          <div class="bg-blue-500 rounded-full text-sm text-white" *ngIf="hasTag('Old version')">
+            <b class="text-sm font-normal m-1">Old version</b>
+          </div>
+          <div class="bg-slate-500 rounded-full text-sm text-white" *ngIf="!hasTag('Old version')">
+            <b class="text-sm font-normal m-1">Old version</b>
+          </div>
+        </div>
+        
+        <div class="hover:scale-105 transition-all duration-200 flex flex-row m-1" (click)="toggleTag('Verified')">
+          <div class="bg-blue-500 rounded-full text-sm text-white" *ngIf="hasTag('Verified')">
+            <b class="text-sm font-normal m-1">Verified</b>
+          </div>
+          <div class="bg-slate-500 rounded-full text-sm text-white" *ngIf="!hasTag('Verified')">
+            <b class="text-sm font-normal m-1">Verified</b>
+          </div>
+        </div>
+
+        <div class="hover:scale-105 transition-all duration-200 flex flex-row m-1" (click)="toggleTag('Rated')">
+          <div class="bg-blue-500 rounded-full text-sm text-white" *ngIf="hasTag('Rated')">
+            <b class="text-sm font-normal m-1">Rated</b>
+          </div>
+          <div class="bg-slate-500 rounded-full text-sm text-white" *ngIf="!hasTag('Rated')">
+            <b class="text-sm font-normal m-1">Rated</b>
+          </div>
+        </div>
+
+        <div class="hover:scale-105 transition-all duration-200 flex flex-row m-1" (click)="toggleTag('Previously Rated')">
+          <div class="bg-blue-500 rounded-full text-sm text-white" *ngIf="hasTag('Previously Rated')">
+            <b class="text-sm font-normal m-1">Previously Rated</b>
+          </div>
+          <div class="bg-slate-500 rounded-full text-sm text-white" *ngIf="!hasTag('Previously Rated')">
+            <b class="text-sm font-normal m-1">Previously Rated</b>
+          </div>
+        </div>
+
+        <div class="hover:scale-105 transition-all duration-200 flex flex-row m-1" (click)="toggleTag('Fix Required')">
+          <div class="bg-blue-500 rounded-full text-sm text-white" *ngIf="hasTag('Fix Required')">
+            <b class="text-sm font-normal m-1">Fix Required</b>
+          </div>
+          <div class="bg-slate-500 rounded-full text-sm text-white" *ngIf="!hasTag('Fix Required')">
+            <b class="text-sm font-normal m-1">Fix Required</b>
+          </div>
+        </div>
+      </div>
+
+      <b><fa-icon [icon]="i_sort" class="m-1"></fa-icon> Sort by:</b>
+      <div class="flex flex-col text-base">
+        
+        <div class="flex flex-row items-center p-2 dark:hover:bg-slate-900 hover:bg-slate-500" (click)="selectSort('position')">
+          <div class="h-full w-1 bg-blue-500 rounded-full scale-125" *ngIf="srch_sortBy == 'position'">
+            <b class="opacity-0">e</b>
+          </div>
+          <fa-icon [icon]="i_position" class="m-1"></fa-icon>
+          <b class="font-normal">Position</b>
+        </div>
+        
+        <div class="flex flex-row items-center p-2 dark:hover:bg-slate-900 hover:bg-slate-500" (click)="selectSort('fps')">
+          <div class="h-full w-1 bg-blue-500 rounded-full scale-125" *ngIf="srch_sortBy == 'fps'">
+            <b class="opacity-0">e</b>
+          </div>
+          <fa-icon [icon]="i_fps" class="m-1"></fa-icon>
+          <b class="font-normal">FPS</b>
+        </div>
+        
+        <div class="flex flex-row items-center p-2 dark:hover:bg-slate-900 hover:bg-slate-500" (click)="selectSort('level_id')">
+          <div class="h-full w-1 bg-blue-500 rounded-full scale-125" *ngIf="srch_sortBy == 'level_id'">
+            <b class="opacity-0">e</b>
+          </div>
+          <fa-icon [icon]="i_time" class="m-1"></fa-icon>
+          <b class="font-normal">Time</b>
         </div>
       </div>
     </div>
@@ -113,7 +259,7 @@
     
     <div class="h-fit lg:p-2 p-0 flex flex-col mt-2 mb-2 lg:rounded-md w-full"
     id="ILL_ListParent" *ngIf="listSorted">
-      <b *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for "{{srch_input}}":</b>
+      <b *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for "{{srch_input}}" ({{levelListToDisplay.length}} results):</b>
       
       
       <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>
