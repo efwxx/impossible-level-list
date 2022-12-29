@@ -7,7 +7,7 @@ import { LevelServiceService } from '../../shared/level-service.service';
 import { NoPreloading } from '@angular/router';
 import { UserData } from 'src/app/shared/user-data';
 import { useAnimation } from '@angular/animations';
-import { faAngleDown, faAngleUp, faList, faPencil, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faList, faPencil, faWrench, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-admin-data-editor',
@@ -91,6 +91,7 @@ export class AdminDataEditorComponent implements OnInit {
   i_list = faList;
   i_up = faAngleUp;
   i_dwn = faAngleDown;
+  i_cross = faXmark;
 
 
   constructor(
