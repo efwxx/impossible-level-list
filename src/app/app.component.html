@@ -43,6 +43,12 @@
         <b class="lg:scale-100 lg:relative absolute scale-0">FAQ</b>
       </span>   
     </a>
+    <a routerLink="/wr-submission" *ngIf="authService.user$ | async as user">
+      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+        <fa-icon [icon]="i_wr" class="m-1"></fa-icon>
+        <b class="lg:scale-100 lg:relative absolute scale-0">Sumbit a WR</b>
+      </span>   
+    </a>
     <a class="cursor-not-allowed">
       <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
         <fa-icon [icon]="i_stats" class="m-1"></fa-icon>

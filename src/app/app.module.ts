@@ -40,7 +40,12 @@ import { LeaderboardElementComponent } from './ILLP/leaderboard-element/leaderbo
 import { LeaderboardCreatorComponent } from './ILLP/leaderboard-creator/leaderboard-creator.component';
 import { HallOfFameElementComponent } from './ILLP/hall-of-fame-element/hall-of-fame-element.component';
 import { ProfilePageComponent } from './profiles-and-login/profile-page/profile-page.component';
-import { BundleComponent } from './ILLP/bundle/bundle.component'
+import { BundleComponent } from './ILLP/bundle/bundle.component';
+import { WrWidgetComponent } from './ILLP/wr-widget/wr-widget.component';
+import { WrEntryComponent } from './ILLP/wr-entry/wr-entry.component';
+import { BundlePageComponent } from './ILLP/bundle-page/bundle-page.component';
+import { IllpHomePageComponent } from './ILLP/illp-home-page/illp-home-page.component';
+import { WrSubmissionPageComponent } from './ILLP/wr-submission-page/wr-submission-page.component'
 
 @NgModule({
   declarations: [
@@ -60,6 +65,11 @@ import { BundleComponent } from './ILLP/bundle/bundle.component'
     HallOfFameElementComponent,
     ProfilePageComponent,
     BundleComponent,
+    WrWidgetComponent,
+    WrEntryComponent,
+    BundlePageComponent,
+    IllpHomePageComponent,
+    WrSubmissionPageComponent,
   ],
   imports: [
     BrowserModule,

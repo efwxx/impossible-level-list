@@ -10,6 +10,8 @@ import { AccountSettingsComponent } from './profiles-and-login/account-settings/
 import { LeaderboardListComponent } from './ILLP/leaderboard-list/leaderboard-list.component';
 import { LeaderboardCreatorComponent } from './ILLP/leaderboard-creator/leaderboard-creator.component';
 import { ProfilePageComponent } from './profiles-and-login/profile-page/profile-page.component';
+import { WrSubmissionPageComponent } from './ILLP/wr-submission-page/wr-submission-page.component';
+import { WrEntryComponent } from './ILLP/wr-entry/wr-entry.component';
 
 const routes: Routes = [
   { path: 'admin', component: AdminMenuComponent, canActivate: [AuthGuard] },
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'botting-leaderboard', component: LeaderboardListComponent },
   { path: 'hall-of-fame', component: LeaderboardCreatorComponent },
   { path: 'profile/:id', component: ProfilePageComponent },
+  { path: 'wr-submission', component: WrSubmissionPageComponent },
+  { path: 'wr/:id', component: WrEntryComponent },
 ];
 
 @NgModule({

@@ -262,7 +262,8 @@
       <b *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for "{{srch_input}}" ({{levelListToDisplay.length}} results):</b>
       
       
-      <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>
+      <!-- <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element> -->
+      <app-list-element ></app-list-element>
 
 
       <!-- Error messages -->

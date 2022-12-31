@@ -5,7 +5,7 @@ import firebase from 'firebase/compat/app'
 import { AuthService } from './shared/auth.service';
 import { UserData } from './shared/user-data';
 import { Router, RouterOutlet } from '@angular/router';
-import { faCog, faCube, faFileLines, faHistory, faMoon, faPerson, faQuestionCircle, faRankingStar, faRefresh, faRightFromBracket, faRightToBracket, faRotateRight, faSun, faToolbox, faUser, faWrench } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCube, faFileLines, faHistory, faMoon, faPerson, faQuestionCircle, faRankingStar, faRefresh, faRightFromBracket, faRightToBracket, faRotateRight, faSun, faToolbox, faTrophy, faUser, faWrench } from '@fortawesome/free-solid-svg-icons'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons';
 import { getAnalytics } from 'firebase/analytics'
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
   i_lightmode = faSun;
   i_refresh = faRotateRight;
   i_admin = faWrench;
+  i_wr = faTrophy;
 
   i_profile = faUser;
   i_gdusername = faCube;

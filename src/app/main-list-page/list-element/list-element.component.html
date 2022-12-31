@@ -206,17 +206,12 @@ dark:bg-[#1e293b] bg-[#cbd5e1] my-2 mx-0 lg:h-fit ">
                     </div>
 
                     <!-- World record data -->
-                    <div class="w-full 
+                    <div class="w-full flex flex-col
                     text-sm">
-                    <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_wr" ></fa-icon> World Record:
+                        <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_wr" ></fa-icon> World Record:
+                        </p>
                         <i class="font-light italic text-sm">( {{"Minimum for WR: ≥"+level_minimal_wr_percent+"%"}} )</i>
-                    </p>
-                        <div class="flex flex-col items-center">
-                            <b class="font-semibold text-lg"><fa-icon class="m-1" [icon]="i_wr"></fa-icon> {{level_wr}} <fa-icon class="m-1" [icon]="i_wr"></fa-icon></b>
-                            <a [href]="level_wr_yt" *ngIf="level_wr != '' && level_wr != 'N/A'" class="bg-purple-500 text-white p-2 m-1 rounded-lg shadow-lg
-                            hover:shadow-lg hover:scale-105 transition-all duration-200 w-fit">> Link <</a>
-                            <p *ngIf="level_wr == '' || level_wr == 'N/A'">No world records yet. Be the first to achieve one!</p>
-                        </div>
+                        <app-wr-widget [wr_best_run]="" [wr_best_run_0]=""></app-wr-widget>
                     </div>
                 </div>
             </div>

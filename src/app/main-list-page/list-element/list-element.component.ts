@@ -171,6 +171,10 @@ export class ListElementComponent implements OnInit {
     }) != null;
     this.setupwideshot();
     this.addPFPs();
+    this.getWRData();
+  }
+
+  getWRData() {
 
   }
 
