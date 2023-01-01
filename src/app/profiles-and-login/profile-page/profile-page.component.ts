@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { user } from '@angular/fire/auth';
 import { ActivatedRoute } from '@angular/router';
-import { faClipboard, faHammer, faPlus, faStar, faTools, faTrophy, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faClipboard, faHammer, faPlus, faStar, faTools, faTrophy, faUser, faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/shared/auth.service';
 import { ImpossibleLevel } from 'src/app/shared/impossible-level';
 import { LevelServiceService } from 'src/app/shared/level-service.service';
@@ -27,7 +27,12 @@ export class ProfilePageComponent implements OnInit {
   i_plus = faPlus;
   i_creator = faHammer;
   i_count = faTools;
-  i_bio = faClipboard
+  i_bio = faClipboard;
+  i_verified = faUserCheck;
+
+  adm_newUsername:string = '';
+  adm_newGDUsername:string = '';
+  adm_newBio:string = '';
 
   selected_mascott_name:string = '';
   selected_mascott_path:string = '';
@@ -42,7 +47,7 @@ export class ProfilePageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private authService: AuthService,
+    public authService: AuthService,
     private illservice: LevelServiceService
   ) { }
 
@@ -61,6 +66,62 @@ export class ProfilePageComponent implements OnInit {
         this.getUserLevels();
       } else {
         this.found_user = false;
+      }
+    }
+  }
+
+  async toggleVerified() {
+    let _uid = this.route.snapshot.paramMap.get('id');
+
+    if(_uid) {
+      let _temp_usr = await this.authService.getDataFromUID(_uid)
+      if(_temp_usr) {
+        _temp_usr.verified = !_temp_usr.verified;
+
+        await this.authService.firestore.collection('user').doc(_temp_usr.uid).set(_temp_usr, { merge: true })
+        this.getUser();
+      }
+    }
+  }
+
+  async changeUsername() {
+    let _uid = this.route.snapshot.paramMap.get('id');
+
+    if(_uid) {
+      let _temp_usr = await this.authService.getDataFromUID(_uid)
+      if(_temp_usr) {
+        _temp_usr.username = this.adm_newUsername;
+
+        await this.authService.firestore.collection('user').doc(_temp_usr.uid).set(_temp_usr, { merge: true })
+        this.getUser();
+      }
+    }
+  }
+
+  async changeGDUsername() {
+    let _uid = this.route.snapshot.paramMap.get('id');
+
+    if(_uid) {
+      let _temp_usr = await this.authService.getDataFromUID(_uid)
+      if(_temp_usr) {
+        _temp_usr.gd_username = this.adm_newGDUsername;
+
+        await this.authService.firestore.collection('user').doc(_temp_usr.uid).set(_temp_usr, { merge: true })
+        this.getUser();
+      }
+    }
+  }
+
+  async changeBio() {
+    let _uid = this.route.snapshot.paramMap.get('id');
+
+    if(_uid) {
+      let _temp_usr = await this.authService.getDataFromUID(_uid)
+      if(_temp_usr) {
+        _temp_usr.description = this.adm_newBio;
+
+        await this.authService.firestore.collection('user').doc(_temp_usr.uid).set(_temp_usr, { merge: true })
+        this.getUser();
       }
     }
   }

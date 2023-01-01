@@ -239,7 +239,7 @@
       </div>
     </div>
 
-    <img src="../../assets/BNR_Base3.png" class="w-full mt-4 aspect-auto shadow-2xl rounded-2xl border-4 border-dashed border-spacing-2 dark:border-slate-800 border-slate-300" />
+    <img src="../../assets/BNR_Base4.png" class="w-full mt-4 aspect-auto shadow-2xl rounded-2xl border-4 border-dashed border-spacing-2 dark:border-slate-800 border-slate-300" />
 
 
     <!-- page navigation Top -->
@@ -262,8 +262,8 @@
       <b *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for "{{srch_input}}" ({{levelListToDisplay.length}} results):</b>
       
       
-      <!-- <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element> -->
-      <app-list-element ></app-list-element>
+      <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>
+      <!-- <app-list-element ></app-list-element> -->
 
 
       <!-- Error messages -->

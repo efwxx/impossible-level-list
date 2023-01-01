@@ -21,58 +21,56 @@
     <a href="">
         <img class="p-2 rounded-lg" src="../../assets/logo.png" width="64" height="64" />
     </a>
-    <b class="my-auto text-lg select-none lg:relative lg:scale-100 scale-0 absolute">Impossible Levels List</b>
-    <a (click)="toggleTheme()">
-      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+    <b class="my-auto text-lg select-none">Impossible Levels List</b>
+    <a (click)="toggleTheme()" class="p-2 m-2 rounded-full hover:scale-105 transition-all bg-yellow-200 dark:bg-blue-900">
+      <span>
         <fa-icon [icon]="i_darkmode" *ngIf="_themeRef === 'dark'" class="m-1"></fa-icon>
         <fa-icon [icon]="i_lightmode" *ngIf="_themeRef === 'light'" class="m-1"></fa-icon>
       </span>   
     </a>
   </div>
 
-  <div class="ml-auto mr-3">
+  <div class="mr-auto mx-0 h-fit flex flex-row lg:relative absolute scale-0 lg:scale-100">
     <a href="https://discord.gg/MHx4Nbp">
-      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <span class="ILL_NavbarBtn">
         <fa-icon [icon]="i_discord" class="m-1"></fa-icon>
-        <b class="lg:scale-100 lg:relative absolute scale-0">Discord server</b>
+        <b class="lg:scale-100 lg:relative">Discord server</b>
       </span>
     </a>
     <a routerLink="/faq">
-      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <span class="ILL_NavbarBtn">
         <fa-icon [icon]="i_faq" class="m-1"></fa-icon>
-        <b class="lg:scale-100 lg:relative absolute scale-0">FAQ</b>
+        <b class="lg:scale-100 lg:relative">FAQ</b>
       </span>   
     </a>
     <a routerLink="/wr-submission" *ngIf="authService.user$ | async as user">
-      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <span class="ILL_NavbarBtn">
         <fa-icon [icon]="i_wr" class="m-1"></fa-icon>
-        <b class="lg:scale-100 lg:relative absolute scale-0">Sumbit a WR</b>
+        <b class="lg:scale-100 lg:relative">Sumbit a WR</b>
       </span>   
     </a>
     <a class="cursor-not-allowed">
-      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <span class="ILL_NavbarBtn">
         <fa-icon [icon]="i_stats" class="m-1"></fa-icon>
-        <b class="lg:scale-100 lg:relative absolute scale-0">ILLP</b>
+        <b class="lg:scale-100 lg:relative">ILLP</b>
       </span>   
     </a>
-    
-
     <a routerLink="/admin" *ngIf="authService.user$ | async as user" [hidden]="!user.roles.admin == true">
-      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <span class="ILL_NavbarBtn">
       <fa-icon [icon]="i_admin" class="m-1"></fa-icon>
-      <b class="lg:scale-100 lg:relative absolute scale-0">Admin panel</b>
+      <b class="lg:scale-100 lg:relative">Admin panel</b>
     </span>
     </a>
     <a *ngIf="(authService.user$ | async) === null" routerLink="/login">
-      <span class="ILL_NavbarBtn bg-slate-200 dark:bg-slate-600">
+      <span class="ILL_NavbarBtn">
         <fa-icon [icon]="i_login" class="m-1"></fa-icon>
-        <b class="lg:scale-100 lg:relative absolute scale-0">Sign In</b>
+        <b class="lg:scale-100 lg:relative">Sign In</b>
       </span>   
     </a>
     
   </div>
 
-  <div class="ml-auto mr-3">
+  <div class="mr-3">
     <a *ngIf="authService.user$ | async as user" (click)="toggleAccountDropdown()">
       <span class="w-full h-full peer">
         <img src="{{user.profilePicture}}" 
@@ -83,10 +81,10 @@
   </div>
   <!-- profile data thing -->
   <div *ngIf="authService.user$ | async as user"
-  class="absolute flex flex-col items-center justify-start dark:bg-[#141b27] bg-slate-300 rounded-tl-2xl right-2 top-16 w-fit m-2 shadow-lg overflow-hidden">
-    <div *ngIf="_showAccInfo" class="w-80 h-full">
+  class="absolute flex flex-col items-center justify-start dark:bg-[#141b27] bg-slate-300 rounded-tl-2xl rounded-b-xl right-2 top-16 w-fit m-2 shadow-lg overflow-hidden">
+    <div *ngIf="_showAccInfo" class="w-80 h-fit">
       <!-- Name -->
-      <span class="flex flex-row justify-center text-lg dark:bg-[#1d2738] bg-[#c8d8ee] p-1">
+      <span class="flex flex-row justify-center text-lg dark:bg-[#2b3b57] bg-[#c8d8ee] p-1">
           <img src="{{user.profilePicture}}" 
           class="rounded-full aspect-square m-2 w-[48px] h-[48px] hover:scale-105 transition-all duration-200">
           <div class="flex flex-col">
@@ -121,7 +119,7 @@
           </span>   
         </a>
         
-        <a (click)="authService.signOut()" class="mb-2">
+        <a (click)="authService.signOut()" class="">
           <span class="ILL_ProfileBtn dark:bg-slate-800 bg-slate-200 dark:hover:bg-slate-600 hover:bg-slate-100">
             <div class="mx-auto">
               <fa-icon [icon]="i_logout" class="mx-1"></fa-icon>
@@ -135,3 +133,37 @@
   
 </div>
 
+<!-- Mobile footer -->
+<div class="ILL_Mobile_footer bg-gray-300 dark:bg-gray-800 text-[#071013] dark:text-white select-none lg:hidden lg:absolute lg:scale-0">
+  <a routerLink="/faq" class="ILL_NavbarBtn">
+    <span class="flex flex-col">
+      <fa-icon [icon]="i_faq" class="m-1 text-lg"></fa-icon>
+      <b class="lg:scale-100 lg:relative">FAQ</b>
+    </span>   
+  </a>
+  <a routerLink="/wr-submission" *ngIf="authService.user$ | async as user" class="ILL_NavbarBtn">
+    <span class="flex flex-col">
+      <fa-icon [icon]="i_wr" class="m-1 text-lg"></fa-icon>
+      <b class="lg:scale-100 lg:relative">Sumbit a WR</b>
+    </span>   
+  </a>
+  <a class="cursor-not-allowed ILL_NavbarBtn">
+    <span class="flex flex-col">
+      <fa-icon [icon]="i_stats" class="m-1 text-lg"></fa-icon>
+      <b class="lg:scale-100 lg:relative">ILLP</b>
+    </span>   
+  </a>
+  <a routerLink="/admin" *ngIf="authService.user$ | async as user" [hidden]="!user.roles.admin == true" class="ILL_NavbarBtn">
+    <span class="flex flex-col">
+    <fa-icon [icon]="i_admin" class="m-1 text-lg"></fa-icon>
+    <b class="lg:scale-100 lg:relative">Admin panel</b>
+  </span>
+  </a>
+  <a *ngIf="(authService.user$ | async) === null" routerLink="/login" class="ILL_NavbarBtn">
+    <span class="flex flex-col">
+      <fa-icon [icon]="i_login" class="m-1 text-lg"></fa-icon>
+      <b class="lg:scale-100 lg:relative">Sign In</b>
+    </span>   
+  </a>
+  
+</div>

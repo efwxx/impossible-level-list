@@ -13,21 +13,32 @@ import { Router } from '@angular/router';
 export class WrServiceService {
 
   constructor(
-    private firestore: AngularFirestore,
+    public firestore: AngularFirestore,
     private authService: AuthService,
     private router: Router,
   ) { }
 
-  submitWR(wr:WrSubmission) {
+  submitWR(wr:WrSubmission, key:string) {
     let _wr = wr;
     _wr.status = 'pending';
     _wr.submitted_at = Date.now();
-    _wr.$key = this.firestore.createId()
-    return this.firestore.collection('wr-sumbissions').doc(_wr.$key).set(_wr);
+    _wr.$key = key;
+    return this.firestore.collection('wr-sumbissions').doc(key).set(_wr);
   }
 
-  changeWRStatus(wrKey:string, status:string) {
-    return this.firestore.collection('wr-sumbissions').doc(wrKey).set({status: status}, {merge: true});
+  async getWRFromID(id:string) {
+    let _wrObj:WrSubmission[] = []
+    await this.firestore.collection('wr-sumbissions').ref.where('$key', '==', id).get().then(snapshot => {
+      _wrObj = snapshot.docs.map((e:any) => {
+        return e.data();
+      })
+    })
+
+    return _wrObj[0];
+  }
+
+  changeWRStatus(wrKey:string, status:string, reason?: string) {
+    return this.firestore.collection('wr-sumbissions').doc(wrKey).set({status: status, reject_reason: reason}, {merge: true});
   }
 
   getAllSubmissions() {

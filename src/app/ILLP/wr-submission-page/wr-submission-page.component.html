@@ -1,15 +1,26 @@
-<div class="w-[720px] dark:bg-slate-700 bg-slate-300 flex flex-col p-3 mt-20 mx-auto rounded-xl dark:text-white text-center shadow-2xl" *ngIf="authService.user$ | async as user">
+<div class="lg:w-[720px] w-screen dark:bg-slate-700 bg-slate-300 flex flex-col p-3 mt-20 mx-auto rounded-xl dark:text-white text-center shadow-2xl" *ngIf="authService.user$ | async as user">
     <b class="text-3xl text-center ">Submit a World Record</b>
 
     <b class="text-lg font-semibold">ILL level</b>
-    <b class="font-normal italic dark:text-slate-300">The level you got a WR on</b>
-    <input [(ngModel)]="bil_levelName" class="ILL_Field" type="text" placeholder="Type in the full name of the level you got a WR on"/>
+    <b class="font-normal italic dark:text-slate-300">Search and pick a level you had your WR on</b>
+    <div class="flex flex-col">
+        <p>Selected Level: {{bil_levelID}}</p>
+        <input [(ngModel)]="bil_levelQuery" (input)="searchILL()" class="ILL_Field" type="text" placeholder="Type a level name to search"/>
+        <div class="flex flex-col bg-slate-100 rounded-xl p-3 m-2 h-[256px] overflow-auto">
+            <div class="text-black">Search results: {{search_results_ILL.length}}</div>
+            <div class="flex flex-col text-left bg-slate-200 dark:bg-slate-800 p-2 m-1 rounded-xl shadow-xl font-bold hover:scale-[101%] transition-all duration-200"
+            *ngFor="let lvl of search_results_ILL" (click)="setLevelID(lvl.name+'-'+lvl.creators_short)">
+                <b class="text-lg font-semibold">{{lvl.name}}</b>
+                <b class="text-base font-normal italic">by {{lvl.creators_short}}</b>
+            </div>
+        </div>
+    </div>
 
     <b class="text-lg font-semibold">Progress</b>
     <b class="font-normal italic dark:text-slate-300">The progress you made as a percentage</b>
-    <input [(ngModel)]="bil_run" class="ILL_Field" type="text" placeholder="eg: '35%', '0.810%', '45-67%'" (change)="remapProgress()"/>
+    <input [(ngModel)]="bil_run" class="ILL_Field" type="text" placeholder="eg: '35%', '0.810%', '45-67%'" (input)="remapProgress()"/>
     <b class="font-normal italic dark:text-slate-300">Preview:</b>
-    <div class="m-2 h-3 rounded-full bg-slate-800">
+    <div class="m-2 h-3 rounded-full bg-slate-800 overflow-hidden">
         <!-- w is for the percentage that was the run (end% - start%), ml is the offset from start (start%) -->
         <div class="h-full from-blue-500 to-blue-700 bg-gradient-to-r rounded-full"
         [style.marginLeft]="bil_run_start+'%'" [style.width]="bil_run_total+'%'">
@@ -26,11 +37,11 @@
 
     <div class="w-full flex flex-row">
         <button class="w-full p-3 m-2 rounded-full text-white bg-slate-500 font-semibold hover:scale-105 transition-all duration-200">Cancel</button>
-        <button class="w-full p-3 m-2 rounded-full text-white bg-blue-500 font-semibold hover:scale-105 transition-all duration-200">Submit</button>
+        <button class="w-full p-3 m-2 rounded-full text-white bg-blue-500 font-semibold hover:scale-105 transition-all duration-200" (click)="submitWR(user.uid)">Submit</button>
     </div>
 </div>
 
-<div class="w-[720px] dark:bg-slate-700 bg-slate-300 flex flex-col p-3 mt-20 mx-auto rounded-xl dark:text-white text-center shadow-2xl" *ngIf="(authService.user$ | async) === null">
+<div class="lg:w-[720px] w-screen dark:bg-slate-700 bg-slate-300 flex flex-col p-3 mt-20 mx-auto rounded-xl dark:text-white text-center shadow-2xl" *ngIf="(authService.user$ | async) === null">
     <b class="text-3xl text-center ">Error!</b>
     <b class="text-xl text-center font-semibold">You need to log-in if you want to submit a WR</b>
     <button routerLink="/login" class="p-3 m-2 rounded-full text-white bg-blue-500 font-semibold hover:scale-105 transition-all duration-200">Log in</button>

@@ -28,6 +28,7 @@ export interface UserData {
     completed_bundles_name?: string[];
 
     //Creator related stuff
+    verified?: boolean;
     builder_points?: number;
     created_levels?: number;
 

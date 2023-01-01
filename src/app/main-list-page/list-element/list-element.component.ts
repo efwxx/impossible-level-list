@@ -13,9 +13,11 @@ import {
 import {
 
 } from '@fortawesome/fontawesome-svg-core'
-import { faAngleDown, faAngleUp, faBarsStaggered, faBook, faBookmark, faCheckCircle, faDeleteLeft, faHourglass, faInfo, faInfoCircle, faScrewdriverWrench, faStar, faStarHalf, faStopwatch, faTag, faTrophy, faUpRightFromSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faBarsStaggered, faBook, faBookmark, faCheckCircle, faDeleteLeft, faEllipsis, faHourglass, faInfo, faInfoCircle, faScrewdriverWrench, faStar, faStarHalf, faStopwatch, faTag, faTrophy, faUpRightFromSquare, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/shared/auth.service';
 import { UserData } from 'src/app/shared/user-data';
+import { WrServiceService } from 'src/app/shared/wr-service.service';
+import { WrSubmission } from 'src/app/shared/wr-submission';
 
 @Component({
   selector: 'app-list-element',
@@ -91,7 +93,12 @@ export class ListElementComponent implements OnInit {
   level_isRated = false;
   level_isUnRated = false;
   level_creatorPFPs:string[] = [];
+  level_creatorPFPs_limited:string[] = [];
   level_creatorAccounts:UserData[] = [];
+
+  level_wrID_run:string = '';
+  level_wrID_0:string = '';
+  level_manualWR:boolean = false;
   
   card_expanded = false;
   card_mobile_expanded = false;
@@ -116,6 +123,7 @@ export class ListElementComponent implements OnInit {
   i_rated = faStar;
   i_unrated = faStarHalf;
   i_link = faUpRightFromSquare;
+  i_more = faEllipsis;
 
   //all data in 1 object
   @Input('ill_level') ill_level:ImpossibleLevel = {
@@ -139,7 +147,7 @@ export class ListElementComponent implements OnInit {
     wide_level_shot_url: 'https://media.discordapp.net/attachments/598756348829892647/1043253620772196362/unknown.png'
   };
   @Input('ill_position') ill_position?:number;
-  constructor(private sanitizer: DomSanitizer, private authService: AuthService) { 
+  constructor(private sanitizer: DomSanitizer, private authService: AuthService, private wr_service:WrServiceService) { 
   }
   
 
@@ -174,21 +182,56 @@ export class ListElementComponent implements OnInit {
     this.getWRData();
   }
 
-  getWRData() {
+  async getWRData() {
+    let _wrs_runs: WrSubmission[] = []
+    await this.wr_service.firestore.collection('wr-sumbissions').ref
+    .where('level', '==', this.ill_level.name+'-'+this.ill_level.creators_short)
+    .where('status', '==', 'Approved')
+    .where('isFromZero', '==', false)
+    .orderBy('submitted_at', 'desc')
+    .get().then(snapshot => {
+      _wrs_runs = snapshot.docs.map((e:any) => {
+        return e.data();
+      })
+    })
+    
+    if(_wrs_runs.length > 0) {
+      this.level_wrID_run = _wrs_runs[0].$key
+    }
 
+    let _wrs_runs_0: WrSubmission[] = []
+    await this.wr_service.firestore.collection('wr-sumbissions').ref
+    .where('level', '==', this.ill_level.name+'-'+this.ill_level.creators_short)
+    .where('status', '==', 'Approved')
+    .where('isFromZero', '==', true)
+    .orderBy('submitted_at', 'desc')
+    .get().then(snapshot => {
+      _wrs_runs_0 = snapshot.docs.map((e:any) => {
+        return e.data();
+      })
+    })
+  
+    if(_wrs_runs_0.length > 0) {
+      this.level_wrID_0 = _wrs_runs_0[0].$key
+    }
   }
 
   async addPFPs() {
-    this.level_creators_full.forEach(async (creator, i) => {
+    let _cnt = 0;
+    await this.level_creators_full.forEach(async (creator, i) => {
       let _pfp = await this.authService.getDataFromGDUsername(creator)
       if(_pfp) {
+        _cnt++
         this.level_creatorAccounts.push(_pfp);
         if(_pfp?.profilePicture != null) {
           this.level_creatorPFPs.push(_pfp?.profilePicture)
+          if(_cnt<=3) {
+            this.level_creatorPFPs_limited.push(_pfp?.profilePicture)
+          }
         }
       }
     });
-    // console.log("level", this.level_name, "setup with", this.level_creatorPFPs.length, "PFPs")
+
   }
 
   scrollUp() {

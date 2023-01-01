@@ -159,11 +159,11 @@ export class ListComponent implements OnInit {
 
 
   async ngOnInit() {
-    // this.cutoutPage(0, this.pageSize);
-    // this.getILLForSearch();
+    this.cutoutPage(0, this.pageSize);
+    this.getILLForSearch();
 
 
-    this.listSorted = true;
+    // this.listSorted = true;
 
     
     this.getRandomILLFact();    

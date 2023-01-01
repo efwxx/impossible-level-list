@@ -6,7 +6,7 @@
                 <img src="{{user_data.profilePicture}}" class="aspect-square rounded-full xl:w-48 xl:h-48 lg:w-24 lg:h-24 w-16 h-16"/>
                 <div class="flex flex-col ml-4">
                     <b class="dark:text-white font-semibold text-xl"><fa-icon [icon]="i_user" class="m-1"></fa-icon> {{user_data.username}}</b>
-                    <b class="dark:text-slate-400 text-slate-500 font-normal text-sm">({{user_data.gd_username}})</b>
+                    <b class="dark:text-slate-400 text-slate-500 font-normal text-sm">({{user_data.gd_username}}) <b *ngIf="user_data.verified"><fa-icon [icon]="i_verified" class="m-1"></fa-icon>Verified account</b></b>
                     <div class="flex flex-row flex-wrap xl:scale-100">
                         <app-role-elem *ngFor="let role of user_data.badges" [roleName]="role"></app-role-elem>
                     </div>
@@ -15,6 +15,24 @@
                     <b class="dark:text-slate-200 text-slate-700 font-normal"><fa-icon [icon]="i_star" class="m-1"></fa-icon>Completed bundles: N/A</b>
                 </div>
             </div>            
+        </div>
+        <!-- Admin ctrl -->
+        <div *ngIf="authService.user$ | async as user">
+            <div class="dark:bg-slate-600 bg-slate-300 m-2 p-4 rounded-lg flex flex-col xl:w-[640px] lg:w-[360px]" *ngIf="user.roles.admin">
+                <button (click)="toggleVerified()" class="m-2 p-2 bg-blue-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" >Toggle User verified mark</button>
+                <div class="flex flex-row w-full items-center justify-between">
+                    <input class="rounded-xl border-l-4 border-blue-500 p-2 m-2 text-black w-full" [(ngModel)]="adm_newUsername" type="text" placeholder="New username"/>
+                    <button (click)="changeUsername()" class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" >Change username</button>
+                </div>
+                <div class="flex flex-row w-full items-center justify-between">
+                    <input class="rounded-xl border-l-4 border-blue-500 p-2 m-2 text-black w-full" [(ngModel)]="adm_newGDUsername" type="text" placeholder="New GD username"/>
+                    <button (click)="changeGDUsername()" class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" >Change GD username</button>
+                </div>
+                <div class="flex flex-row w-full items-center justify-between">
+                    <input class="rounded-xl border-l-4 border-blue-500 p-2 m-2 text-black w-full" [(ngModel)]="adm_newBio" type="text" placeholder="New bio"/>
+                    <button (click)="changeBio()" class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" >Change bio</button>
+                </div>
+            </div>
         </div>
         <!-- Bio -->
         <div class="dark:bg-slate-600 bg-slate-300 m-2 p-4 rounded-lg flex flex-col xl:w-[640px] lg:w-[360px]">

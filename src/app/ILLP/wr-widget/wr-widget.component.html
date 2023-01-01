@@ -1,18 +1,18 @@
-<div class="flex flex-col w-full p-3 bg-slate-600 rounded-xl m-1">
+<div class="flex flex-col w-full p-2 dark:bg-slate-600 bg-slate-200 rounded-xl m-1">
     
     <!-- Progress bar -->
     <!-- Best run from 0 -->
     <div class="flex flex-col" *ngIf="wr_bestRunFrom0 && wr_bestRunFrom0_player">
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row items-center w-full justify-center">
             <fa-icon [icon]="i_cup" class="mx-1"></fa-icon>
-            <b class="font-semibold">Best run from 0%: </b>
-            <a class="flex flex-row items-center w-fit xl:bg-slate-200 xl:dark:bg-slate-800 xl:rounded-lg 
-            xl:font-bold xl:shadow-lg transition-all duration-300 hover:scale-105 m-1 p-1" routerLink="/profile/{{wr_bestRunFrom0_player.uid}}">
-                <fa-icon [icon]="i_link" class="mx-1"></fa-icon>
-                <img [src]="wr_bestRunFrom0_player.profilePicture" class="w-[24px] aspect-square rounded-full m-1">
-                {{wr_bestRunFrom0_player.username}}
-            </a> 
+            <b class="font-semibold text-sm">Best run from 0%: </b>
         </div>
+        <a class="flex flex-row items-center w-fit xl:bg-slate-200 xl:dark:bg-slate-800 xl:rounded-lg 
+        xl:font-bold xl:shadow-lg transition-all duration-300 hover:scale-105 m-1 mx-auto p-1 text-sm" routerLink="/profile/{{wr_bestRunFrom0_player.uid}}">
+            <fa-icon [icon]="i_link" class="mx-1"></fa-icon>
+            <img [src]="wr_bestRunFrom0_player.profilePicture" class="w-[24px] aspect-square rounded-full m-1">
+            {{wr_bestRunFrom0_player.username}}
+        </a> 
         <b class="font-normal italic text-center text-sm">{{wr_bestRunFrom0_end}}%</b>
         <div class="m-2 h-3 rounded-full bg-slate-800">
             <!-- w is for the percentage that was the run (end%) -->
@@ -20,21 +20,21 @@
             [style.width]="wr_bestRunFrom0_end+'%'">
             </div>
         </div>
-        <button class="p-2 m-2 bg-green-500 rounded-full text-white font-semibold hover:scale-105 transition-all duration-200">View WR in detail<fa-icon [icon]="i_link" class="m-1"></fa-icon></button>
+        <button class="p-2 m-2 bg-green-500 rounded-full text-white font-semibold hover:scale-105 transition-all duration-200" [routerLink]="'/wr/'+wr_bestRunFrom0.$key">View WR in detail<fa-icon [icon]="i_link" class="m-1"></fa-icon></button>
     </div>
     
     <!-- Best run -->
     <div class="flex flex-col" *ngIf="wr_bestRun && wr_bestRun_total >= wr_bestRunFrom0_end && wr_bestRun_player">
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row items-center w-full justify-center">
             <fa-icon [icon]="i_cup" class="mx-1"></fa-icon>
-            <b class="font-semibold">Best run: </b>
-            <a class="flex flex-row items-center w-fit xl:bg-slate-200 xl:dark:bg-slate-800 xl:rounded-lg 
-            xl:font-bold xl:shadow-lg transition-all duration-300 hover:scale-105 m-1 p-1" routerLink="/profile/{{wr_bestRun_player.uid}}">
-                <fa-icon [icon]="i_link" class="mx-1"></fa-icon>
-                <img [src]="wr_bestRun_player.profilePicture" class="w-[24px] aspect-square rounded-full m-1">
-                {{wr_bestRun_player.username}}
-            </a> 
+            <b class="font-semibold text-sm">Best run: </b>
         </div>
+        <a class="flex flex-row items-center w-fit xl:bg-slate-200 xl:dark:bg-slate-800 xl:rounded-lg 
+        xl:font-bold xl:shadow-lg transition-all duration-300 hover:scale-105 m-1 mx-auto p-1 text-sm" routerLink="/profile/{{wr_bestRun_player.uid}}">
+            <fa-icon [icon]="i_link" class="mx-1"></fa-icon>
+            <img [src]="wr_bestRun_player.profilePicture" class="w-[24px] aspect-square rounded-full m-1">
+            {{wr_bestRun_player.username}}
+        </a> 
         <b class="font-normal italic text-center text-sm">{{wr_bestRun_start}}% - {{wr_bestRun_end}}%</b>
         <div class="m-2 h-3 rounded-full bg-slate-800">
             <!-- w is for the percentage that was the run (end% - start%), ml is the offset from start (start%) -->
@@ -42,7 +42,7 @@
             [style.marginLeft]="wr_bestRun_start+'%'" [style.width]="wr_bestRun_total+'%'">
             </div>
         </div>
-        <button class="p-2 m-2 bg-blue-500 rounded-full text-white font-semibold hover:scale-105 transition-all duration-200">View WR in detail<fa-icon [icon]="i_link" class="m-1"></fa-icon></button>
+        <button class="p-2 m-2 bg-blue-500 rounded-full text-white font-semibold hover:scale-105 transition-all duration-200" [routerLink]="'/wr/'+wr_bestRun.$key">View WR in detail<fa-icon [icon]="i_link" class="m-1"></fa-icon></button>
     </div>
 
 
@@ -51,27 +51,27 @@
 
     <!-- Best run -->
     <div class="flex flex-col" *ngIf="!wr_bestRun">
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row items-center w-full justify-center">
             <fa-icon [icon]="i_cup" class="mx-1"></fa-icon>
-            <b class="font-semibold">Best run: N/A</b>
+            <b class="font-semibold text-sm">Best run: N/A</b>
         </div>
         <b class="font-normal italic text-center text-sm">Be the first one to achieve one!</b>
         <div class="m-2 h-3 rounded-full bg-slate-800">
             
         </div>
-        <button class="p-2 m-2 bg-blue-500 rounded-full text-white font-semibold hover:scale-105 transition-all duration-200">Submit a WR<fa-icon [icon]="i_link" class="m-1"></fa-icon></button>
+        <button class="p-2 m-2 bg-blue-500 rounded-full text-white font-semibold hover:scale-105 transition-all duration-200" routerLink="/wr-submission">Submit a WR<fa-icon [icon]="i_link" class="m-1"></fa-icon></button>
     </div>
 
     <!-- Best run from 0 -->
     <div class="flex flex-col" *ngIf="!wr_bestRunFrom0 && wr_bestRun">
-        <div class="flex flex-row items-center">
+        <div class="flex flex-row items-center w-full justify-center">
             <fa-icon [icon]="i_cup" class="mx-1"></fa-icon>
-            <b class="font-semibold">Best run from 0%: N/A</b>
+            <b class="font-semibold text-sm">Best run from 0%: N/A</b>
         </div>
         <b class="font-normal italic text-center text-sm">Be the first one to achieve one!</b>
         <div class="m-2 h-3 rounded-full bg-slate-800">
             
         </div>
-        <button class="p-2 m-2 bg-green-500 rounded-full text-white font-semibold hover:scale-105 transition-all duration-200">Submit a WR<fa-icon [icon]="i_link" class="m-1"></fa-icon></button>
+        <button class="p-2 m-2 bg-green-500 rounded-full text-white font-semibold hover:scale-105 transition-all duration-200" routerLink="/wr-submission">Submit a WR<fa-icon [icon]="i_link" class="m-1"></fa-icon></button>
     </div>
 </div>

@@ -130,7 +130,8 @@ dark:bg-[#1e293b] bg-[#cbd5e1] my-2 mx-0 lg:h-fit ">
 
                         <!-- pfps -->
                         <div class="flex flex-row justify-start mb-1">
-                            <img *ngFor="let pfp of level_creatorPFPs" src="{{pfp}}" class="w-[24px] aspect-square rounded-full mx-1" />
+                            <img *ngFor="let pfp of level_creatorPFPs_limited" src="{{pfp}}" class="w-[24px] aspect-square rounded-full mx-1 shadow-xl" />
+                            <div *ngIf="level_creatorPFPs.length > 3" class="w-[24px] aspect-square rounded-full mx-1 bg-slate-500 text-center flex items-center justify-center text-white"><fa-icon [icon]="i_more"></fa-icon></div>
                         </div>
                     </div>
                     
@@ -211,7 +212,7 @@ dark:bg-[#1e293b] bg-[#cbd5e1] my-2 mx-0 lg:h-fit ">
                         <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_wr" ></fa-icon> World Record:
                         </p>
                         <i class="font-light italic text-sm">( {{"Minimum for WR: ≥"+level_minimal_wr_percent+"%"}} )</i>
-                        <app-wr-widget [wr_best_run]="" [wr_best_run_0]=""></app-wr-widget>
+                        <app-wr-widget [wr_id_run]="level_wrID_run" [wr_id_run0]="level_wrID_0"></app-wr-widget>
                     </div>
                 </div>
             </div>

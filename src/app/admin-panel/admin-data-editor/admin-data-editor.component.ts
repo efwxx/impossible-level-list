@@ -7,7 +7,9 @@ import { LevelServiceService } from '../../shared/level-service.service';
 import { NoPreloading } from '@angular/router';
 import { UserData } from 'src/app/shared/user-data';
 import { useAnimation } from '@angular/animations';
-import { faAngleDown, faAngleUp, faList, faPencil, faWrench, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faCheck, faList, faPencil, faTrophy, faUpRightFromSquare, faWrench, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { WrServiceService } from 'src/app/shared/wr-service.service';
+import { WrSubmission } from 'src/app/shared/wr-submission';
 
 @Component({
   selector: 'app-admin-data-editor',
@@ -36,6 +38,8 @@ export class AdminDataEditorComponent implements OnInit {
   bil_index: number = 1;
 
   auditLog: string[] = [];
+
+  wr_pendingList:WrSubmission[] = [];
 
   bil_packaged: ImpossibleLevel = {
     id: '',
@@ -83,7 +87,8 @@ export class AdminDataEditorComponent implements OnInit {
   lb_editStatus: string = 'Empty form';
   levelList: ImpossibleLevel[] = [];
 
-  bil_showList: boolean = true;
+  bil_showList: boolean = false;
+  bil_showWRList: boolean = false;
 
   //icons
   i_edit = faPencil;
@@ -92,22 +97,32 @@ export class AdminDataEditorComponent implements OnInit {
   i_up = faAngleUp;
   i_dwn = faAngleDown;
   i_cross = faXmark;
+  i_check = faCheck;
+  i_link = faUpRightFromSquare;
+  i_wr = faTrophy;
 
 
   constructor(
     public ill_service: LevelServiceService,
     private auth_service: AuthService,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private wr_service: WrServiceService,
   ) {}
 
   ngOnInit(): void {
     //load the list once
     this.setupList();
     //handle admin
+    this.getAllPendingWRSubmissions();
   }
 
   toggleILLList() {
     this.bil_showList = !this.bil_showList;
+    this.bil_showWRList = false;
+  }
+  toggleWRList() {
+    this.bil_showWRList = !this.bil_showWRList;
+    this.bil_showList = false;
   }
   setupList() {
     this.ill_service.getOrderedLevelList().then((doc) => {
@@ -537,6 +552,8 @@ export class AdminDataEditorComponent implements OnInit {
       usr.completed_bundles_name = [];
 
       usr.builder_points = 0;
+      usr.verified = false;
+
 
       let _lvl_cnt = 0;
       let _temp_points = 0;
@@ -562,6 +579,7 @@ export class AdminDataEditorComponent implements OnInit {
 
       if (usr.roles.admin == true) {
         usr.badges.push('List Admin');
+        usr.verified = true;
       }
 
       usr.builder_points = Math.round(_temp_points);
@@ -576,6 +594,7 @@ export class AdminDataEditorComponent implements OnInit {
         usr.people_find_not_sloomish = [];
         usr.sloomish_points = 0;
       }
+
 
       this.auth_service.firestore
         .collection('user')
@@ -592,5 +611,24 @@ export class AdminDataEditorComponent implements OnInit {
     });
 
     console.log(_avg / this.levelList.length);
+  }
+
+  async getAllPendingWRSubmissions() {
+    await this.wr_service.firestore.collection('wr-sumbissions').ref
+    .where('status', '==', 'pending')
+    .orderBy('submitted_at', 'asc')
+    .get().then(snapshot => {
+      this.wr_pendingList = snapshot.docs.map((e:any) => {
+        return e.data()
+      })
+    });
+  }
+
+  async rejectSubmission(id:string) {
+    this.wr_service.changeWRStatus(id, 'Rejected', 'No custom reason provided. Rejected via quick-rejection. Possible reasons: No proof, unrealistic run, joke submission');
+  }
+  
+  async approveSubmission(id:string) {
+    this.wr_service.changeWRStatus(id, 'Approved', '')
   }
 }

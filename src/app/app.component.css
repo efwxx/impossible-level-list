@@ -6,16 +6,21 @@
 
 .ILL_Navbar {
     font-family: 'Montserrat', sans-serif;
-    @apply w-screen fixed top-0 left-0 shadow-md flex flex-row flex-wrap flex-shrink items-center justify-between
+    @apply w-screen fixed top-0 left-0 shadow-md flex flex-row flex-shrink items-center justify-between p-0
+}
+
+.ILL_Mobile_footer {
+    font-family: 'Montserrat', sans-serif;
+    @apply w-screen fixed bottom-0 left-0 flex flex-row flex-shrink items-center justify-between p-0 h-16 shadow-xl
 }
 
 .ILL_NavbarBtn {
-    @apply font-light lg:m-2 lg:p-2 m-1 p-1 shadow-md rounded-lg hover:bg-slate-700 hover:text-white hover:shadow-xl hover:scale-105 transition-all duration-300 select-none
-    lg:text-base text-lg
+    @apply font-light w-full h-full lg:p-2 p-1 hover:border-b-4 hover:border-blue-500 transition-all duration-300 select-none
+    lg:text-lg text-xs flex lg:flex-row flex-col text-center lg:text-left items-center mx-0
 }
 
 .ILL_ProfileBtn {
-    @apply text-lg font-semibold flex flex-row transition-all duration-200 p-2 m-1 rounded-xl
+    @apply text-lg font-semibold flex flex-row transition-all duration-200 p-2
 }
 
 .ILL_BG {
