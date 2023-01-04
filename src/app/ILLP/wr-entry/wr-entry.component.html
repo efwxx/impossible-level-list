@@ -1,9 +1,12 @@
 <div class="mt-20 flex flex-col lg:w-[800px] w-screen mx-auto dark:text-white" *ngIf="bil_data && bil_show">
     <div class="p-3 m-auto rounded-xl bg-slate-300 dark:bg-slate-700 flex flex-col">
-        <video class="aspect-video w-[720px] rounded-xl" controls>
+        <video class="aspect-video w-[720px] rounded-xl" controls *ngIf="!bil_videoIsYoutube">
             <source [src]="bil_data.video_url" type="video/mp4">
         </video>
-        <p class="font-semibold">Raw Footage: <a class="text-purple-700 underline" [href]="bil_data.raw_footage_url">{{bil_data.raw_footage_url}}</a></p>
+        <iframe *ngIf="bil_videoIsYoutube" class="aspect-video w-[720px] rounded-xl" 
+        [src]="bil_yt_link" title="YouTube video player" frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <p class="font-semibold">Raw Footage: {{bil_data.raw_footage_url}}</p>
     </div>
     <div class="p-3 m-3 rounded-xl bg-slate-300 dark:bg-slate-700 flex flex-col">
         <b class="text-lg">Level: {{bil_levelName}} by {{bil_creatorName}}</b>
@@ -38,4 +41,10 @@
             <input class="rounded-xl border-l-4 border-blue-500 p-2 m-2 text-black" [(ngModel)]="adm_rejectReason" type="text" placeholder="Insert reason for rejection"/>
         </div>
     </div>
+</div>
+
+<div *ngIf="!found_wr" class="mt-20 text-3xl dark:text-white p-5 mx-auto bg-slate-300 dark:bg-slate-800 flex flex-col items-center w-fit rounded-xl">
+    <b>Oops, this World record does not exist! It may have been deleted from the system!</b>
+    <b>Here is {{selected_mascott_name}} instead!</b>
+    <img [src]="selected_mascott_path" class="animate-bounce aspect-auto w-48 mt-32 hover:scale-110 active:scale-90 transition-all duration-300">
 </div>

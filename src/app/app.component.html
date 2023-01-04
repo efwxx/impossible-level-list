@@ -46,7 +46,7 @@
     <a routerLink="/wr-submission" *ngIf="authService.user$ | async as user">
       <span class="ILL_NavbarBtn">
         <fa-icon [icon]="i_wr" class="m-1"></fa-icon>
-        <b class="lg:scale-100 lg:relative">Sumbit a WR</b>
+        <b class="lg:scale-100 lg:relative">Submit a WR</b>
       </span>   
     </a>
     <a class="cursor-not-allowed">
@@ -144,7 +144,7 @@
   <a routerLink="/wr-submission" *ngIf="authService.user$ | async as user" class="ILL_NavbarBtn">
     <span class="flex flex-col">
       <fa-icon [icon]="i_wr" class="m-1 text-lg"></fa-icon>
-      <b class="lg:scale-100 lg:relative">Sumbit a WR</b>
+      <b class="lg:scale-100 lg:relative">Submit a WR</b>
     </span>   
   </a>
   <a class="cursor-not-allowed ILL_NavbarBtn">
@@ -153,12 +153,20 @@
       <b class="lg:scale-100 lg:relative">ILLP</b>
     </span>   
   </a>
-  <a routerLink="/admin" *ngIf="authService.user$ | async as user" [hidden]="!user.roles.admin == true" class="ILL_NavbarBtn">
+  <a class="ILL_NavbarBtn" href="https://discord.gg/MHx4Nbp">
     <span class="flex flex-col">
-    <fa-icon [icon]="i_admin" class="m-1 text-lg"></fa-icon>
-    <b class="lg:scale-100 lg:relative">Admin panel</b>
-  </span>
+      <fa-icon [icon]="i_discord" class="m-1 text-lg"></fa-icon>
+      <b class="lg:scale-100 lg:relative">Discord</b>
+    </span>   
   </a>
+  <div *ngIf="authService.user$ | async as _user" >
+    <a routerLink="/admin" *ngIf="_user.roles.admin" class="ILL_NavbarBtn">
+      <span class="flex flex-col">
+      <fa-icon fa-icon [icon]="i_admin" class="m-1 text-lg"></fa-icon>
+      <b class="lg:scale-100 lg:relative">Admin panel</b>
+      </span>
+    </a>
+  </div>
   <a *ngIf="(authService.user$ | async) === null" routerLink="/login" class="ILL_NavbarBtn">
     <span class="flex flex-col">
       <fa-icon [icon]="i_login" class="m-1 text-lg"></fa-icon>

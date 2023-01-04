@@ -20,5 +20,6 @@ export interface ImpossibleLevel {
     creators_full_lowercase?: string[],
     wide_level_shot_url?: string,
     tagsLowercase?: string[],
-    textIsDark?: boolean
+    textIsDark?: boolean,
+    shouldHaveManualWR?:boolean,
 }

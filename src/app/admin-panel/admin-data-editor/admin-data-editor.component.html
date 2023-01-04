@@ -70,9 +70,13 @@
                 </div>
                 <hr/>
                 <p class="font-semibold">WR information</p>
-                <input [(ngModel)]="bil_wr_min" id="ILLA_WR_Min" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="WR Minimum percentage (WITHOUT % and >)" />
-                <input [(ngModel)]="bil_wr" id="ILLA_WR" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Current World Record" />
-                <input [(ngModel)]="bil_wr_yt" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="url" placeholder="Current World Record Video" />
+                <div class="flex flex-row items-center justify-start">
+                    <input [(ngModel)]="bil_manualWR" id="ILLA_Deletion" class="m-1 p-2 w-6 h-6 shadow-md" type="checkbox"/>
+                    <p class="p-1 m-1 text-white  bg-red-400 rounded-lg shadow-md">Should have a manual WR (disconnects from the online WR system)</p>
+                </div>
+                <input [disabled]="!bil_manualWR" [(ngModel)]="bil_wr_min" id="ILLA_WR_Min" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="WR Minimum percentage (WITHOUT % and >)" />
+                <input [disabled]="!bil_manualWR" [(ngModel)]="bil_wr" id="ILLA_WR" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="text" placeholder="Current World Record" />
+                <input [disabled]="!bil_manualWR" [(ngModel)]="bil_wr_yt" id="ILLA_WRYT" class="m-1 p-2 border-l-2 border-blue-400 shadow-md rounded-lg" type="url" placeholder="Current World Record Video" />
                 <hr/>
                 <p class="font-semibold">Annotation & Marking</p>
                 <div class="flex flex-row items-center justify-start">

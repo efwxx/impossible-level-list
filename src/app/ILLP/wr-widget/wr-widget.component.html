@@ -24,7 +24,7 @@
     </div>
     
     <!-- Best run -->
-    <div class="flex flex-col" *ngIf="wr_bestRun && wr_bestRun_total >= wr_bestRunFrom0_end && wr_bestRun_player">
+    <div class="flex flex-col" *ngIf="wr_bestRun && wr_bestRun_end - wr_bestRun_end >= wr_bestRunFrom0_end && wr_bestRun_player">
         <div class="flex flex-row items-center w-full justify-center">
             <fa-icon [icon]="i_cup" class="mx-1"></fa-icon>
             <b class="font-semibold text-sm">Best run: </b>

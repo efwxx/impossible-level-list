@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { faUpRightFromSquare } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/shared/auth.service';
@@ -26,7 +27,20 @@ export class WrEntryComponent implements OnInit {
   bil_status: string = 'Unknown';
 
   bil_show: boolean = false;
-  bil_404: boolean = false;
+  found_wr: boolean = true;
+  bil_videoIsYoutube: boolean = false;
+  bil_yt_link:SafeResourceUrl | undefined;
+
+  selected_mascott_name:string = '';
+  selected_mascott_path:string = '';
+  selected_mascotts = [
+    {name: 'Sloom', path: '../../../assets/mascotts/mascott_sloom.png'},
+    {name: 'Jerry', path: '../../../assets/mascotts/mascott_jerry.png'},
+    {name: 'Ging', path: '../../../assets/mascotts/mascott_ging.png'},
+    {name: 'Subsuming Cube', path: '../../../assets/mascotts/mascott_sc.png'},
+    {name: 'Hank', path: '../../../assets/mascotts/mascott_hank.png'},
+    {name: 'Relife Jump Jumping', path: '../../../assets/mascotts/mascott_relife.png'},
+  ];
 
   i_link = faUpRightFromSquare; 
 
@@ -36,10 +50,12 @@ export class WrEntryComponent implements OnInit {
     private route: ActivatedRoute,
     private wr_service: WrServiceService,
     public auth_service: AuthService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
     this.getWRData()
+    this.getRandomMascott();
   }
 
   async getWRData() {
@@ -51,7 +67,7 @@ export class WrEntryComponent implements OnInit {
       if(_tmpWR) {
         this.bil_data = _tmpWR;
         this.bil_show = true;
-        this.bil_404 = false;
+        this.found_wr = true;
 
         this.bil_status = this.bil_data.status;
 
@@ -75,9 +91,23 @@ export class WrEntryComponent implements OnInit {
 
         //get submitter data
         this.bil_sumbitter = await this.auth_service.getDataFromUID(this.bil_data.submitted_by);
+
+        //check if video is youtube
+        if(this.bil_data.video_url.includes('youtu')) {
+          //is youtube link
+          this.bil_videoIsYoutube = true;
+          let _yt_vid_id = this.bil_data.video_url.replace('youtube.com/watch?v=', '')
+          .replace('https://', '')
+          .replace('www.', '')
+          .replace('youtu.be/', '');
+          let _embed_link = 'https://www.youtube.com/embed/'+_yt_vid_id
+          this.bil_yt_link = this.sanitizer.bypassSecurityTrustResourceUrl(_embed_link);
+        } else {
+
+        }
       } else {
         this.bil_show = true;
-        this.bil_404 = true;
+        this.found_wr = false;
       }
     }
   }
@@ -94,5 +124,11 @@ export class WrEntryComponent implements OnInit {
       await this.wr_service.changeWRStatus(this.bil_data?.$key, 'Rejected', this.adm_rejectReason);
       this.getWRData();
     }
+  }
+
+  getRandomMascott() {
+    let _rng = Math.round(Math.random() * (this.selected_mascotts.length-1));
+    this.selected_mascott_name = this.selected_mascotts[_rng].name
+    this.selected_mascott_path = this.selected_mascotts[_rng].path
   }
 }

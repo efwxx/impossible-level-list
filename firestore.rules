@@ -12,6 +12,10 @@ service cloud.firestore {
       allow read: if true; 
       allow write: if getUserData().roles.admin == true;
     }
+		match /wr-sumbissions/{document=**} {
+    	allow read: if true;
+      allow write: if request.auth != null
+    }
     
     
     function getUserData() {

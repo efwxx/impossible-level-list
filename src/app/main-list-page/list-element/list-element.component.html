@@ -211,8 +211,11 @@ dark:bg-[#1e293b] bg-[#cbd5e1] my-2 mx-0 lg:h-fit ">
                     text-sm">
                         <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_wr" ></fa-icon> World Record:
                         </p>
-                        <i class="font-light italic text-sm">( {{"Minimum for WR: ≥"+level_minimal_wr_percent+"%"}} )</i>
-                        <app-wr-widget [wr_id_run]="level_wrID_run" [wr_id_run0]="level_wrID_0"></app-wr-widget>
+                        <app-wr-widget [wr_id_run]="level_wrID_run" [wr_id_run0]="level_wrID_0" *ngIf="!level_shouldHaveManualWR"></app-wr-widget>
+                        <div class="flex flex-col p-3 rounded-xl bg-slate-400 dark:bg-slate-800 m-1" *ngIf="level_shouldHaveManualWR">
+                            <b>{{level_wr}}</b>
+                            <a class="p-2 m-1 text-lg bg-purple-500 rounded-full font-bold text-center" [href]="level_wr_yt">> Link <</a>
+                        </div>
                     </div>
                 </div>
             </div>

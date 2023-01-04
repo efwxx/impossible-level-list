@@ -31,6 +31,7 @@ export class AdminDataEditorComponent implements OnInit {
   bil_wr: string = '';
   bil_removal: boolean = false;
   bil_annotation: boolean = false;
+  bil_manualWR:boolean | undefined = false;
   bil_reason: string = ''; //reason for markdown
   bil_wideshotURL: string | undefined = ''; //URL to wide level shot
   bil_darktext: boolean | undefined = false;
@@ -180,6 +181,7 @@ export class AdminDataEditorComponent implements OnInit {
     this.bil_reason = '';
     this.bil_wideshotURL = '';
     this.bil_darktext = false;
+    this.bil_manualWR = false;
     console.log(this.bil_name);
   }
 
@@ -303,6 +305,7 @@ export class AdminDataEditorComponent implements OnInit {
     this.bil_packaged.wide_level_shot_url = this.bil_wideshotURL;
     this.bil_packaged.textIsDark = this.bil_darktext;
     this.bil_packaged.nameLowercase = this.bil_name.toLowerCase();
+    this.bil_packaged.shouldHaveManualWR = this.bil_manualWR;
 
     //packing arrays
     this.bil_packaged.creators_full = this.bil_c_f.split(',');
@@ -357,6 +360,7 @@ export class AdminDataEditorComponent implements OnInit {
       this.bil_reason = this.bli_buffer.marking_reason;
       this.bil_wideshotURL = this.bli_buffer.wide_level_shot_url;
       this.bil_darktext = this.bli_buffer.textIsDark;
+      this.bil_manualWR = this.bli_buffer.shouldHaveManualWR
 
       this.bil_c_f = this.bli_buffer.creators_full.toString();
       this.bil_tags = this.bli_buffer.tags.toString();
@@ -504,6 +508,7 @@ export class AdminDataEditorComponent implements OnInit {
       lvl.creators_full_lowercase = [];
       lvl.tagsLowercase = [];
       lvl.textIsDark = false;
+      lvl.shouldHaveManualWR = false;
       for (let j = 0; j < lvl.creators_full.length; j++) {
         lvl.creators_full_lowercase[j] = lvl.creators_full[j].toLowerCase();
       }

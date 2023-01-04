@@ -95,10 +95,10 @@ export class ListElementComponent implements OnInit {
   level_creatorPFPs:string[] = [];
   level_creatorPFPs_limited:string[] = [];
   level_creatorAccounts:UserData[] = [];
+  level_shouldHaveManualWR:boolean|undefined = false;
 
   level_wrID_run:string = '';
   level_wrID_0:string = '';
-  level_manualWR:boolean = false;
   
   card_expanded = false;
   card_mobile_expanded = false;
@@ -177,6 +177,7 @@ export class ListElementComponent implements OnInit {
     this.level_isUnRated = this.level_tags.find((v) => {
       return v == "Previously Rated"
     }) != null;
+    this.level_shouldHaveManualWR = this.ill_level.shouldHaveManualWR;
     this.setupwideshot();
     this.addPFPs();
     this.getWRData();

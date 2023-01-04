@@ -347,8 +347,14 @@ export class ListComponent implements OnInit {
     
         //Creators full
         _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
-          return e.creators_full_lowercase?.includes(prompt.toLowerCase());
-        }));  
+          let _found = false;
+          e.creators_full.forEach((crt, i ) => {
+            if(crt.toLowerCase().includes(prompt.toLowerCase())) {
+              _found = true;
+            }
+          });
+          return _found;
+        }));
         
         
       } else if(criteria = "name") {
@@ -359,8 +365,17 @@ export class ListComponent implements OnInit {
       } else if(criteria = "creator") {
         //Creators full
         _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {
-          return e.creators_full_lowercase?.includes(prompt.toLowerCase());
+          let _found = false;
+          let _creatorList = e.creators_full
+          _creatorList.forEach((crt, i ) => {
+            console.log(1)
+            if(crt.toLowerCase().includes(prompt.toLowerCase())) {
+              _found = true;
+            }
+          });
+          return !_found;
         }));
+
       } else if(criteria = "fps") {
         //Fps
         _tempList = _tempList.concat(this._ill.filter((e:ImpossibleLevel) => {

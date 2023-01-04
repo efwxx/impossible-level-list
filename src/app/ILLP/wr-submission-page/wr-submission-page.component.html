@@ -28,17 +28,22 @@
     </div>
 
     <b class="text-lg font-semibold">Video completion</b>
-    <b class="font-normal italic dark:text-slate-300">A proof video of the World record. This video will be tested for legitimacy</b>
-    <input [(ngModel)]="bil_videoURL" class="ILL_Field" type="text" placeholder="eg: 'https://youtu.be/3xAmP13', 'https://cdn.discordapp.com/attachments/example_id/video.mp3'"/>
+    <b class="font-normal italic dark:text-slate-300">A proof video of the World record. This video will be tested for legitimacy.</b>
+    <b class="font-normal italic dark:text-slate-300">The video proof must follow the <a href="https://pointercrate.com/guidelines/index" class="text-purple-500 underline">Pointercrate Guidelines</a> to be approved</b>
+    <input [(ngModel)]="bil_videoURL" class="ILL_Field" type="text" placeholder="eg: 'https://cdn.discordapp.com/example.mp4', 'https://www.youtu.be/example'"/>
 
     <b class="text-lg font-semibold">Raw footage (Optional)</b>
     <b class="font-normal italic dark:text-slate-300">A URL link to the raw footage. This is not required by default, but if the staff has suspicion over the video completion we would require you to send raw footage. In this case type in your discord @</b>
-    <input [(ngModel)]="bil_rawFootageURL" class="ILL_Field" type="text" placeholder="eg: 'https://cdn.discordapp.com/attachments/example_id/video.mp3' or '@ExampleAcc#1234'"/>
+    <input [(ngModel)]="bil_rawFootageURL" class="ILL_Field" type="text" placeholder="eg: 'https://cdn.discordapp.com/example.mp4' or '@ExampleAcc#1234'"/>
 
     <div class="w-full flex flex-row">
-        <button class="w-full p-3 m-2 rounded-full text-white bg-slate-500 font-semibold hover:scale-105 transition-all duration-200">Cancel</button>
+        <button class="w-full p-3 m-2 rounded-full text-white bg-slate-500 font-semibold hover:scale-105 transition-all duration-200" routerLink="/home">Cancel</button>
         <button class="w-full p-3 m-2 rounded-full text-white bg-blue-500 font-semibold hover:scale-105 transition-all duration-200" (click)="submitWR(user.uid)">Submit</button>
     </div>
+</div>
+
+<div *ngIf="authService.user$ | async" class="h-[256px] opacity-0 select-none">
+    filler
 </div>
 
 <div class="lg:w-[720px] w-screen dark:bg-slate-700 bg-slate-300 flex flex-col p-3 mt-20 mx-auto rounded-xl dark:text-white text-center shadow-2xl" *ngIf="(authService.user$ | async) === null">
@@ -47,3 +52,4 @@
     <button routerLink="/login" class="p-3 m-2 rounded-full text-white bg-blue-500 font-semibold hover:scale-105 transition-all duration-200">Log in</button>
 
 </div>
+
