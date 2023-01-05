@@ -34,5 +34,6 @@ export interface UserData {
 
     //bans and such
     show_in_leaderboards?: boolean;
-    banned_from_leaderboards?: boolean
+    banned_from_leaderboards?: boolean;
+    banned_from_wrs?:boolean;
 }

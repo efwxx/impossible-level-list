@@ -126,6 +126,20 @@ export class ProfilePageComponent implements OnInit {
     }
   }
 
+  async toggleWRBan() {
+    let _uid = this.route.snapshot.paramMap.get('id');
+
+    if(_uid) {
+      let _temp_usr = await this.authService.getDataFromUID(_uid)
+      if(_temp_usr) {
+        _temp_usr.banned_from_wrs = !_temp_usr.banned_from_wrs;
+
+        await this.authService.firestore.collection('user').doc(_temp_usr.uid).set(_temp_usr, { merge: true })
+        this.getUser();
+      }
+    }
+  }
+
   getRandomMascott() {
     let _rng = Math.round(Math.random() * (this.selected_mascotts.length-1));
     this.selected_mascott_name = this.selected_mascotts[_rng].name

@@ -30,6 +30,7 @@ import {
   faFilter,
   faHourglass,
   faHurricane,
+  faImage,
   faInfinity,
   faLightbulb,
   faListOl,
@@ -152,6 +153,7 @@ export class ListComponent implements OnInit {
   i_zodiac = faUmbrella;
   i_sobot = faChildRifle;
   i_alex = faInfinity;
+  i_moonfrost = faImage;
 
   constructor(private ill_service: LevelServiceService) {
   }

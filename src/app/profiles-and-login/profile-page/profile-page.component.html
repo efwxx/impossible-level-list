@@ -32,6 +32,12 @@
                     <input class="rounded-xl border-l-4 border-blue-500 p-2 m-2 text-black w-full" [(ngModel)]="adm_newBio" type="text" placeholder="New bio"/>
                     <button (click)="changeBio()" class="m-2 p-2 bg-green-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" >Change bio</button>
                 </div>
+                <div class="flex flex-row w-full items-center justify-between" *ngIf="!user_data.banned_from_wrs">
+                    <button (click)="toggleWRBan()" class="m-2 p-2 bg-red-500 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" >Ban from submitting WRs</button>
+                </div>
+                <div class="flex flex-row w-full items-center justify-between" *ngIf="user_data.banned_from_wrs">
+                    <button (click)="toggleWRBan()" class="m-2 p-2 bg-red-900 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" >Unban from submitting WRs</button>
+                </div>
             </div>
         </div>
         <!-- Bio -->

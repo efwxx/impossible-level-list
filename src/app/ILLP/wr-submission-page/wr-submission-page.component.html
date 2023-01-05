@@ -1,44 +1,52 @@
-<div class="lg:w-[720px] w-screen dark:bg-slate-700 bg-slate-300 flex flex-col p-3 mt-20 mx-auto rounded-xl dark:text-white text-center shadow-2xl" *ngIf="authService.user$ | async as user">
-    <b class="text-3xl text-center ">Submit a World Record</b>
+<div class="lg:w-[720px] w-screen dark:bg-slate-700 bg-slate-300  p-3 mt-20 mx-auto rounded-xl dark:text-white text-center shadow-2xl" *ngIf="authService.user$ | async as user">
+    <div class="w-full h-full flex flex-col" *ngIf="!user.banned_from_wrs">
 
-    <b class="text-lg font-semibold">ILL level</b>
-    <b class="font-normal italic dark:text-slate-300">Search and pick a level you had your WR on</b>
-    <div class="flex flex-col">
-        <p>Selected Level: {{bil_levelID}}</p>
-        <input [(ngModel)]="bil_levelQuery" (input)="searchILL()" class="ILL_Field" type="text" placeholder="Type a level name to search"/>
-        <div class="flex flex-col bg-slate-100 rounded-xl p-3 m-2 h-[256px] overflow-auto">
-            <div class="text-black">Search results: {{search_results_ILL.length}}</div>
-            <div class="flex flex-col text-left bg-slate-200 dark:bg-slate-800 p-2 m-1 rounded-xl shadow-xl font-bold hover:scale-[101%] transition-all duration-200"
-            *ngFor="let lvl of search_results_ILL" (click)="setLevelID(lvl.name+'-'+lvl.creators_short)">
-                <b class="text-lg font-semibold">{{lvl.name}}</b>
-                <b class="text-base font-normal italic">by {{lvl.creators_short}}</b>
+        <b class="text-3xl text-center ">Submit a World Record</b>
+    
+        <b class="text-lg font-semibold">ILL level</b>
+        <b class="font-normal italic dark:text-slate-300">Search and pick a level you had your WR on</b>
+        <div class="flex flex-col">
+            <p>Selected Level: {{bil_levelID}}</p>
+            <input [(ngModel)]="bil_levelQuery" (input)="searchILL()" class="ILL_Field" type="text" placeholder="Type a level name to search"/>
+            <div class="flex flex-col bg-slate-100 rounded-xl p-3 m-2 h-[256px] overflow-auto">
+                <div class="text-black">Search results: {{search_results_ILL.length}}</div>
+                <div class="flex flex-col text-left bg-slate-200 dark:bg-slate-800 p-2 m-1 rounded-xl shadow-xl font-bold hover:scale-[101%] transition-all duration-200"
+                *ngFor="let lvl of search_results_ILL" (click)="setLevelID(lvl.name+'-'+lvl.creators_short)">
+                    <b class="text-lg font-semibold">{{lvl.name}}</b>
+                    <b class="text-base font-normal italic">by {{lvl.creators_short}}</b>
+                </div>
             </div>
         </div>
-    </div>
-
-    <b class="text-lg font-semibold">Progress</b>
-    <b class="font-normal italic dark:text-slate-300">The progress you made as a percentage</b>
-    <input [(ngModel)]="bil_run" class="ILL_Field" type="text" placeholder="eg: '35%', '0.810%', '45-67%'" (input)="remapProgress()"/>
-    <b class="font-normal italic dark:text-slate-300">Preview:</b>
-    <div class="m-2 h-3 rounded-full bg-slate-800 overflow-hidden">
-        <!-- w is for the percentage that was the run (end% - start%), ml is the offset from start (start%) -->
-        <div class="h-full from-blue-500 to-blue-700 bg-gradient-to-r rounded-full"
-        [style.marginLeft]="bil_run_start+'%'" [style.width]="bil_run_total+'%'">
+    
+        <b class="text-lg font-semibold">Progress</b>
+        <b class="font-normal italic dark:text-slate-300">The progress you made as a percentage</b>
+        <input [(ngModel)]="bil_run" class="ILL_Field" type="text" placeholder="eg: '35%', '0.810%', '45-67%'" (input)="remapProgress()"/>
+        <b class="font-normal italic dark:text-slate-300">Preview:</b>
+        <div class="m-2 h-3 rounded-full bg-slate-800 overflow-hidden">
+            <!-- w is for the percentage that was the run (end% - start%), ml is the offset from start (start%) -->
+            <div class="h-full from-blue-500 to-blue-700 bg-gradient-to-r rounded-full"
+            [style.marginLeft]="bil_run_start+'%'" [style.width]="bil_run_total+'%'">
+            </div>
+        </div>
+    
+        <b class="text-lg font-semibold">Video completion</b>
+        <b class="font-normal italic dark:text-slate-300">A proof video of the World record. This video will be tested for legitimacy.</b>
+        <b class="font-normal italic dark:text-slate-300">The video proof must follow the <a href="https://pointercrate.com/guidelines/index" class="text-purple-500 underline">Pointercrate Guidelines</a> to be approved</b>
+        <input [(ngModel)]="bil_videoURL" class="ILL_Field" type="text" placeholder="eg: 'https://cdn.discordapp.com/example.mp4', 'https://www.youtu.be/example'"/>
+    
+        <b class="text-lg font-semibold">Raw footage & Notes (Optional)</b>
+        <b class="font-normal italic dark:text-slate-300">A URL link to the raw footage. This is not required by default, but if the staff has suspicion over the video completion we would require you to send raw footage. In this case type in your discord @. This area can also be used as an area for notes for the WR, so you can write how much attempts you had here, how many deaths, how passionate you are about colesaw and etc.</b>
+        <input [(ngModel)]="bil_rawFootageURL" class="ILL_Field" type="text" placeholder="preferably include: 'https://cdn.discordapp.com/example.mp4' or '@ExampleAcc#1234'"/>
+    
+        <div class="w-full flex flex-row">
+            <button class="w-full p-3 m-2 rounded-full text-white bg-slate-500 font-semibold hover:scale-105 transition-all duration-200" routerLink="/home">Cancel</button>
+            <button class="w-full p-3 m-2 rounded-full text-white bg-blue-500 font-semibold hover:scale-105 transition-all duration-200" (click)="submitWR(user.uid)">Submit</button>
         </div>
     </div>
-
-    <b class="text-lg font-semibold">Video completion</b>
-    <b class="font-normal italic dark:text-slate-300">A proof video of the World record. This video will be tested for legitimacy.</b>
-    <b class="font-normal italic dark:text-slate-300">The video proof must follow the <a href="https://pointercrate.com/guidelines/index" class="text-purple-500 underline">Pointercrate Guidelines</a> to be approved</b>
-    <input [(ngModel)]="bil_videoURL" class="ILL_Field" type="text" placeholder="eg: 'https://cdn.discordapp.com/example.mp4', 'https://www.youtu.be/example'"/>
-
-    <b class="text-lg font-semibold">Raw footage (Optional)</b>
-    <b class="font-normal italic dark:text-slate-300">A URL link to the raw footage. This is not required by default, but if the staff has suspicion over the video completion we would require you to send raw footage. In this case type in your discord @</b>
-    <input [(ngModel)]="bil_rawFootageURL" class="ILL_Field" type="text" placeholder="eg: 'https://cdn.discordapp.com/example.mp4' or '@ExampleAcc#1234'"/>
-
-    <div class="w-full flex flex-row">
-        <button class="w-full p-3 m-2 rounded-full text-white bg-slate-500 font-semibold hover:scale-105 transition-all duration-200" routerLink="/home">Cancel</button>
-        <button class="w-full p-3 m-2 rounded-full text-white bg-blue-500 font-semibold hover:scale-105 transition-all duration-200" (click)="submitWR(user.uid)">Submit</button>
+    <div class="w-full h-full flex flex-col" *ngIf="user.banned_from_wrs">
+        <b>Oops! It seems that you've been banned from sending WRs</b>
+        <b>If you believe this is a mistake contact the mod team</b>
+        <img class="mx-auto aspect-auto w-32" src="../../../assets/lennard.png"/>
     </div>
 </div>
 

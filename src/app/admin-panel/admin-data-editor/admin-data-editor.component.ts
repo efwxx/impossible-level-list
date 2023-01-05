@@ -557,7 +557,8 @@ export class AdminDataEditorComponent implements OnInit {
       usr.completed_bundles_name = [];
 
       usr.builder_points = 0;
-      usr.verified = false;
+      // usr.verified = false;
+      usr.banned_from_wrs = false;
 
 
       let _lvl_cnt = 0;
@@ -589,16 +590,6 @@ export class AdminDataEditorComponent implements OnInit {
 
       usr.builder_points = Math.round(_temp_points);
       usr.created_levels = _lvl_cnt;
-
-      //sloomish points
-      if (usr.people_find_sloomish && usr.people_find_not_sloomish) {
-        usr.sloomish_points =
-          usr.people_find_sloomish.length - usr.people_find_not_sloomish.length;
-      } else {
-        usr.people_find_sloomish = [];
-        usr.people_find_not_sloomish = [];
-        usr.sloomish_points = 0;
-      }
 
 
       this.auth_service.firestore
