@@ -28,6 +28,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "animate.css": "^4.1.1",
     "firebase": "^9.9.1",
+    "ng2-adsense": "^11.0.0",
     "ngx-infinite-scroll": "^14.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

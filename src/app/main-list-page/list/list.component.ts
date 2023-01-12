@@ -155,6 +155,8 @@ export class ListComponent implements OnInit {
   i_alex = faInfinity;
   i_moonfrost = faImage;
 
+  url_banner:any = ''
+
   constructor(private ill_service: LevelServiceService) {
   }
 
@@ -168,7 +170,16 @@ export class ListComponent implements OnInit {
     // this.listSorted = true;
 
     
-    this.getRandomILLFact();    
+    this.getRandomILLFact();
+    this.getBanner();
+  }
+
+  async getBanner() {
+    await this.ill_service.firestore.collection('banners').ref.where('isPicked', '==', true).get().then(snapshot => {
+      let _temp = snapshot.docs.map((e:any) => { return e.data() })
+      this.url_banner = _temp[0].url
+      
+    })
   }
 
   async getILLForSearch() {

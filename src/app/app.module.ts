@@ -47,6 +47,9 @@ import { BundlePageComponent } from './ILLP/bundle-page/bundle-page.component';
 import { IllpHomePageComponent } from './ILLP/illp-home-page/illp-home-page.component';
 import { WrSubmissionPageComponent } from './ILLP/wr-submission-page/wr-submission-page.component'
 
+//adsense
+import { AdsenseModule } from 'ng2-adsense';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +89,10 @@ import { WrSubmissionPageComponent } from './ILLP/wr-submission-page/wr-submissi
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
-    FontAwesomeModule
+    FontAwesomeModule,
+    AdsenseModule.forRoot({
+      adClient: "ca-pub-6150612020055423"
+    }),
   ],
   providers: [LevelServiceService],
   bootstrap: [AppComponent]
