@@ -5,10 +5,11 @@ import firebase from 'firebase/compat/app'
 import { AuthService } from './shared/auth.service';
 import { UserData } from './shared/user-data';
 import { Router, RouterOutlet } from '@angular/router';
-import { faCog, faCube, faFileLines, faHistory, faMoon, faPerson, faQuestionCircle, faRankingStar, faRefresh, faRightFromBracket, faRightToBracket, faRotateRight, faSun, faToolbox, faTrophy, faUser, faWrench } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faCookieBite, faCube, faFileLines, faHistory, faMoon, faPerson, faQuestionCircle, faRankingStar, faRefresh, faRightFromBracket, faRightToBracket, faRotateRight, faSun, faToolbox, faTrophy, faUser, faWrench } from '@fortawesome/free-solid-svg-icons'
 import { faDiscord, faPatreon } from '@fortawesome/free-brands-svg-icons';
 import { getAnalytics } from 'firebase/analytics'
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { LevelServiceService } from './shared/level-service.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class AppComponent implements OnInit {
   constructor (
     public afAuth: AngularFireAuth,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    public ill_service: LevelServiceService
   ) {}
   title = 'Impossible Level List';
 
@@ -28,6 +30,8 @@ export class AppComponent implements OnInit {
   analytics = getAnalytics();
 
   _showAccInfo:boolean = false;
+  _acceptedCookies:boolean = false;
+
   
 
   //icons
@@ -47,10 +51,9 @@ export class AppComponent implements OnInit {
   i_gdusername = faCube;
   i_settings = faCog;
   i_stats = faRankingStar;
+  i_cookies = faCookieBite;
   
-  async refreshAdminAccess() {
-    this.authService.isCurrentUserAdmin();
-  }
+  
   
   ngOnInit(): void {
     //themes
@@ -65,8 +68,9 @@ export class AppComponent implements OnInit {
       this._themeRef = 'light';
       localStorage['theme'] = 'light'
     }
-  }
 
+
+  }
   
   toggleTheme() {
     console.log('here')

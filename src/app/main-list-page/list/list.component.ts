@@ -4,6 +4,10 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { ImpossibleLevel } from 'src/app/shared/impossible-level'
 import { LevelServiceService } from '../../shared/level-service.service';
 import {
+  faAngleLeft,
+  faAngleRight,
+  faAnglesLeft,
+  faAnglesRight,
   faArrowLeft,
   faArrowRight,
   faBacon,
@@ -89,6 +93,7 @@ export class ListComponent implements OnInit {
 
   //search
   _ill: ImpossibleLevel[] = [];
+  _ill_results: ImpossibleLevel[] = [];
   srch_input: string = '';
   srch_criteria: string = 'any';
   srch_dropdown: boolean = false;
@@ -101,6 +106,7 @@ export class ListComponent implements OnInit {
     "Old Version",
     "Fix required"
   ];
+  srch_finalPage:boolean = false;
 
   _currentTheme = localStorage['theme'];
 
@@ -110,8 +116,10 @@ export class ListComponent implements OnInit {
   i_creator = faScrewdriverWrench;
   i_version = faCodeBranch;
   i_id = faBarsStaggered;
-  i_arrLeft = faArrowLeft;
-  i_arrRight = faArrowRight;
+  i_arrLeft = faAngleLeft;
+  i_arrRight = faAngleRight;
+  i_doublearrowLeft = faAnglesLeft;
+  i_doublearrowRight = faAnglesRight;
   i_expand = faSortDown;
   i_addition = faClipboardCheck;
   i_bugfix = faBugSlash;
@@ -163,8 +171,13 @@ export class ListComponent implements OnInit {
 
 
   async ngOnInit() {
-    this.cutoutPage(0, this.pageSize);
-    this.getILLForSearch();
+    this.initList()
+  }
+
+
+  async initList() {
+    await this.getILLForSearch();
+    this.cutPagev2(0, this.pageSize);
 
 
     // this.listSorted = true;
@@ -184,13 +197,13 @@ export class ListComponent implements OnInit {
 
   async getILLForSearch() {
     this._ill = [];
-    await this.ill_service.getWholeLevelList().then(snapshot => {
+    await this.ill_service.getOrderedLevelList().then(snapshot => {
       this._ill = snapshot.docs.map((doc:any) => {
         return doc.data();
       })
     });
   }
-
+  
   async cutoutPage(start:number, end:number) {
     this.levelListToDisplay = [];
     this.srch_showingSearchResults = false;
@@ -206,12 +219,54 @@ export class ListComponent implements OnInit {
     })
     this.listSorted = true;
   }
+  
+  cutPagev2(start:number, end:number) {
+    let _temp_ill = this._ill.map((e) => { return e })
+    this.listSorted = false;
+    _temp_ill.splice(0, start) //remove start
+    _temp_ill.splice(end) //remove end
+    this.levelListToDisplay = _temp_ill;
+    this.listSorted = true;
+  }
+
+  cutSrchPagev2(start:number, end:number, array:ImpossibleLevel[]) {
+    let _temp_ill = array.map((e) => { return e })
+    this.listSorted = false;
+    _temp_ill.splice(0, start) //remove start
+    _temp_ill.splice(end) //remove end
+    this.levelListToDisplay = _temp_ill;
+    this.listSorted = true;
+  }
 
   pageFwd() {
     console.log('Moving forward')
-    this.currentPage+=1;
-    console.log("loading elements from", (this.currentPage-1)*this.pageSize,"to", ((this.currentPage-1)*this.pageSize)+this.pageSize)
-    this.cutoutPage((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize);
+    if(this.srch_showingSearchResults) {
+      if(this.currentPage < this._ill_results.length / this.pageSize) {
+        this.srch_finalPage = false;
+        this.currentPage+=1;
+        console.log("loading elements from", (this.currentPage-1)*this.pageSize,"to", ((this.currentPage-1)*this.pageSize)+this.pageSize)
+        this.cutSrchPagev2((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize, this._ill_results);
+      } else {
+        this.srch_finalPage = true;
+        this.showErrorLabel = true;
+        this.errorLabelText = 'Error - final page reached'
+        setTimeout(() => {
+          this.showErrorLabel = false;
+        }, 3000);
+      }
+    } else {
+      if(this.currentPage < this._ill.length / this.pageSize) {
+        this.currentPage+=1;
+        console.log("loading elements from", (this.currentPage-1)*this.pageSize,"to", ((this.currentPage-1)*this.pageSize)+this.pageSize)
+        this.cutPagev2((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize);
+      } else {
+        this.showErrorLabel = true;
+        this.errorLabelText = 'Error - final page reached'
+        setTimeout(() => {
+          this.showErrorLabel = false;
+        }, 3000);
+      }
+    }
     window.scroll({
       top: 0,
       left: 0,
@@ -221,10 +276,15 @@ export class ListComponent implements OnInit {
   
   pageBck() {
     console.log('Moving back')
+    this.srch_finalPage = false;
     if(this.currentPage>1) {
       this.currentPage-=1;
       console.log("loading elements from", (this.currentPage-1)*this.pageSize,"to", ((this.currentPage-1)*this.pageSize)+this.pageSize)
-      this.cutoutPage((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize);
+      if(this.srch_showingSearchResults) {
+        this.cutSrchPagev2((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize, this._ill_results);
+      } else {
+        this.cutPagev2((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize);
+      }
       window.scroll({
         top: 0,
         left: 0,
@@ -238,6 +298,31 @@ export class ListComponent implements OnInit {
       }, 3000);
     }
   }
+
+  pageFirst() {
+    this.srch_finalPage = false;
+    this.currentPage = 1;
+    if(this.srch_showingSearchResults) {
+      this.cutSrchPagev2(0, this.pageSize, this._ill_results);
+    } else {
+      this.cutPagev2(0, this.pageSize);
+    }
+  }
+
+
+  pageLast() {
+    this.srch_finalPage = false;
+    if(this.srch_showingSearchResults) {
+      this.currentPage = Math.floor(this._ill_results.length / this.pageSize)+1;
+      this.cutSrchPagev2((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize, this._ill_results);
+    } else {
+      this.currentPage = Math.floor(this._ill.length / this.pageSize)+1;
+      this.cutPagev2((this.currentPage-1)*this.pageSize, ((this.currentPage-1)*this.pageSize)+this.pageSize);
+
+    }
+  }
+
+
   
   async loadLevelList() {
     this.ill_service.getOrderedLevelList().then(snapshot => {
@@ -253,10 +338,6 @@ export class ListComponent implements OnInit {
       left: 0,
       behavior: 'smooth'
     })
-  }
-
-  log() {
-    console.log(this.levelListToDisplay);
   }
 
   increaseEasterEgg() {
@@ -322,7 +403,7 @@ export class ListComponent implements OnInit {
   async search_v2(prompt:string, criteria:string, matchTags:string[], sortBy?:string) {
     
     if(prompt == undefined || prompt == "" || prompt.length <= 1) {
-      this.cutoutPage(0, this.pageSize);
+      this.cutPagev2(0, this.pageSize);
     } else {
       //Hide to show it's doing smth
       this.listSorted = false;
@@ -448,9 +529,8 @@ export class ListComponent implements OnInit {
           return Number(a.level_id) - Number(b.level_id);
         })
       }
-  
-      this.levelListToDisplay = _tempList;
-      this.listSorted = true;
+      this._ill_results = _tempList.map((e) => { return e })
+      this.cutSrchPagev2(0, this.pageSize, _tempList)
       window.scroll({
         top: 0,
         left: 0,

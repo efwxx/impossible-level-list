@@ -11,6 +11,10 @@ import { orderBy, query } from 'firebase/firestore';
 export class LevelServiceService {
   constructor(public firestore: AngularFirestore) {}
   
+  ill_unordered:ImpossibleLevel[] = [];
+  ill_ordered:ImpossibleLevel[] = [];
+
+
   getEntireLevelList() {
     return this.firestore.collection('ill').snapshotChanges();
   }
@@ -47,5 +51,12 @@ export class LevelServiceService {
 
   deleteLevel(level:ImpossibleLevel) {
     return this.firestore.doc(`ill/${level.id}`).delete();
+  }
+
+  initILL() {
+    this.getOrderedLevelList().then(snapshot => {
+      this.ill_ordered = snapshot.docs.map((e:any) => { return e.data() })
+    })
+    
   }
 }

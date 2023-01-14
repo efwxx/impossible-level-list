@@ -23,38 +23,6 @@ import { WrSubmission } from 'src/app/shared/wr-submission';
   selector: 'app-list-element',
   templateUrl: './list-element.component.html',
   styleUrls: ['./list-element.component.css'],
-  animations: [
-    trigger('openClose', [
-      // ...
-      state('open', style({
-        height: '555px',
-      })),
-      state('closed', style({
-        height: '160px',
-      })),
-      transition('open => closed', [
-        animate('0.3s ease-in-out')
-      ]),
-      transition('closed => open', [
-        animate('0.2s ease-in-out')
-      ]),
-    ]),
-    trigger('mobileOpenClose', [
-      // ...
-      state('m_open', style({
-        height: '830px',
-      })),
-      state('m_closed', style({
-        height: 'fit-content',
-      })),
-      transition('m_open => m_closed', [
-        animate('0.3s ease-in-out')
-      ]),
-      transition('m_closed => m_open', [
-        animate('0.2s ease-in-out')
-      ]),
-    ])
-  ]
 })
 export class ListElementComponent implements OnInit {
 
@@ -125,6 +93,16 @@ export class ListElementComponent implements OnInit {
   i_link = faUpRightFromSquare;
   i_more = faEllipsis;
 
+  intersector = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if(entry.isIntersecting) {
+        entry.target.classList.remove("opacity-0")
+      } else {
+        entry.target.classList.add("opacity-0")
+      }
+    });
+  })
+
   //all data in 1 object
   @Input('ill_level') ill_level:ImpossibleLevel = {
     id: '',
@@ -181,6 +159,12 @@ export class ListElementComponent implements OnInit {
     this.setupwideshot();
     this.addPFPs();
     this.getWRData();
+
+    //use animation
+    let _selfHTML = document.getElementById('ILL_levelCard')
+    if(_selfHTML != null) {
+      this.intersector.observe(_selfHTML)
+    }
   }
 
   async getWRData() {
