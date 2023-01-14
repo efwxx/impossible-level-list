@@ -102,14 +102,20 @@ export class AccountSettingsComponent implements OnInit {
       this.bil_canContinue = true;
 
     }
-
-    if(_temp_mtch_usr.length == 0 || _temp_mtch_usr[0].uid == this.bil_uid) {
-      if(this.bil_canContinue) {
-        this.authService.firestore.collection('user').doc(this._user_uid).set(this.buffer_user, { merge: true });
-        this.router.navigate(["/"]);
+    if(this.bil_gd_username && this.bil_gd_username?.length > 0) {
+      if(_temp_mtch_usr.length == 0 || _temp_mtch_usr[0].uid == this.bil_uid) {
+        this.bil_canContinue = true;
+      } else {
+        this.bil_errLabel = 'A user with this gd username is already on the website!'
+        this.bil_canContinue = false
       }
     } else {
-      this.bil_errLabel = 'A user with this gd username is already on the website!'
+      //gd username is empty
+      this.bil_canContinue = true;
+    }
+    if(this.bil_canContinue) {
+      this.authService.firestore.collection('user').doc(this._user_uid).set(this.buffer_user, { merge: true });
+      this.router.navigate(["/"]);
     }
   }
 
