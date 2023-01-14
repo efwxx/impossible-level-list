@@ -1,6 +1,6 @@
 <div class="flex flex-row">
-    <!-- Position map -->
-    <div class=" dark:text-white fixed left-0 lg:bottom-0 bottom-16 bg-slate-300 dark:bg-slate-800 lg:h-screen h-fit lg:p-5 p-2 shadow-lg lg:text-base text-xs">
+    <!-- Position map unpinned -->
+    <div class=" dark:text-white fixed left-0 lg:bottom-0 bottom-16 bg-slate-300 dark:bg-slate-800 lg:h-screen h-fit lg:p-5 p-2 shadow-lg lg:text-base text-xs" *ngIf="!lists_pinned">
         <div class="flex lg:flex-row flex-col-reverse items-baseline lg:w-full w-screen">
             <ul class="overflow-y-scroll ILL_AdminScroll lg:w-full lg:h-screen w-screen h-[66vh]" *ngIf="bil_showList">
                 <li class="flex flex-row items-center transition-all duration-200 w-full" *ngFor="let level of levelList">
@@ -27,14 +27,64 @@
                 </div>
             </div>
             <div class="flex lg:flex-col flex-row lg:justify-start justify-around h-full lg:w-fit w-full lg:mt-16">
+                <button class="p-3 text-white bg-slate-900 rounded-full lg:relative absolute lg:opacity-100 opacity-0" (click)="togglePin()">
+                    <fa-icon [icon]="i_pin" class="text-2xl m-1"></fa-icon>
+                </button>
                 <div class="flex lg:flex-col flex-row m-1">
-                    <button class="p-3 bg-slate-900 rounded-full" (click)="toggleILLList()">
+                    <button class="p-3 bg-slate-200 dark:bg-slate-900 rounded-full" (click)="toggleILLList()">
                         <fa-icon [icon]="i_list" class="text-2xl m-1" *ngIf="!bil_showList"></fa-icon>
                         <fa-icon [icon]="i_cross" class="text-2xl m-1" *ngIf="bil_showList"></fa-icon>
                     </button>
                 </div>
                 <div class="flex lg:flex-col flex-row m-1">
-                    <button class="p-3 bg-slate-900 rounded-full" (click)="toggleWRList()">
+                    <button class="p-3 bg-slate-200 dark:bg-slate-900 rounded-full" (click)="toggleWRList()">
+                        <fa-icon [icon]="i_wr" class="text-2xl m-1" *ngIf="!bil_showWRList"></fa-icon>
+                        <fa-icon [icon]="i_cross" class="text-2xl m-1" *ngIf="bil_showWRList"></fa-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+    <!-- Position map pinned -->
+    <div class=" dark:text-white bg-slate-300 dark:bg-slate-800 lg:h-screen h-fit lg:p-5 p-2 shadow-lg lg:text-base text-xs" *ngIf="lists_pinned">
+        <div class="flex lg:flex-row flex-col-reverse items-baseline lg:w-full w-screen">
+            <ul class="overflow-y-scroll ILL_AdminScroll lg:w-full lg:h-screen w-screen h-[66vh] mt-0" *ngIf="bil_showList">
+                <li class="flex flex-row items-center transition-all duration-200 w-full" *ngFor="let level of levelList">
+                    <div class="flex flex-col items-center justify-center text-sm">
+                        <b class="p-2 text-xl text-center w-12 bg-slate-300 dark:bg-slate-700 h-full rounded-lg shadow-md select-none">#{{level.position}}</b>
+                    </div>
+                    <div class="bg-slate-300 dark:bg-slate-700 m-1 p-1 lg:text-lg text-sm rounded-lg shadow-md select-none flex flex-col w-full hover:bg-slate-900" (click)="loadDataFromLevel(level)">
+                        <div class="flex flex-row items-center">
+                            <fa-icon [icon]="i_edit" class="m-1"></fa-icon>
+                            <b class="">{{level.name}}</b>
+                        </div>
+                        <b class="text-sm font-light">{{level.creators_short}}</b>
+                    </div>
+                </li>
+            </ul>
+            <div *ngIf="bil_showWRList" class="overflow-y-scroll ILL_AdminScroll lg:w-full lg:h-screen w-screen h-[66vh]">
+                <div class="flex flex-row m-1 rounded-xl bg-slate-200 dark:bg-slate-700 items-center dark:text-white"
+                *ngFor="let wr of wr_pendingList">
+                    <a class="mx-1 font-semibold" [routerLink]="'/wr/'+wr.$key"><fa-icon class="mx-2" [icon]="i_link"></fa-icon>{{wr.level}}</a>
+                    <b class="mx-1 font-normal mr-auto text-sm">{{wr.progress}}</b>
+                    <button class="m-2 p-2 bg-green-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="approveSubmission(wr.$key)"><fa-icon [icon]="i_check"></fa-icon> </button>
+                    <button class="m-2 p-2 bg-red-600 text-white rounded-lg shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-200" (click)="rejectSubmission(wr.$key)"><fa-icon [icon]="i_cross"></fa-icon> </button>
+    
+                </div>
+            </div>
+            <div class="flex lg:flex-col flex-row lg:justify-start justify-around h-full lg:w-fit w-full">
+                <div class="flex lg:flex-col flex-row m-1">
+                    <button class="p-3 text-black bg-slate-300 rounded-full lg:relative absolute lg:opacity-100 opacity-0" (click)="togglePin()">
+                        <fa-icon [icon]="i_pin" class="text-2xl m-1"></fa-icon>
+                    </button>
+                    <button class="p-3 bg-slate-200 dark:bg-slate-900 rounded-full" (click)="toggleILLList()">
+                        <fa-icon [icon]="i_list" class="text-2xl m-1" *ngIf="!bil_showList"></fa-icon>
+                        <fa-icon [icon]="i_cross" class="text-2xl m-1" *ngIf="bil_showList"></fa-icon>
+                    </button>
+                </div>
+                <div class="flex lg:flex-col flex-row m-1">
+                    <button class="p-3 bg-slate-200 dark:bg-slate-900 rounded-full" (click)="toggleWRList()">
                         <fa-icon [icon]="i_wr" class="text-2xl m-1" *ngIf="!bil_showWRList"></fa-icon>
                         <fa-icon [icon]="i_cross" class="text-2xl m-1" *ngIf="bil_showWRList"></fa-icon>
                     </button>

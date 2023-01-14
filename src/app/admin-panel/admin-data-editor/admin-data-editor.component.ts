@@ -7,7 +7,7 @@ import { LevelServiceService } from '../../shared/level-service.service';
 import { NoPreloading } from '@angular/router';
 import { UserData } from 'src/app/shared/user-data';
 import { useAnimation } from '@angular/animations';
-import { faAngleDown, faAngleUp, faCheck, faList, faPencil, faTrophy, faUpRightFromSquare, faWrench, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faCheck, faList, faPencil, faThumbTack, faTrophy, faUpRightFromSquare, faWrench, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { WrServiceService } from 'src/app/shared/wr-service.service';
 import { WrSubmission } from 'src/app/shared/wr-submission';
 
@@ -39,6 +39,8 @@ export class AdminDataEditorComponent implements OnInit {
   bil_index: number = 1;
 
   auditLog: string[] = [];
+
+  lists_pinned: boolean = false;
 
   wr_pendingList:WrSubmission[] = [];
 
@@ -101,6 +103,7 @@ export class AdminDataEditorComponent implements OnInit {
   i_check = faCheck;
   i_link = faUpRightFromSquare;
   i_wr = faTrophy;
+  i_pin = faThumbTack;
 
 
   constructor(
@@ -124,6 +127,9 @@ export class AdminDataEditorComponent implements OnInit {
   toggleWRList() {
     this.bil_showWRList = !this.bil_showWRList;
     this.bil_showList = false;
+  }
+  togglePin() {
+    this.lists_pinned = !this.lists_pinned;
   }
   setupList() {
     this.ill_service.getOrderedLevelList().then((doc) => {
