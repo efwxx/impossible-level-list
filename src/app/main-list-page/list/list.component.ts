@@ -223,8 +223,9 @@ export class ListComponent implements OnInit {
   cutPagev2(start:number, end:number) {
     let _temp_ill = this._ill.map((e) => { return e })
     this.listSorted = false;
+    _temp_ill.splice(end, 9999)
     _temp_ill.splice(0, start) //remove start
-    _temp_ill.splice(end) //remove end
+    console.log("levels from", start, "to", end, "in display. Display length:", _temp_ill.length)
     this.levelListToDisplay = _temp_ill;
     this.listSorted = true;
   }
@@ -232,8 +233,9 @@ export class ListComponent implements OnInit {
   cutSrchPagev2(start:number, end:number, array:ImpossibleLevel[]) {
     let _temp_ill = array.map((e) => { return e })
     this.listSorted = false;
+    _temp_ill.splice(end, 9999)
     _temp_ill.splice(0, start) //remove start
-    _temp_ill.splice(end) //remove end
+    console.log("levels from", start, "to", end, "in display")
     this.levelListToDisplay = _temp_ill;
     this.listSorted = true;
   }
@@ -551,5 +553,11 @@ export class ListComponent implements OnInit {
     console.log(this.ill_allFacts);
     //select random fact
     this.ill_randomFact = this.ill_allFacts[Math.floor(Math.random()*this.ill_allFacts.length)].fact;
+  }
+
+  randomLevel() {
+    this.toggleSearchDropdown();
+    this.levelListToDisplay = []
+    this.levelListToDisplay[0] = this._ill[Math.floor(Math.random()*this._ill.length)]
   }
 }
