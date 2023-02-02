@@ -277,7 +277,6 @@
     id="ILL_ListParent" *ngIf="listSorted">
       <b *ngIf="srch_showingSearchResults" class="font-light text-center">Showing search results for "{{srch_input}}" ({{_ill_results.length}} results):</b>
       
-      <ng-adsense [fullWidthResponsive]="true" [height]="256" [pageLevelAds]="true"></ng-adsense>
       <app-list-element *ngFor="let level of levelListToDisplay" [ill_level]="level"></app-list-element>
       <!-- <app-list-element ></app-list-element> -->
 

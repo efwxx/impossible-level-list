@@ -145,80 +145,86 @@ dark:bg-[#1e293b] bg-[#cbd5e1] my-2 mx-0 lg:h-fit" id="ILL_levelCard">
         <!-- Expanded list items -->
         <div class="bg-[#cbd5e1] dark:bg-[#212d41] text-slate-700 dark:text-white transition-all duration-300" 
         *ngIf="card_expanded || card_mobile_expanded">
-
-            <div class="flex flex-row">
-                <!-- Main video embed -->
-                <iframe class="xl:p-3 p-0 lg:w-full w-0 h-fit aspect-video" 
-                [src]="card_yt_vidEmbedURL" title="YouTube video player" frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-                <!-- Extra info -->
-                <div class="flex flex-col xl:items-start justify-start items-center xl:p-3 p-1 
-                xl:text-lg text-xs overflow-y-scroll xl:w-[512px] lg:w-full w-full xl:h-[480px] h-fit ILL_ListElemScroll dark:bg-[#192231] bg-[#bac4cf]">
-
-                    <!-- Mobile embed -->
-                    <iframe class="p-3 xl:p-0 lg:w-0 w-full aspect-video mx-auto xl:mx-0" 
+            <div class="flex flex-col items-stretch">
+                <div class="flex flex-row w-full border-b-4 dark:border-slate-900 border-slate-400">
+                    <!-- Main video embed -->
+                    <iframe class="h-fit aspect-video xl:p-3 p-0 lg:w-full w-0" 
                     [src]="card_yt_vidEmbedURL" title="YouTube video player" frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-                    <!-- Info boxes -->
-                    <div class="flex flex-col justify-between items-stretch w-full">
-                        <div *ngIf="level_marked_for_removal" class="p-2 bg-red-700 text-white rounded-xl mb-2">
-                            <p> <fa-icon [icon]="i_removal" class="m-1"></fa-icon>Marked for removal: {{level_markdown_reason}}</p>
-                        </div>
-                        <div *ngIf="level_annotated" class="p-2 bg-gray-700 text-white rounded-xl mb-2">
-                            <p><fa-icon [icon]="i_annotation" class="m-1"></fa-icon>Annotation: Subject to decoration and quality exemptions</p>
-                        </div>
-                        <div *ngIf="level_isRated" class="p-2 bg-amber-400 text-white rounded-xl mb-2">
-                            <p><fa-icon [icon]="i_rated" class="m-1"></fa-icon>This level is rated</p>
-                        </div>
-                        <div *ngIf="level_isUnRated" class="p-2 bg-orange-600 text-white rounded-xl mb-2">
-                            <p><fa-icon [icon]="i_unrated" class="m-1"></fa-icon>This level was formerly rated</p>
-                        </div>
-                        <div>
-                            <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_info" ></fa-icon> Level information:</p>
-                            <p class="font-medium text-base dark:text-slate-400 text-slate-600">Name: {{level_name}}</p>
-                            <p class="font-medium text-base dark:text-slate-400 text-slate-600">FPS: {{level_fps}}</p>
-                            <p class="font-medium text-base dark:text-slate-400 text-slate-600">Uploader: {{level_uploader}}</p>
-                            <p class="font-medium text-base dark:text-slate-400 text-slate-600">Level ID: {{level_id}}</p>
-                            <p class="font-medium text-base dark:text-slate-400 text-slate-600">GD update: {{level_gd_version}}</p>
-                        </div>
-                        
     
-                        <!-- Level creators -->
-                        <div class="w-full 
-                        text-sm">
-                        <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_creators" ></fa-icon> Creators:</p>
-                            <div class="flex flex-wrap justify-center ">
-                                <div *ngFor="let creator of level_creators_full" class="flex flex-row items-center w-fit xl:bg-slate-200 xl:dark:bg-slate-800 xl:rounded-lg 
-                                xl:font-bold xl:shadow-lg transition-all duration-300 hover:scale-105 m-1 p-1">
-                                    <div *ngFor="let acc of level_creatorAccounts" class="flex flex-row" routerLink="/profile/{{acc.uid}}">
-                                        <fa-icon [icon]="i_link" *ngIf="acc.gd_username == creator"
-                                         (click)="scrollUp()"
-                                        class="text-xl hover:scale-110 transition-all duration-200"></fa-icon>
-                                        <img *ngIf="acc.gd_username == creator" src="{{acc.profilePicture}}" class="w-[24px] aspect-square rounded-full m-1"/>
+                    <!-- Extra info -->
+                    <div class="flex flex-col xl:items-start justify-start items-center xl:p-3 p-1 
+                    xl:text-lg text-xs overflow-y-scroll xl:w-[512px] lg:w-full w-full xl:h-[480px] h-fit ILL_ListElemScroll dark:bg-[#192231] bg-[#bac4cf]">
+
+                        <div class="w-full h-full">
+                            <!-- Mobile embed -->
+                            <iframe class="p-3 xl:p-0 lg:w-0 w-full aspect-video mx-auto xl:mx-0" 
+                            [src]="card_yt_vidEmbedURL" title="YouTube video player" frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            
+                            <ng-adsense class="lg:opacity-0 opacity-100 lg:absolute static h-fit" [fullWidthResponsive]="true" [height]="84"></ng-adsense>
+                        </div>
+    
+                        <!-- Info boxes -->
+                        <div class="flex flex-col justify-between items-stretch w-full">
+                            <div *ngIf="level_marked_for_removal" class="p-2 bg-red-700 text-white rounded-xl mb-2">
+                                <p> <fa-icon [icon]="i_removal" class="m-1"></fa-icon>Marked for removal: {{level_markdown_reason}}</p>
+                            </div>
+                            <div *ngIf="level_annotated" class="p-2 bg-gray-700 text-white rounded-xl mb-2">
+                                <p><fa-icon [icon]="i_annotation" class="m-1"></fa-icon>Annotation: Subject to decoration and quality exemptions</p>
+                            </div>
+                            <div *ngIf="level_isRated" class="p-2 bg-amber-400 text-white rounded-xl mb-2">
+                                <p><fa-icon [icon]="i_rated" class="m-1"></fa-icon>This level is rated</p>
+                            </div>
+                            <div *ngIf="level_isUnRated" class="p-2 bg-orange-600 text-white rounded-xl mb-2">
+                                <p><fa-icon [icon]="i_unrated" class="m-1"></fa-icon>This level was formerly rated</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_info" ></fa-icon> Level information:</p>
+                                <p class="font-medium text-base dark:text-slate-400 text-slate-600">Name: {{level_name}}</p>
+                                <p class="font-medium text-base dark:text-slate-400 text-slate-600">FPS: {{level_fps}}</p>
+                                <p class="font-medium text-base dark:text-slate-400 text-slate-600">Uploader: {{level_uploader}}</p>
+                                <p class="font-medium text-base dark:text-slate-400 text-slate-600">Level ID: {{level_id}}</p>
+                                <p class="font-medium text-base dark:text-slate-400 text-slate-600">GD update: {{level_gd_version}}</p>
+                            </div>
+                            
+        
+                            <!-- Level creators -->
+                            <div class="w-full 
+                            text-sm">
+                            <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_creators" ></fa-icon> Creators:</p>
+                                <div class="flex flex-wrap justify-center ">
+                                    <div *ngFor="let creator of level_creators_full" class="flex flex-row items-center w-fit bg-slate-200 dark:bg-slate-800 rounded-lg 
+                                    font-bold shadow-lg transition-all duration-300 hover:scale-105 m-1 p-1">
+                                        <div *ngFor="let acc of level_creatorAccounts" class="flex flex-row" routerLink="/profile/{{acc.uid}}">
+                                            <fa-icon [icon]="i_link" *ngIf="acc.gd_username == creator"
+                                             (click)="scrollUp()"
+                                            class="text-xl hover:scale-110 transition-all duration-200"></fa-icon>
+                                            <img *ngIf="acc.gd_username == creator" src="{{acc.profilePicture}}" class="w-[24px] aspect-square rounded-full m-1"/>
+                                        </div>
+                                        <i>
+                                            {{ creator }}
+                                        </i>
                                     </div>
-                                    <i>
-                                        {{ creator }}
-                                    </i>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- World record data -->
-                    <div class="w-full flex flex-col
-                    text-sm">
-                        <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_wr" ></fa-icon> World Record:
-                        </p>
-                        <b class="text-center font-normal">Last manually recorded WR: {{level_wr}}</b>
-                        <app-wr-widget [wr_id_run]="level_wrID_run" [wr_id_run0]="level_wrID_0" *ngIf="!level_shouldHaveManualWR"></app-wr-widget>
-                        <div class="flex flex-col p-3 rounded-xl bg-slate-400 dark:bg-slate-800 m-1" *ngIf="level_shouldHaveManualWR">
-                            <b>{{level_wr}}</b>
-                            <a class="p-2 m-1 text-lg bg-purple-500 rounded-full font-bold text-center" [href]="level_wr_yt">> Link <</a>
+    
+                        <!-- World record data -->
+                        <div class="w-full flex flex-col
+                        text-sm">
+                            <p class="font-semibold text-lg dark:text-white text-[#071013]"> <fa-icon class="m-1" [icon]="i_wr" ></fa-icon> World Record:
+                            </p>
+                            <b class="text-center font-normal">Last manually recorded WR: {{level_wr}}</b>
+                            <app-wr-widget [wr_id_run]="level_wrID_run" [wr_id_run0]="level_wrID_0" *ngIf="!level_shouldHaveManualWR"></app-wr-widget>
+                            <div class="flex flex-col p-3 rounded-xl bg-slate-400 dark:bg-slate-800 m-1" *ngIf="level_shouldHaveManualWR">
+                                <b>{{level_wr}}</b>
+                                <a class="p-2 m-1 text-lg bg-purple-500 rounded-full font-bold text-center" [href]="level_wr_yt">> Link <</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <ng-adsense class="lg:opacity-100 opacity-0 lg:static absolute" [fullWidthResponsive]="true" [height]="128" [pageLevelAds]="true"></ng-adsense>
             </div>
         </div>
 
