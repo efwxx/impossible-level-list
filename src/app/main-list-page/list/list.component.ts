@@ -32,6 +32,7 @@ import {
   faDragon,
   faEye,
   faFilter,
+  faGhost,
   faHourglass,
   faHurricane,
   faImage,
@@ -162,6 +163,7 @@ export class ListComponent implements OnInit {
   i_sobot = faChildRifle;
   i_alex = faInfinity;
   i_moonfrost = faImage;
+  i_electro = faGhost;
 
   url_banner:any = ''
 

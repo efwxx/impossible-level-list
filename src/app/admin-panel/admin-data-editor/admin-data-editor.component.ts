@@ -633,4 +633,20 @@ export class AdminDataEditorComponent implements OnInit {
   async approveSubmission(id:string) {
     this.wr_service.changeWRStatus(id, 'Approved', '')
   }
+
+  async deleteRejectedWRs() {
+    let wrs:WrSubmission[] = []
+    await this.wr_service.firestore.collection('wr-sumbissions').ref
+    .where('status', '==', 'Rejected')
+    .orderBy('submitted_at', 'asc')
+    .get().then(snapshot => {
+      wrs = snapshot.docs.map((e:any) => {
+        return e.data()
+      })
+    });
+
+    wrs.forEach((wr, i) => {
+      this.wr_service.firestore.collection('wr-sumbissions').doc(wr.$key).delete()
+    })
+  }
 }
