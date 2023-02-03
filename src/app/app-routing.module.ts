@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminMenuComponent, canActivate: [AuthGuard] },
   { path: 'home', component: ListComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'ads.txt', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'signup', component: CreateAccountComponent },
   { path: 'faq', component: FaqComponent },
