@@ -1,5 +1,5 @@
 {
-  "indexe": [
+  "indexes": [
     {
       "collectionGroup": "ill",
       "queryScope": "COLLECTION",
