@@ -1,5 +1,9 @@
 # ImpossibleLevelList
 
+> [!Important]
+> This Repository is archived as of May 19, 2026. All code in this project is considered abandoned, and will not be repurposed for the forseeable future.
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
 
 # Impossible Level List Full-stack app
